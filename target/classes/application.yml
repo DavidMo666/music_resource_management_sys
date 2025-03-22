@@ -1,0 +1,31 @@
+#spring.application.name=music-resource-management
+
+server:
+  port: 8085
+
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/music_resource_management?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 1234
+
+
+mybatis:
+  #mapper????
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.g12.entity
+  configuration:
+    #??????
+    map-underscore-to-camel-case: true
+
+
+logging:
+  level:
+    com:
+      sky:
+        mapper: debug
+        service: info
+        controller: info
