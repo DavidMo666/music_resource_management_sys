@@ -8,9 +8,7 @@ import com.g12.service.UserService;
 import com.g12.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,11 +20,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/list")
-    public Result listAllUser(){
+    @PutMapping("/status/{status}")
+    public Result updateStatus(@PathVariable Integer status, Long id){
 
+        log.info("更新状态");
 
-        return Result.success();
+        userService.updateStatus(status, id);
+
+        Result<Object> success = Result.success();
+
+        return success;
     }
 
 }

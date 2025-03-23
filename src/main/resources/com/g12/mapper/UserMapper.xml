@@ -4,4 +4,11 @@
 
 <mapper namespace="com.g12.mapper.UserMapper">
 
+    <update id="update">
+        update user
+        <set>
+            <if test="status != null">status = #{status}</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

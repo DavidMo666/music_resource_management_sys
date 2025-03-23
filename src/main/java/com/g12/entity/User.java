@@ -34,8 +34,8 @@ public class User implements Serializable {
     //邮箱
     private String email;
 
-    //状态（block or unblock）
-    private String status;
+    //状态（0:block or 1:unblock）
+    private Integer status;
 
     //性别 0 女 1 男
     private String sex;
