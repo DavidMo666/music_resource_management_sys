@@ -1,6 +1,6 @@
 package com.g12.entity;
 
-
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +14,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
+@Entity
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     //姓名
@@ -49,4 +53,6 @@ public class User implements Serializable {
 
     //注册时间
     private LocalDateTime createTime;
+
+
 }
