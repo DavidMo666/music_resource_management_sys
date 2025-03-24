@@ -11,4 +11,11 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="pageQuery" resultType="com.g12.entity.User">
+        select * from user
+        <where>
+            <if test="username != null">user_name = #{username}</if>
+        </where>
+    </select>
 </mapper>
