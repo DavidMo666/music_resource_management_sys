@@ -69,5 +69,6 @@ public class UserController {
     public Result<Void> deleteById(@PathVariable Long id) {
         userService.deleteById(id);
         return Result.success();
+
     }
 }
