@@ -2,9 +2,11 @@ package com.g12.mapper;
 
 import com.g12.entity.User;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @Mapper
 public interface UserMapper {
@@ -25,4 +27,21 @@ public interface UserMapper {
      * @return
      */
     Page<User> pageQuery(String username);
+
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @Delete("DELETE FROM music_resource_system.user WHERE id = #{id}")
+    int deleteById(Long id);
+
+    /**
+     * 查询用户
+     * @param id
+     * @return
+     */
+    @Select("SELECT * FROM music_resource_system.user WHERE id = #{id}")
+    User selectById(Long id);
 }

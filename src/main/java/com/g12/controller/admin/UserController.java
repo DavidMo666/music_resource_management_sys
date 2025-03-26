@@ -59,4 +59,15 @@ public class UserController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @Operation(summary = "删除用户")
+    @DeleteMapping("/{id}")
+    public Result<Void> deleteById(@PathVariable Long id) {
+        userService.deleteById(id);
+        return Result.success();
+    }
 }

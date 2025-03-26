@@ -20,5 +20,10 @@ public interface UserService {
      */
     PageResult pageQuery(UserPageQueryDto userPageQueryDto);
 
+    /**
+     * 删除用户
+     * @param id
+     */
+    void deleteById(Long id);
 
 }
