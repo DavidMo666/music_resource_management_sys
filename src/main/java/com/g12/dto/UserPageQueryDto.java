@@ -1,18 +1,24 @@
 package com.g12.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserPageQueryDto implements Serializable {
 
     //页数
-    int page;
+    private int page;
 
     //每页的大小
-    int pageSize;
+    private int pageSize;
 
     //用户名
-    String username;
+    private String userName;
 }
