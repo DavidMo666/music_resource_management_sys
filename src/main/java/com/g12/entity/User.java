@@ -1,6 +1,6 @@
 package com.g12.entity;
 
-
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,21 +9,26 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Table
+@Entity
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long id; // user_id
 
     //姓名
     private String name;
 
     //用户名
-    private String userName;
+    private String userName; // user_name
 
     //密码
     private String password;
@@ -41,11 +46,17 @@ public class User implements Serializable {
     private String sex;
 
     //身份证号
-    private String idNumber;
+    private String idNumber; // id_number
 
     //头像
     private String avatar;
 
     //注册时间
-    private LocalDateTime createTime;
+    private LocalDateTime createTime; // create_time
+
+    //更新时间 (format: date-time)
+    private LocalDateTime updateTime; // update_time
+    
+    //更新人ID (format: int64)
+    private Long updateUser; // update_user
 }
