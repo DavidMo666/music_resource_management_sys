@@ -49,6 +49,10 @@ public class UserServiceImpl implements UserService {
         return pageResult;
     }
 
+    /**
+     * 删除用户
+     * @param id
+     */
     @Override
     public void deleteById(Long id) {
         User user = userMapper.selectById(id);
