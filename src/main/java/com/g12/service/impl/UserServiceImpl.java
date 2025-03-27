@@ -48,4 +48,32 @@ public class UserServiceImpl implements UserService {
 
         return pageResult;
     }
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    @Override
+    public void deleteById(Long id) {
+        User user = userMapper.selectById(id);
+        if (user == null) {
+            throw new RuntimeException("用户不存在");
+        }
+        userMapper.deleteById(id);
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return User Information
+     */
+    @Override
+    public User getByUsername(String username) {
+        User user = userMapper.getByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("用户名: " + username + " 不存在");
+        }
+        return user;
+    }
+
 }

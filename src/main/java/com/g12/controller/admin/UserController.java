@@ -2,6 +2,7 @@ package com.g12.controller.admin;
 
 
 import com.g12.dto.UserPageQueryDto;
+import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.UserService;
@@ -59,4 +60,29 @@ public class UserController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @Operation(summary = "删除用户")
+    @DeleteMapping("/{id}")
+    public Result<Void> deleteById(@PathVariable Long id) {
+        userService.deleteById(id);
+        return Result.success();
+
+    }
+    
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return User Information
+     */
+    @Operation(summary = "根据用户名查询用户信息")
+    @GetMapping("/{username}")
+    public Result<User> getByUsername(@PathVariable String username) {
+        log.info("根据用户名查询用户信息: {}", username);
+        User user = userService.getByUsername(username);
+        return Result.success(user);
+    }
 }

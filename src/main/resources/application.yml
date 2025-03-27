@@ -4,52 +4,45 @@ server:
   port: 8085
 
 spring:
-  main:
-    allow-circular-references: true
+  application:
+    name: music-resource-management
   datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/music_resource_system?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/music_resource_system?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    hikari:
+      pool-name: MusicDBPool
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 600000  # 10分钟
+      max-lifetime: 1800000 # 30分钟
+      connection-timeout: 30000 # 30秒
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          time_zone: UTC
 
+  # MyBatis 配置
+  mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.g12.entity
+    configuration:
+      map-underscore-to-camel-case: true
 
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.g12.entity
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-
-logging:
-  level:
-    com:
-      g12:
-        mapper: debug
-        service: info
-        controller: info
-
-
-#springdoc相关配置
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
-  api-docs:
-    path: /v3/api-docs
-  group-configs:
-    - group: 'hyc'
-      paths-to-match: '/**'
-      packages-to-scan: com.g12  #改成你自己的包名，一般到启动类的包名
-
-#knife4j相关配置 可以不用改
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
-    swagger-model-name: 实体类
-
-
-
+  # 日志配置
+  logging:
+    level:
+      root: info
+      org:
+        hibernate: error
+        springframework:
+          web: info
+      com:
+        g12: debug
