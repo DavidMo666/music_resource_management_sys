@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
         PageHelper.startPage(userPageQueryDto.getPage(), userPageQueryDto.getPageSize());
 
-        Page<User> pages = userMapper.pageQuery(userPageQueryDto.getUsername());
+        Page<User> pages = userMapper.pageQuery(userPageQueryDto.getUserName());
 
         PageResult pageResult = new PageResult();
         pageResult.setTotal(pages.getTotal());

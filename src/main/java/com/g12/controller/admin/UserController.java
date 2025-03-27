@@ -26,12 +26,12 @@ public class UserController {
 
 
     /**
-     * 启用或禁用员工
+     * 启用或禁用用户
      * @param status
      * @param id
      * @return
      */
-    @Operation(summary = "阻塞")
+    @Operation(summary = "启用或禁用用户")
     @PutMapping("/status/{status}")
     public Result updateStatus(@PathVariable Integer status, Long id){
 
