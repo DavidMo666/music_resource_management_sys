@@ -40,7 +40,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'hyc'
+    - group: 'g12'
       paths-to-match: '/**'
       packages-to-scan: com.g12  #改成你自己的包名，一般到启动类的包名
 
