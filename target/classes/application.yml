@@ -15,18 +15,17 @@ spring:
 
 
 mybatis:
-  #mapper????
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.g12.entity
   configuration:
-    #??????
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 logging:
   level:
     com:
-      sky:
+      g12:
         mapper: debug
         service: info
         controller: info
@@ -51,3 +50,6 @@ knife4j:
   setting:
     language: zh_cn
     swagger-model-name: 实体类
+
+
+
