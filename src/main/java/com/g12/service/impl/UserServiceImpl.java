@@ -55,9 +55,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void deleteById(Long id) {
-        User user = userMapper.selectById(id);
-        if (id == null) {
-            throw new RuntimeException("用户不存在");
+        if (userMapper.selectById(id) == null) {
+            throw new RuntimeException("用户: " + id + " 不存在");
         }
         userMapper.deleteById(id);
     }

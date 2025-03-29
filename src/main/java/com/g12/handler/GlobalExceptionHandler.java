@@ -19,11 +19,5 @@ public class GlobalExceptionHandler {
         return Result.error(ex.getMessage());
     }
 
-    // 1. 捕获 SQL 语法错误异常（如列名不存在）
-    @ExceptionHandler(BadSqlGrammarException.class)
-    public Result<String> handleBadSqlGrammarException(BadSqlGrammarException e) {
-        log.error("SQL语法错误: ", e);
-        return Result.error("SQL语法错误或不存在该对象，请检查输入值");
-    }
 
 }

@@ -66,8 +66,8 @@ public class UserController {
      * @return
      */
     @Operation(summary = "删除用户")
-    @DeleteMapping("/{id}")
-    public Result<Void> deleteById(@PathVariable Long id) {
+    @DeleteMapping("/id/{id}")
+    public Result<Void> deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return Result.success();
 
@@ -79,7 +79,7 @@ public class UserController {
      * @return User Information
      */
     @Operation(summary = "根据用户名查询用户信息")
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public Result<User> getByUsername(@PathVariable String username) {
         log.info("根据用户名查询用户信息: {}", username);
         User user = userService.getByUsername(username);

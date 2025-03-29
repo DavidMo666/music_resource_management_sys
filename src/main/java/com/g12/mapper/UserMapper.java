@@ -33,7 +33,7 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    @Delete("DELETE FROM music_resource_system.user WHERE user_id = #{id}")
+    @Delete("DELETE FROM music_resource_system.user WHERE id = #{id}")
     int deleteById(Long id);
 
     /**
@@ -41,7 +41,7 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    @Select("SELECT * FROM music_resource_system.user WHERE user_id = #{id}")
+    @Select("SELECT * FROM music_resource_system.user WHERE id = #{id}")
     User selectById(Long id);
 
     /**
