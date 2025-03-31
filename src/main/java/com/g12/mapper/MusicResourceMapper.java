@@ -13,11 +13,5 @@ public interface MusicResourceMapper {
      * @param ids 资源 ID 列表
      * @return 删除的记录数
      */
-    @Delete("<script>" +
-            "DELETE FROM music_resource WHERE id IN" +
-            "<foreach item='id' collection='ids' open='(' separator=',' close=')'>" +
-            "#{id}" +
-            "</foreach>" +
-            "</script>")
     int batchDeleteResources(List<Integer> ids);
 }

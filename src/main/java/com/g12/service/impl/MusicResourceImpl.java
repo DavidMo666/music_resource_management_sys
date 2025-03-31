@@ -1,6 +1,7 @@
 package com.g12.service.impl;
 
 import com.g12.mapper.MusicResourceMapper;
+import com.g12.result.Result;
 import com.g12.service.MusicResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class MusicResourceImpl implements MusicResource {
 
     @Override
     public int batchDeleteResources(List<Integer> ids) {
+        if (ids == null || ids.size() == 0) {
+           return 0;
+        }
         // 调用 Mapper 层的方法执行批量删除操作
         return musicResourceMapper.batchDeleteResources(ids);
     }

@@ -71,10 +71,9 @@ public class UserController {
      */
     @Operation(summary = "删除用户")
     @DeleteMapping("/delete/{id}")
-    public Result<Void> deleteById(@PathVariable("id") Long id) {
+    public Result deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return Result.success();
-
+        return Result.success("已删除id为 " + id + " 的用户");
     }
     
     /**

@@ -23,4 +23,8 @@
         DELETE FROM music_resource_system.user WHERE id = #{id}
     </delete>
 
+    <!-- 根据id查询用户 -->
+    <select id="selectById" resultType="com.g12.entity.User">
+        SELECT * FROM music_resource_system.user WHERE id = #{id}
+    </select>
 </mapper>

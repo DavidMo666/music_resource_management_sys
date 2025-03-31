@@ -42,7 +42,6 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    @Select("SELECT * FROM music_resource_system.user WHERE id = #{id}")
     User selectById(Long id);
 
     /**
