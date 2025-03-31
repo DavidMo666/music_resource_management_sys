@@ -1,19 +1,23 @@
 package com.g12.controller.admin;
 
 
+import ch.qos.logback.core.util.StringUtil;
 import com.g12.dto.UserPageQueryDto;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.UserService;
 
+import io.micrometer.common.util.StringUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "用户接口")
 @Slf4j
@@ -85,4 +89,6 @@ public class UserController {
         User user = userService.getByUsername(username);
         return Result.success(user);
     }
+
+
 }

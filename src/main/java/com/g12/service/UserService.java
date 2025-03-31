@@ -4,6 +4,8 @@ import com.g12.dto.UserPageQueryDto;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 
+import java.util.List;
+
 public interface UserService {
 
     /**
@@ -33,4 +35,5 @@ public interface UserService {
      * @return User Information
      */
     User getByUsername(String username);
+
 }

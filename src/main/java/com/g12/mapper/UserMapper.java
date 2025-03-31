@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
@@ -33,7 +35,6 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    @Delete("DELETE FROM music_resource_system.user WHERE id = #{id}")
     int deleteById(Long id);
 
     /**
