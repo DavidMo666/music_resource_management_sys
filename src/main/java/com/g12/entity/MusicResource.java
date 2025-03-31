@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class musicResource implements Serializable {
+public class MusicResource implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
