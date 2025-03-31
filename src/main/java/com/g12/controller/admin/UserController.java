@@ -66,7 +66,7 @@ public class UserController {
      * @return
      */
     @Operation(summary = "删除用户")
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result<Void> deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return Result.success();
