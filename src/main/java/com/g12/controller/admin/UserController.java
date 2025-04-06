@@ -88,6 +88,4 @@ public class UserController {
         User user = userService.getByUsername(username);
         return Result.success(user);
     }
-
-
 }
