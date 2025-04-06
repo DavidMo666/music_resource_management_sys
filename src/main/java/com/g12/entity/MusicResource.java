@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "music_resource")
+@Entity
 public class MusicResource implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,7 +25,7 @@ public class MusicResource implements Serializable {
 
     private String name; // 资源名称
 
-    private String type; // 资源类型（例如：mp3, wav 等）
+    private Integer type; // 资源类型（1:mp3, 2:...）
 
     private String url; // 资源的存储路径或 URL
 
@@ -40,4 +42,13 @@ public class MusicResource implements Serializable {
     private String createTime; // 创建时间
 
     private String updateTime; // 更新时间
+
+    private String image; // 音乐资源图片路径
+
+    private String description; // 音乐资源描述
+
+    private Integer status; // 音乐资源状态
+
+    @Column(name = "upload_user_id")
+    private Integer uploadUserId; // 上传用户的ID
 }
