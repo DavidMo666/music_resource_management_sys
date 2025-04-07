@@ -10,7 +10,7 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/music_resource_system?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
-      password: root
+      password: 1234
 
 
 
@@ -40,7 +40,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'hyc'
+    - group: 'g12'
       paths-to-match: '/**'
       packages-to-scan: com.g12  #改成你自己的包名，一般到启动类的包名
 

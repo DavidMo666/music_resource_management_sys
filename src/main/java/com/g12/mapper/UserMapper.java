@@ -16,8 +16,6 @@ public interface UserMapper {
      */
     void update(User user);
 
-    @Select("select * from music_resource_system.user where id = #{id}")
-    User get(Long id);
 
     /**
      * 分页查询

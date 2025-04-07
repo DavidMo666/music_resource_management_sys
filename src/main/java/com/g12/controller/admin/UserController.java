@@ -57,6 +57,7 @@ public class UserController {
         PageResult pageResult = userService.pageQuery(userPageQueryDto);
 
         return Result.success(pageResult);
+
     }
 
 }
