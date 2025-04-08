@@ -1,6 +1,6 @@
 package com.g12.controller.admin;
 
-import com.g12.service.MusicResource;
+import com.g12.service.MusicResourceService;
 import com.g12.result.Result;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class MusicResourceController {
 
     @Autowired
-    private MusicResource musicResource;
+    private MusicResourceService musicResourceService;
 
     /**
      * 批量删除音乐资源
@@ -49,7 +49,7 @@ public class MusicResourceController {
 
         // 执行删除操作
         try {
-            int count = musicResource.batchDeleteResources(idsArray);
+            int count = musicResourceService.batchDeleteResources(idsArray);
             if (count != idsArray.size()){
                 return Result.success("成功删除" + count + "条数据" + ", 但有" + (idsArray.size()-count) + "条数据不在数据库中");
             }else {

@@ -1,15 +1,14 @@
 package com.g12.service.impl;
 
 import com.g12.mapper.MusicResourceMapper;
-import com.g12.result.Result;
-import com.g12.service.MusicResource;
+import com.g12.service.MusicResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MusicResourceImpl implements MusicResource {
+public class MusicResourceServiceServiceImpl implements MusicResourceService {
 
     // 自动注入 MusicResourceMapper 来执行数据库操作
     @Autowired
