@@ -1,5 +1,6 @@
 package com.g12.mapper;
 
+import com.g12.dto.UserLoginDTO;
 import com.g12.entity.User;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,12 @@ public interface UserMapper {
      * @return
      */
     Page<User> pageQuery(String username);
+
+    /**
+     * 用户登录
+     * @param userLoginDTO
+     * @return
+     */
+    @Select("select * from user where email = #{email} and password = #{password}")
+    User login(UserLoginDTO userLoginDTO);
 }
