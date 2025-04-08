@@ -10,6 +10,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MusicResourceServiceImpl implements MusicResourceService {
 
@@ -37,5 +39,14 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         PageResult pageResult = new PageResult(pages.getTotal(), pages.getResult());
 
         return pageResult;
+    }
+
+    @Override
+    public int batchDeleteResources(List<Integer> ids) {
+        if (ids == null || ids.size() == 0) {
+            return 0;
+        }
+        // 调用 Mapper 层的方法执行批量删除操作
+        return musicResourceMapper.batchDeleteResources(ids);
     }
 }

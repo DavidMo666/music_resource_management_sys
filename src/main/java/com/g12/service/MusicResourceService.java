@@ -3,6 +3,8 @@ package com.g12.service;
 import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.result.PageResult;
 
+import java.util.List;
+
 public interface MusicResourceService {
 
     /**
@@ -11,5 +13,7 @@ public interface MusicResourceService {
      * @return
      */
     PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+
+    int batchDeleteResources(List<Integer> ids);
 
 }

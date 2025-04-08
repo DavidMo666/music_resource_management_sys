@@ -19,4 +19,13 @@
             <if test="sortOrder == 'desc'"> DESC</if>
         </where>
     </select>
+
+    <!-- 批量删除音乐资源 -->
+    <delete id="batchDeleteResources">
+        DELETE FROM music_resource
+        WHERE id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
