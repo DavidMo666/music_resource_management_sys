@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.g12.mapper.MusicResourceMapper">
 
-    <!-- 批量删除音乐资源 -->
-    <delete id="batchDeleteResources">
-        DELETE FROM music_resource
-        WHERE id IN
-        <foreach item="id" collection="ids" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
-
+    <select id="pageQuery" resultType="com.g12.entity.MusicResource">
+        select * from music_resource
+        <where>
+            <if test="status != null">status = #{status} </if>
+            <if test="type!= null">and type = #{type}</if>
+            <if test="sortBy == 'upload_time'">
+                order by upload_time
+            </if>
+            <if test="sortBy == 'id'">
+                order by id
+            </if>
+            <if test="sortOrder == 'asc'"> ASC</if>
+            <if test="sortOrder == 'desc'"> DESC</if>
+        </where>
+    </select>
 </mapper>

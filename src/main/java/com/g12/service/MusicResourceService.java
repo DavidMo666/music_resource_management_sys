@@ -1,7 +1,15 @@
 package com.g12.service;
 
-import java.util.List;
+import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.result.PageResult;
 
 public interface MusicResourceService {
-    int batchDeleteResources(List<Integer> ids);
+
+    /**
+     * 音乐资源分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+
 }
