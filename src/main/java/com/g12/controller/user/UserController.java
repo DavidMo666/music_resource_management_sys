@@ -2,30 +2,30 @@ package com.g12.controller.user;
 
 import com.g12.dto.UserLoginDTO;
 import com.g12.result.Result;
-import com.g12.service.LoginService;
+import com.g12.service.UserService;
 import com.g12.vo.CaptchaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/user/login")
-public class LoginController {
+@RestController("C-UserController")
+@RequestMapping("/user")
+public class UserController {
 
     @Autowired
-    LoginService loginService;
+    UserService userService;
 
-    @GetMapping("/captcha")
+    @GetMapping("/login/captcha")
     public Result<CaptchaVO> getCaptcha(){
 
-        CaptchaVO captchaVo = loginService.getCaptcha();
+        CaptchaVO captchaVo = userService.getCaptcha();
 
         return Result.success(captchaVo);
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public Result login(UserLoginDTO userLoginDTO){
 
-        return loginService.login(userLoginDTO);
+        return userService.login(userLoginDTO);
 
     }
 }
