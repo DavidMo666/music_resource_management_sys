@@ -28,4 +28,26 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectByUserId" resultType="com.g12.entity.MusicResource">
+        SELECT * FROM music_resource 
+        WHERE upload_user_id = #{userId}
+        ORDER BY upload_time DESC
+    </select>
+
+    <select id="selectByName" resultType="com.g12.entity.MusicResource">
+        SELECT * FROM music_resource 
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+        ORDER BY upload_time DESC
+    </select>
+
+    <select id="selectByCondition" resultType="com.g12.entity.MusicResource">
+        SELECT * FROM music_resource 
+        <where>
+            <if test="userId != null">AND upload_user_id = #{userId}</if>
+            <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
+        </where>
+        ORDER BY upload_time DESC
+    </select>
+
 </mapper>

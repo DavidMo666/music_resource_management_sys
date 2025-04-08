@@ -73,4 +73,36 @@ public class MusicResourceController {
             return Result.error("删除操作失败");
         }
     }
+    
+    /**
+     * 查询音乐资源（支持按用户ID、名称或组合查询）
+     * @param userid 用户ID（可选）
+     * @param name 音乐名称（可选）
+     * @return 音乐资源列表
+     */
+    @GetMapping("/list")
+    public Result listMusicResource(
+            @RequestParam(value = "userid", required = false) Integer userId,
+            @RequestParam(value = "name", required = false) String name) {
+        
+        // 参数校验
+        if (userId == null && name == null) {
+            return Result.error("至少需要提供一个查询参数(userid或name)");
+        }
+        
+        try {
+            PageResult pageResult = musicResourceService.listByCondition(userId, name);
+            
+            // 判断是否查询到数据
+            if (pageResult.getTotal() == 0) {
+                return Result.error("未找到符合条件的音乐资源");
+            }
+            
+            return Result.success(pageResult);
+        } catch (Exception e) {
+            log.error("查询音乐资源失败", e);
+            return Result.error("系统繁忙，请稍后重试");
+        }
+    }
+    
 }

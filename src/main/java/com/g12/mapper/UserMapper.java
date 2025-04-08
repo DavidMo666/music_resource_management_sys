@@ -15,8 +15,6 @@ public interface UserMapper {
      * @param user
      */
     void update(User user);
-
-    @Select("select * from music_resource_system.user where user_id = #{id}")
     User get(Long id);
 
     /**
@@ -46,6 +44,5 @@ public interface UserMapper {
      * @param username
      * @return User Information
      */
-    @Select("select * FROM music_resource_system.user WHERE user_name = #{username}")
     User getByUsername(String username);
 }
