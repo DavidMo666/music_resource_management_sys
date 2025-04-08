@@ -1,6 +1,6 @@
 package com.g12.service;
 
-import com.g12.dto.UserPageQueryDto;
+import com.g12.dto.UserPageQueryDTO;
 import com.g12.result.PageResult;
 
 public interface UserService {
@@ -18,7 +18,7 @@ public interface UserService {
      * @param userPageQueryDto
      * @return
      */
-    PageResult pageQuery(UserPageQueryDto userPageQueryDto);
+    PageResult pageQuery(UserPageQueryDTO userPageQueryDto);
 
 
 }

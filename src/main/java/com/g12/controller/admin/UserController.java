@@ -1,7 +1,7 @@
 package com.g12.controller.admin;
 
 
-import com.g12.dto.UserPageQueryDto;
+import com.g12.dto.UserPageQueryDTO;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.UserService;
@@ -11,8 +11,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "用户接口")
 @Slf4j
@@ -50,7 +48,7 @@ public class UserController {
      */
     @Operation(summary = "分页查询")
     @GetMapping("/page")
-    public Result pageQuery(UserPageQueryDto userPageQueryDto){
+    public Result pageQuery(UserPageQueryDTO userPageQueryDto){
 
         log.info("分页查询");
 

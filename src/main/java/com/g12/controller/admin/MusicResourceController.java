@@ -1,7 +1,6 @@
 package com.g12.controller.admin;
 
 import com.g12.dto.MusicResourcePageQueryDTO;
-import com.g12.dto.UserPageQueryDto;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
