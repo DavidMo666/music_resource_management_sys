@@ -50,4 +50,32 @@
         ORDER BY upload_time DESC
     </select>
 
+    <update id="updateStatus">
+        UPDATE music_resource 
+        SET status = #{status},
+            update_time = NOW()
+        WHERE music_id = #{id}
+    </update>
+
+    <select id="selectById" resultType="com.g12.entity.MusicResource">
+        SELECT 
+            music_id as id,
+            name,
+            type,
+            album,
+            image,
+            description,
+            status,
+            create_time as createTime,
+            update_time as updateTime,
+            upload_user_id as uploadUserId,
+            artist as singer,
+            duration,
+            genre,
+            size,
+            url
+        FROM music_resource 
+        WHERE music_id = #{id}
+    </select>
+
 </mapper>

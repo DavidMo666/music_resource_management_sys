@@ -1,5 +1,11 @@
 package com.g12.service.impl;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.g12.mapper.MusicResourceMapper;
@@ -9,12 +15,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -103,6 +103,29 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         } catch (Exception e) {
             log.error("组合查询音乐资源失败，用户ID: {}, 名称: {}", userId, name, e);
             return new PageResult(0L, Collections.emptyList());
+        }
+    }
+
+    /**
+     * 更新音乐资源状态
+     * @param status 状态（0-封禁，1-正常）
+     * @param id 音乐资源ID
+     * @return 是否更新成功
+     */
+    @Override
+    public boolean updateStatus(Integer status, Integer id) {
+        try {
+            // 先检查记录是否存在
+            MusicResource resource = musicResourceMapper.selectById(id);
+            if (resource == null) {
+                return false;
+            }
+            
+            // 执行更新
+            return musicResourceMapper.updateStatus(status, id);
+        } catch (Exception e) {
+            log.error("更新音乐资源状态失败，status: {}, id: {}, error: {}", status, id, e.getMessage());
+            throw new RuntimeException("更新音乐资源状态失败", e);
         }
     }
 }

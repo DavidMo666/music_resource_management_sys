@@ -37,4 +37,12 @@ public interface MusicResourceService {
      * @return 分页结果
      */
     PageResult listByCondition(Integer userId, String name);
+
+    /**
+     * 更新音乐资源状态
+     * @param status 状态（0-封禁，1-正常）
+     * @param id 音乐资源ID
+     * @return 是否更新成功
+     */
+    boolean updateStatus(Integer status, Integer id);
 }
