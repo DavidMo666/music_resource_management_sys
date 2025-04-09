@@ -70,7 +70,7 @@ public class UserController {
      * @return
      */
     @Operation(summary = "删除用户")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return Result.success("已删除id为 " + id + " 的用户");
@@ -86,6 +86,19 @@ public class UserController {
     public Result<User> getByUsername(@PathVariable String username) {
         log.info("根据用户名查询用户信息: {}", username);
         User user = userService.getByUsername(username);
+        return Result.success(user);
+    }
+
+     /**
+     * 根据id查询用户信息
+     * @param id
+     * @return User Information
+     */
+    @Operation(summary = "根据id查询用户信息")
+    @GetMapping("/id/{id}")
+    public Result<User> getById(@PathVariable Long id) {
+        log.info("根据id查询用户信息: {}", id);
+        User user = userService.getById(id);
         return Result.success(user);
     }
 }

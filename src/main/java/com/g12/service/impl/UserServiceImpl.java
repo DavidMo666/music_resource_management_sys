@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     /**
+     * 更新状态
      * @param status
      * @param id
      */
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void deleteById(Long id) {
-        if (userMapper.selectById(id) == null) {
+        if (userMapper.getById(id) == null) {
             throw new RuntimeException("用户: " + id + " 不存在");
         }
         userMapper.deleteById(id);
@@ -77,4 +78,18 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
+     * 根据id查询用户信息
+     * @param id
+     * @return User Information
+     */ 
+    @Override
+    public User getById(Long id) {
+        User user = userMapper.getById(id);
+        if (user == null) {
+            throw new RuntimeException("用户id: " + id + " 不存在");
+        }
+        return user;
+    }
+    
 }

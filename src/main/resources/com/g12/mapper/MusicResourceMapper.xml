@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.g12.mapper.MusicResourceMapper">
+
+    <select id="pageQuery" resultType="com.g12.entity.MusicResource">
+        select * from music_resource
+        <where>
+            <if test="status != null">status = #{status} </if>
+            <if test="type!= null">and type = #{type}</if>
+            <if test="sortBy == 'upload_time'">
+                order by upload_time
+            </if>
+            <if test="sortBy == 'id'">
+                order by id
+            </if>
+            <if test="sortOrder == 'asc'"> ASC</if>
+            <if test="sortOrder == 'desc'"> DESC</if>
+        </where>
+    </select>
 
     <!-- 批量删除音乐资源 -->
     <delete id="batchDeleteResources">
@@ -10,5 +28,26 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectByUserId" resultType="com.g12.entity.MusicResource">
+        SELECT * FROM music_resource 
+        WHERE upload_user_id = #{userId}
+        ORDER BY upload_time DESC
+    </select>
+
+    <select id="selectByName" resultType="com.g12.entity.MusicResource">
+        SELECT * FROM music_resource 
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+        ORDER BY upload_time DESC
+    </select>
+
+    <select id="selectByCondition" resultType="com.g12.entity.MusicResource">
+        SELECT * FROM music_resource 
+        <where>
+            <if test="userId != null">AND upload_user_id = #{userId}</if>
+            <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
+        </where>
+        ORDER BY upload_time DESC
+    </select>
 
 </mapper>

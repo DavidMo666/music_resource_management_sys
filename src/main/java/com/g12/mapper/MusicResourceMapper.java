@@ -1,16 +1,22 @@
 package com.g12.mapper;
 
-import org.apache.ibatis.annotations.Delete;
+import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.entity.MusicResource;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-
-import com.g12.entity.MusicResource;
 
 import java.util.List;
 
 @Mapper
 public interface MusicResourceMapper {
+
+    /**
+     * 音乐资源分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    Page<MusicResource> pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
 
     /**
      * 批量删除音乐资源
@@ -24,7 +30,6 @@ public interface MusicResourceMapper {
      * @param userId 用户ID
      * @return 音乐资源列表
      */
-    @Select("SELECT * FROM music_resource WHERE upload_user_id = #{userId}")
     List<MusicResource> selectByUserId(Integer userId);
 
     /**
@@ -32,7 +37,6 @@ public interface MusicResourceMapper {
      * @param name 音乐名称
      * @return 音乐资源列表
      */
-    @Select("SELECT * FROM music_resource WHERE name LIKE CONCAT('%', #{name}, '%')")
     List<MusicResource> selectByName(String name);
 
     /**
@@ -41,10 +45,5 @@ public interface MusicResourceMapper {
      * @param name 音乐名称
      * @return 音乐资源列表
      */
-    @Select("<script>" +
-            "SELECT * FROM music_resource WHERE 1=1 " +
-            "<if test='userId != null'> AND upload_user_id = #{userId} </if>" +
-            "<if test='name != null'> AND name LIKE CONCAT('%', #{name}, '%') </if>" +
-            "</script>")
     List<MusicResource> selectByCondition(@Param("userId") Integer userId, @Param("name") String name);
 }

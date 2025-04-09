@@ -1,30 +1,43 @@
 package com.g12.controller.admin;
 
-import com.g12.service.MusicResource;
+import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.dto.UserPageQueryDto;
+import com.g12.result.PageResult;
 import com.g12.result.Result;
+import com.g12.service.MusicResourceService;
 import io.micrometer.common.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
+@RequestMapping("/admin/resource")
 public class MusicResourceController {
 
     @Autowired
-    private MusicResource musicResource;
+    MusicResourceService musicResourceService;
+
+    @GetMapping("/page")
+    public Result<PageResult> pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO){
+
+        log.info("音乐资源分页查询:{}", musicResourcePageQueryDTO);
+
+        PageResult pageResult = musicResourceService.pageQuery(musicResourcePageQueryDTO);
+
+        return Result.success(pageResult);
+    }
 
     /**
      * 批量删除音乐资源
      * @param ids 以逗号分隔的资源 ID 字符串
      * @return 删除结果
      */
-    @DeleteMapping("/admin/resource/delete")
+    @DeleteMapping("/delete")
     public Result deleteMusicResource(@RequestParam("ids") String ids) {
         // 参数校验
         if (StringUtils.isEmpty(ids)) {
@@ -50,7 +63,7 @@ public class MusicResourceController {
 
         // 执行删除操作
         try {
-            int count = musicResource.batchDeleteResources(idsArray);
+            int count = musicResourceService.batchDeleteResources(idsArray);
             if (count != idsArray.size()){
                 return Result.success("成功删除" + count + "条数据" + ", 但有" + (idsArray.size()-count) + "条数据不在数据库中");
             }else {
@@ -67,17 +80,29 @@ public class MusicResourceController {
      * @param name 音乐名称（可选）
      * @return 音乐资源列表
      */
-    @GetMapping("/admin/resource/list")
+    @GetMapping("/list")
     public Result listMusicResource(
             @RequestParam(value = "userid", required = false) Integer userId,
             @RequestParam(value = "name", required = false) String name) {
         
-        // 如果两个参数都为空，返回错误
+        // 参数校验
         if (userId == null && name == null) {
             return Result.error("至少需要提供一个查询参数(userid或name)");
         }
         
-        return Result.success(musicResource.listByCondition(userId, name));
+        try {
+            PageResult pageResult = musicResourceService.listByCondition(userId, name);
+            
+            // 判断是否查询到数据
+            if (pageResult.getTotal() == 0) {
+                return Result.error("未找到符合条件的音乐资源");
+            }
+            
+            return Result.success(pageResult);
+        } catch (Exception e) {
+            log.error("查询音乐资源失败", e);
+            return Result.error("系统繁忙，请稍后重试");
+        }
     }
     
 }
