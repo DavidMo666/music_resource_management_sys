@@ -4,8 +4,6 @@ import com.g12.dto.UserPageQueryDto;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 
-import java.util.List;
-
 public interface UserService {
 
     /**
@@ -36,4 +34,10 @@ public interface UserService {
      */
     User getByUsername(String username);
 
+    /**
+     * 根据id查询用户信息
+     * @param id
+     * @return User Information
+     */
+    User getById(Long id);
 }

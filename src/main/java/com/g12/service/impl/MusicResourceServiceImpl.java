@@ -105,4 +105,27 @@ public class MusicResourceServiceImpl implements MusicResourceService {
             return new PageResult(0L, Collections.emptyList());
         }
     }
+
+    /**
+     * 更新音乐资源状态
+     * @param status 状态（0-封禁，1-正常）
+     * @param id 音乐资源ID
+     * @return 是否更新成功
+     */
+    @Override
+    public boolean updateStatus(Integer status, Integer id) {
+        try {
+            // 先检查记录是否存在
+            MusicResource resource = musicResourceMapper.selectById(id);
+            if (resource == null) {
+                return false;
+            }
+
+            // 执行更新
+            return musicResourceMapper.updateStatus(status, id);
+        } catch (Exception e) {
+            log.error("更新音乐资源状态失败，status: {}, id: {}, error: {}", status, id, e.getMessage());
+            throw new RuntimeException("更新音乐资源状态失败", e);
+        }
+    }
 }

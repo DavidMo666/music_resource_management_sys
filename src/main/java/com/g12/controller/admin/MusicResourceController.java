@@ -1,5 +1,9 @@
 package com.g12.controller.admin;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.dto.UserPageQueryDto;
 import com.g12.result.PageResult;
@@ -8,11 +12,23 @@ import com.g12.service.MusicResourceService;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.entity.MusicResource;
+import com.g12.result.PageResult;
+import com.g12.result.Result;
+import com.g12.service.MusicResourceService;
+
+import io.micrometer.common.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -73,7 +89,7 @@ public class MusicResourceController {
             return Result.error("删除操作失败");
         }
     }
-    
+
     /**
      * 查询音乐资源（支持按用户ID、名称或组合查询）
      * @param userid 用户ID（可选）
@@ -84,25 +100,92 @@ public class MusicResourceController {
     public Result listMusicResource(
             @RequestParam(value = "userid", required = false) Integer userId,
             @RequestParam(value = "name", required = false) String name) {
-        
+
         // 参数校验
         if (userId == null && name == null) {
             return Result.error("至少需要提供一个查询参数(userid或name)");
         }
-        
+
         try {
             PageResult pageResult = musicResourceService.listByCondition(userId, name);
-            
+
             // 判断是否查询到数据
             if (pageResult.getTotal() == 0) {
                 return Result.error("未找到符合条件的音乐资源");
             }
-            
+
             return Result.success(pageResult);
         } catch (Exception e) {
             log.error("查询音乐资源失败", e);
             return Result.error("系统繁忙，请稍后重试");
         }
     }
-    
+
+
+    /**
+     * 查询音乐资源（支持按用户ID、名称或组合查询）
+     * @param userId 用户ID（可选）
+     * @param name 音乐名称（可选）
+     * @return 音乐资源列表
+     */
+    @GetMapping("/list")
+    public Result listMusicResource(
+            @RequestParam(value = "userid", required = false) Integer userId,
+            @RequestParam(value = "name", required = false) String name) {
+
+        // 参数校验
+        if (userId == null && name == null) {
+            return Result.error("至少需要提供一个查询参数(userid或name)");
+        }
+
+        try {
+            PageResult pageResult = musicResourceService.listByCondition(userId, name);
+
+            // 判断是否查询到数据
+            if (pageResult.getTotal() == 0) {
+                return Result.error("未找到符合条件的音乐资源");
+            }
+
+            return Result.success(pageResult);
+        } catch (Exception e) {
+            log.error("查询音乐资源失败", e);
+            return Result.error("系统繁忙，请稍后重试");
+        }
+    }
+
+    /**
+     * 更新音乐资源状态（封禁/解封）
+     * @param status 状态（0-封禁，1-正常）
+     * @param id 音乐资源ID
+     * @return 操作结果
+     */
+    @PutMapping("/status/{status}")
+    public Result updateStatus(
+            @PathVariable(value = "status") Integer status,
+            @RequestParam("id") Integer id) {
+
+        log.info("开始更新音乐资源状态：status={}, id={}", status, id);
+
+        // 参数校验
+        if (id == null) {
+            return Result.error("参数id不能为空");
+        }
+
+        if (status != 0 && status != 1) {
+            return Result.error("状态参数无效，只能为0（封禁）或1（正常）");
+        }
+
+        try {
+            boolean success = musicResourceService.updateStatus(status, id);
+            if (success) {
+                String statusText = status == 0 ? "封禁" : "解封";
+                return Result.success("音乐资源" + statusText + "成功");
+            } else {
+                return Result.error("音乐资源不存在或状态未变更");
+            }
+        } catch (Exception e) {
+            log.error("更新音乐资源状态失败", e);  // 打印完整的异常堆栈
+            return Result.error("操作失败，请稍后重试");
+        }
+    }
 }
