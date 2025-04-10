@@ -1,11 +1,5 @@
 package com.g12.service.impl;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.g12.mapper.MusicResourceMapper;
@@ -15,6 +9,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -120,7 +120,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
             if (resource == null) {
                 return false;
             }
-            
+
             // 执行更新
             return musicResourceMapper.updateStatus(status, id);
         } catch (Exception e) {

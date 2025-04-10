@@ -4,17 +4,19 @@ import org.apache.ibatis.annotations.*;
 
 import com.g12.entity.User;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper
 public interface UserMapper {
+
 
     /**
      * 更新用户
      * @param user
      */
     void update(User user);
-
-    @Select("select * from music_resource_system.user where user_id = #{id}")
     User get(Long id);
 
     /**

@@ -1,5 +1,11 @@
 package com.g12.mapper;
 
+import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.entity.MusicResource;
+import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
