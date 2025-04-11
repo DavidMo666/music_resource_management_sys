@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/user/music-resource")
-public class UserResourceController {
+public class MusicResourceController {
 
     @Autowired
     private MusicResourceService musicResourceService;
