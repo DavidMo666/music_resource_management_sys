@@ -22,4 +22,5 @@ public class MusicResource {
     private int uploadUserId;     // 上传用户的用户名
     private String singer;        // 歌手
     private int duration;         // 时长（秒数）
+    private String url;          //音乐资源路径
 }
