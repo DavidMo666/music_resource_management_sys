@@ -14,6 +14,11 @@ public interface MusicResourceService {
      */
     PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
 
+    /**
+     * 批量删除音乐资源
+     * @param ids
+     * @return
+     */
     int batchDeleteResources(List<Integer> ids);
 
 }

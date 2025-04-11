@@ -38,5 +38,4 @@ public interface UserService {
      * @return User Information
      */
     User getByUsername(String username);
-
 }
