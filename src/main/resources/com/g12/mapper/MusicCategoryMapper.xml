@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.g12.mapper.CategoryMapper">
+
+    <!-- 删除方法的 SQL 映射 -->
+    <delete id="deleteCategory" parameterType="java.lang.Integer">
+        DELETE FROM musiccategory WHERE id = #{id}
+    </delete>
+
+</mapper>
