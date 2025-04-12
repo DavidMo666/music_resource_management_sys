@@ -78,4 +78,32 @@
         WHERE music_id = #{id}
     </select>
 
+    <!-- 新增音乐 -->
+    <insert id="insert" parameterType="com.g12.entity.MusicResource" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO music_resource (
+            name,
+            type,
+            album,
+            image,
+            description,
+            status,
+            upload_time,
+            upload_user_id,
+            singer,
+            duration,
+            url
+        ) VALUES (
+            #{name},
+            #{type},
+            #{album},
+            #{image},
+            #{description},
+            #{status},
+            #{uploadTime},
+            #{uploadUserId},
+            #{singer},
+            #{duration},
+            #{url}
+        )
+    </insert>
 </mapper>

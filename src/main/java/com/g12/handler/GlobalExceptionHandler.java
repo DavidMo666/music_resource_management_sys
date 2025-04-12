@@ -18,6 +18,4 @@ public class GlobalExceptionHandler {
         log.error("运行时异常: {}", ex.getMessage());
         return Result.error(ex.getMessage());
     }
-
-
 }

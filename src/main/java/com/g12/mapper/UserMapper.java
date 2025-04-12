@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper
 public interface UserMapper {
 
-
     /**
      * 更新用户
      * @param user
@@ -26,7 +25,6 @@ public interface UserMapper {
      */
     Page<User> pageQuery(String username);
 
-
     /**
      * 删除用户
      * @param id
@@ -36,33 +34,15 @@ public interface UserMapper {
 
     /**
      * 根据用户名查询用户信息
-     * @param username
-     * @return User Information
-     */
-    @Select("select * FROM music_resource_system.user WHERE user_name = #{username}")
-    @Results({
-        @Result(property = "id", column = "user_id"),
-        @Result(property = "userName", column = "user_name"),
-        @Result(property = "idNumber", column = "id_number"),
-        @Result(property = "createTime", column = "create_time"),
-        @Result(property = "updateTime", column = "update_time"),
-        @Result(property = "updateUser", column = "update_user")
-    })
+    * @param username 用户名
+    * @return 用户信息
+    */
     User getByUsername(String username);
 
     /**
      * 根据id查询用户信息
-     * @param id
-     * @return User Information
+     * @param id 用户ID
+     * @return 用户信息
      */
-    @Select("select * FROM music_resource_system.user WHERE user_id = #{id}")
-    @Results({
-        @Result(property = "id", column = "user_id"),
-        @Result(property = "userName", column = "user_name"),
-        @Result(property = "idNumber", column = "id_number"),
-        @Result(property = "createTime", column = "create_time"),
-        @Result(property = "updateTime", column = "update_time"),
-        @Result(property = "updateUser", column = "update_user")
-    })
     User getById(Long id);
 }

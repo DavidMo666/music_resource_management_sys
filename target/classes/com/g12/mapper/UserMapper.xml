@@ -31,7 +31,24 @@
         SELECT * FROM music_resource_system.user WHERE id = #{id}
     </select>
 
-    <select id="getByUsername" resultType="com.g12.entity.User">
-        SELECT * FROM music_resource_system.user WHERE user_name = #{username}
+    <resultMap id="userResultMap" type="com.g12.entity.User">
+        <result property="id" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="idNumber" column="id_number"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+    </resultMap>
+
+    <!-- 根据用户名查询用户信息 -->
+    <select id="getByUsername" resultMap="userResultMap">
+        SELECT * FROM music_resource_system.user 
+        WHERE user_name = #{username}
+    </select>
+
+    <!-- 根据ID查询用户信息 -->
+    <select id="getById" resultMap="userResultMap">
+        SELECT * FROM music_resource_system.user 
+        WHERE id = #{id}
     </select>
 </mapper>
