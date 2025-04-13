@@ -9,3 +9,7 @@
 
 # 忽略Java的构建目录
 target/
+
+*.class
+*.iml
+.idea/

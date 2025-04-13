@@ -35,4 +35,9 @@ public class Result<T> implements Serializable {
         return result;
     }
 
+    public Result message(String message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'message'");
+    }
+
 }

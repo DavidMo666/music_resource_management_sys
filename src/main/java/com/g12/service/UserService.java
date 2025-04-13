@@ -2,6 +2,7 @@ package com.g12.service;
 
 import com.g12.dto.UserLoginDTO;
 import com.g12.dto.UserPageQueryDTO;
+import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.vo.CaptchaVO;
@@ -36,5 +37,23 @@ public interface UserService {
      */
     Result login(UserLoginDTO userLoginDTO);
 
+    /**
+     * 删除用户
+     * @param id
+     */
+    void deleteById(Long id);
 
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return User Information
+     */
+    User getByUsername(String username);
+
+    /**
+     * 根据id查询用户信息
+     * @param id
+     * @return User Information
+     */
+    User getById(Long id);
 }

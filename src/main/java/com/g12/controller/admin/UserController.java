@@ -2,15 +2,21 @@ package com.g12.controller.admin;
 
 
 import com.g12.dto.UserPageQueryDTO;
+import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.UserService;
 
+import io.micrometer.common.util.StringUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "用户接口")
 @Slf4j
@@ -58,4 +64,41 @@ public class UserController {
 
     }
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @Operation(summary = "删除用户")
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable("id") Long id) {
+        userService.deleteById(id);
+        return Result.success("已删除id为 " + id + " 的用户");
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return User Information
+     */
+    @Operation(summary = "根据用户名查询用户信息")
+    @GetMapping("/username/{username}")
+    public Result<User> getByUsername(@PathVariable String username) {
+        log.info("根据用户名查询用户信息: {}", username);
+        User user = userService.getByUsername(username);
+        return Result.success(user);
+    }
+
+     /**
+     * 根据id查询用户信息
+     * @param id
+     * @return User Information
+     */
+    @Operation(summary = "根据id查询用户信息")
+    @GetMapping("/id/{id}")
+    public Result<User> getById(@PathVariable Long id) {
+        log.info("根据id查询用户信息: {}", id);
+        User user = userService.getById(id);
+        return Result.success(user);
+    }
 }

@@ -3,6 +3,8 @@ package com.g12.service;
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.result.PageResult;
 
+import com.g12.entity.MusicCategory;
+
 public interface CategoryService {
 
     /**
@@ -11,4 +13,6 @@ public interface CategoryService {
      * @return
      */
     PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    void save(MusicCategory category);
 }

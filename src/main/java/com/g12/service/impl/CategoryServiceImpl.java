@@ -4,9 +4,12 @@ import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
 import com.g12.mapper.CategoryMapper;
 import com.g12.result.PageResult;
+import com.g12.entity.MusicCategory;
+import com.g12.mapper.CategoryMapper;
 import com.g12.service.CategoryService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +41,11 @@ public class CategoryServiceImpl implements CategoryService {
 
         return pageResult;
     }
+
+    @Override
+    public void save(MusicCategory category) {
+        categoryMapper.insert(category);
+    }
 }
+
+
