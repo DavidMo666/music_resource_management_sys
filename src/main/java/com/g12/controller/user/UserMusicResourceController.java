@@ -1,25 +1,26 @@
 package com.g12.controller.user;
 
+import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.dto.UserPageQueryDto;
+import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Slf4j
 @RestController
-@RequestMapping("/user/music-resource")
-public class MusicResourceController {
+@RequestMapping("/user/resource")
+public class UserMusicResourceController {
 
     @Autowired
-    private MusicResourceService musicResourceService;
+    MusicResourceService musicResourceService;
 
     /**
      * 批量删除音乐资源
