@@ -68,4 +68,11 @@ public interface MusicResourceMapper {
      * @return 音乐资源
      */
     MusicResource selectById(@Param("id") Integer id);
+
+    /**
+     * 新增音乐资源
+     * @param musicResource 音乐资源信息
+     * @return 操作结果
+     */
+    int insert(MusicResource musicResource);
 }

@@ -4,15 +4,18 @@ import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.g12.mapper.MusicResourceMapper;
 import com.g12.result.PageResult;
+import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -126,6 +129,44 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         } catch (Exception e) {
             log.error("更新音乐资源状态失败，status: {}, id: {}, error: {}", status, id, e.getMessage());
             throw new RuntimeException("更新音乐资源状态失败", e);
+        }
+    }
+
+    /**
+     * 新增音乐资源
+     * @param musicResource 音乐资源信息
+     * @return 操作结果
+     */
+    @Override
+    public Result<String> addMusicResource(MusicResource musicResource) {
+        try {
+            // 验证必要字段
+            if (StringUtils.isEmpty(musicResource.getName())) {
+                return Result.error("音乐名称不能为空");
+            }
+            if (StringUtils.isEmpty(musicResource.getImage())) {
+                return Result.error("音乐封面不能为空");
+            }
+            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
+                return Result.error("上传用户ID无效");
+            }
+            
+            // 设置默认值
+            if (musicResource.getStatus() == null) {
+                musicResource.setStatus(1); // 默认状态为正常
+            }
+            musicResource.setUploadTime(LocalDateTime.now());
+            
+            // 调用Mapper插入数据
+            int result = musicResourceMapper.insert(musicResource);
+            if (result <= 0) {
+                return Result.error("添加音乐资源失败");
+            }
+            
+            return Result.success("音乐资源添加成功");
+        } catch (Exception e) {
+            log.error("添加音乐资源失败", e);
+            return Result.error("系统繁忙，请稍后重试");
         }
     }
 }
