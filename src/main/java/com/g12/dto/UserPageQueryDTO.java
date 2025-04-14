@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserPageQueryDto implements Serializable {
+public class UserPageQueryDTO implements Serializable {
 
     //页数
     private int page;

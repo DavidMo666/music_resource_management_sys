@@ -1,5 +1,6 @@
 package com.g12.mapper;
 
+import com.g12.dto.UserLoginDTO;
 import org.apache.ibatis.annotations.*;
 
 import com.g12.entity.User;

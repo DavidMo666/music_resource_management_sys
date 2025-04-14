@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.g12.mapper.CategoryMapper">
 
+    <select id="pageQuery" resultType="com.g12.entity.MusicCategory">
+        select * from music_category
+        <where>
+            <if test="name != null">name = #{name}</if>
+        </where>
+        <if test="sortBy != null">
+            order by
+            <choose>
+                <when test="sortBy == 'createTime'"> create_time</when>
+                <when test="sortBy == 'uploadTime'"> upload_time</when>
+            </choose>
+            <choose>
+                <when test="sortOrder == 'asc'"> ASC</when>
+                <when test="sortOrder == 'desc'"> DESC</when>
+            </choose>
+        </if>
+    </select>
     <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO music_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
