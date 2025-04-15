@@ -1,7 +1,7 @@
 package com.g12.controller.admin;
 
 import com.g12.dto.MusicResourcePageQueryDTO;
-import com.g12.dto.UserPageQueryDto;
+import com.g12.dto.UserPageQueryDTO;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
@@ -85,7 +85,7 @@ public class MusicResourceController {
             @PathVariable(value = "status") Integer status,
             @RequestParam("id") Integer id) {
 
-        log.info("开始更新音乐资源状态：status={}, id={}", status, id);
+//        log.info("开始更新音乐资源状态：status={}, id={}", status, id);
 
         // 参数校验
         if (id == null) {
@@ -105,7 +105,7 @@ public class MusicResourceController {
                 return Result.error("音乐资源不存在或状态未变更");
             }
         } catch (Exception e) {
-            log.error("更新音乐资源状态失败", e);  // 打印完整的异常堆栈
+//            log.error("更新音乐资源状态失败", e);  // 打印完整的异常堆栈
             return Result.error("操作失败，请稍后重试");
         }
     }
@@ -135,7 +135,7 @@ public class MusicResourceController {
 
             return Result.success(pageResult);
         } catch (Exception e) {
-            log.error("查询音乐资源失败", e);
+//            log.error("查询音乐资源失败", e);
             return Result.error("系统繁忙，请稍后重试");
         }
     }

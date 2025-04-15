@@ -1,7 +1,7 @@
 package com.g12.service.impl;
 
 import com.g12.dto.UserLoginDTO;
-import com.g12.dto.UserPageQueryDto;
+import com.g12.dto.UserPageQueryDTO;
 import com.g12.entity.User;
 import com.g12.mapper.UserMapper;
 import com.g12.result.PageResult;
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public PageResult pageQuery(UserPageQueryDto userPageQueryDto) {
+    public PageResult pageQuery(UserPageQueryDTO userPageQueryDto) {
 
         PageHelper.startPage(userPageQueryDto.getPage(), userPageQueryDto.getPageSize());
 
