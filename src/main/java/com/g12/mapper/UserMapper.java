@@ -60,4 +60,5 @@ public interface UserMapper {
     @Select("select * from user where email = #{email} and password = #{password}")
     User login(UserLoginDTO userLoginDTO);
 
+    void register(User user);
 }

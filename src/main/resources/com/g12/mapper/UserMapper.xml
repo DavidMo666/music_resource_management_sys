@@ -4,6 +4,7 @@
 
 <mapper namespace="com.g12.mapper.UserMapper">
 
+
     <update id="update">
         update user
         <set>
@@ -35,4 +36,8 @@
         WHERE id = #{id}
     </update>
 
+    <insert id="register">
+        insert into user(email, password,name)
+        values (#{email}, #{password},name)
+    </insert>
 </mapper>

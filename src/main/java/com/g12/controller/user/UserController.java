@@ -1,6 +1,7 @@
 package com.g12.controller.user;
 
 import com.g12.dto.UserLoginDTO;
+import com.g12.dto.UserRegisterDTO;
 import com.g12.result.Result;
 import com.g12.service.UserService;
 import com.g12.vo.CaptchaVO;
@@ -27,6 +28,20 @@ public class UserController {
 
         return userService.login(userLoginDTO);
 
+    }
+
+    @PostMapping("/register")
+    public Result register(UserRegisterDTO userRegisterDTO){
+
+        userService.register(userRegisterDTO);
+
+        return Result.success();
+    }
+
+    @GetMapping("/register/verify")
+    public Result registerVerify(String activeCode){
+
+        return userService.registerVerify(activeCode);
     }
 
 
