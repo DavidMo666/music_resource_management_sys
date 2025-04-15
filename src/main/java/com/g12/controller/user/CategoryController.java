@@ -1,5 +1,7 @@
 package com.g12.controller.user;
 
+import com.g12.dto.CategoryPageQueryDTO;
+import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +27,14 @@ public class CategoryController {
             return Result.error("删除失败: " + e.getMessage());
         }
     }
+
+    @GetMapping("/page")
+    public Result pageQuery(CategoryPageQueryDTO categoryPageQueryDTO){
+
+        PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
+
+        return Result.success(pageResult);
+    }
+
+
 }

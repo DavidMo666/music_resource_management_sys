@@ -1,5 +1,6 @@
 package com.g12.mapper;
 
+import com.g12.dto.UserLoginDTO;
 import com.g12.entity.User;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -50,5 +51,13 @@ public interface UserMapper {
      */
     @Select("select * FROM music_resource_system.user WHERE user_name = #{username}")
     User getByUsername(String username);
+
+    /**
+     * 用户登录
+     * @param userLoginDTO
+     * @return
+     */
+    @Select("select * from user where email = #{email} and password = #{password}")
+    User login(UserLoginDTO userLoginDTO);
 
 }

@@ -27,6 +27,13 @@ public interface UserService {
     PageResult pageQuery(UserPageQueryDto userPageQueryDto);
 
     /**
+     * 根据id查询用户信息
+     * @param id
+     * @return User Information
+     */
+    User selectById(Long id);
+
+    /**
      * 删除用户
      * @param id
      */
@@ -38,4 +45,18 @@ public interface UserService {
      * @return User Information
      */
     User getByUsername(String username);
+
+
+    /**
+     * 创建验证码
+     * @return
+     */
+    CaptchaVO getCaptcha();
+
+    /**
+     * 登录
+     * @param userLoginDTO
+     * @return
+     */
+    Result login(UserLoginDTO userLoginDTO);
 }

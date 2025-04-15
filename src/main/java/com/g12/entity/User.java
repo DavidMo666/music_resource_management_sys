@@ -11,17 +11,13 @@ import java.time.LocalDateTime;
 
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table
-@Entity
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id; // user_id
 
     //姓名

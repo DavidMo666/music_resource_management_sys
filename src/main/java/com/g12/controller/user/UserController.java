@@ -11,4 +11,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/login/captcha")
+    public Result<CaptchaVO> getCaptcha(){
+
+        CaptchaVO captchaVo = userService.getCaptcha();
+
+        return Result.success(captchaVo);
+    }
+
+    @PostMapping("/login")
+    public Result login(UserLoginDTO userLoginDTO){
+
+        return userService.login(userLoginDTO);
+
+    }
+
+
+
 }
