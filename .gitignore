@@ -1,0 +1,15 @@
+# 忽略IDE和编辑器的配置文件
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# 忽略日志文件
+*.log
+
+# 忽略Java的构建目录
+target/
+
+*.class
+*.iml
+.idea/
