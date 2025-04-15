@@ -1,7 +1,8 @@
 package com.g12.service;
 
 import com.g12.dto.UserLoginDTO;
-import com.g12.dto.UserPageQueryDto;
+
+import com.g12.dto.UserPageQueryDTO;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
@@ -24,7 +25,7 @@ public interface UserService {
      * @param userPageQueryDto
      * @return
      */
-    PageResult pageQuery(UserPageQueryDto userPageQueryDto);
+    PageResult pageQuery(UserPageQueryDTO userPageQueryDto);
 
     /**
      * 根据id查询用户信息

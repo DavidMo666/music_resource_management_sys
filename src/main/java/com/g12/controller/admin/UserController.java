@@ -2,7 +2,7 @@ package com.g12.controller.admin;
 
 
 import ch.qos.logback.core.util.StringUtil;
-import com.g12.dto.UserPageQueryDto;
+import com.g12.dto.UserPageQueryDTO;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
@@ -55,7 +55,7 @@ public class UserController {
      */
     @Operation(summary = "分页查询")
     @GetMapping("/page")
-    public Result pageQuery(UserPageQueryDto userPageQueryDto){
+    public Result pageQuery(UserPageQueryDTO userPageQueryDto){
 
         log.info("分页查询");
 
