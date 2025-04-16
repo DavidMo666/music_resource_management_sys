@@ -20,5 +20,18 @@
                 <when test="sortOrder == 'desc'"> DESC</when>
             </choose>
         </if>
+        
+    </select>
+    <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO music_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="description != null and description != ''">description,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="description != null and description != ''">#{description},</if>
+        </trim>
+    </insert>
 
 </mapper>
