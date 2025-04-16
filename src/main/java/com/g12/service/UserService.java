@@ -3,6 +3,7 @@ package com.g12.service;
 import com.g12.dto.UserLoginDTO;
 
 import com.g12.dto.UserPageQueryDTO;
+import com.g12.dto.UserRegisterDTO;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
@@ -60,4 +61,17 @@ public interface UserService {
      * @return
      */
     Result login(UserLoginDTO userLoginDTO);
+
+    /**
+     * 注册
+     * @param userRegisterDTO
+     */
+    void register(UserRegisterDTO userRegisterDTO);
+
+    /**
+     * 校验激活码
+     * @param activeCode
+     * @return
+     */
+    Result registerVerify(String activeCode);
 }

@@ -4,4 +4,6 @@ package com.g12.util;
 public class SystemConstants {
 
     public static final String CAPTCHA_PREFIX = "captcha:";//redis验证码前缀
+
+    public static final String ACTIVE_CODE_PREFIX = "email:active:";
 }

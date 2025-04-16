@@ -1,9 +1,12 @@
 package com.g12.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.g12.dto.UserLoginDTO;
 import com.g12.dto.UserPageQueryDTO;
+import com.g12.dto.UserRegisterDTO;
 import com.g12.entity.User;
 import com.g12.mapper.UserMapper;
+import com.g12.properties.JwtProperty;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.UserService;
@@ -13,8 +16,12 @@ import com.g12.vo.CaptchaVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.wf.captcha.SpecCaptcha;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -31,6 +38,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    JwtProperty jwtProperty;
+
+    JavaMailSender javaMailSender;
+
+    private static final String MAIL_ADDRESS = "aaa@qq.com";
+    private static final String CODE_HEAD = "激活您的账户";
 
     /**
      * @param status
@@ -159,13 +174,62 @@ public class UserServiceImpl implements UserService {
         Map claims = new HashMap<>();
         claims.put("email", user.getEmail());
         claims.put("password", user.getPassword());
-        String token = null;
+        String token = JwtUtil.createJWT(jwtProperty.getUserSecretKey(), jwtProperty.getUserTtl(), claims);
 
         return Result.success(token);
     }
 
+    /**
+     * 注册
+     * @param userRegisterDTO
+     */
+    @Override
+    public void register(UserRegisterDTO userRegisterDTO) {
+
+        User user = new User();
+        BeanUtils.copyProperties(userRegisterDTO, user);
+
+        //生成验证码
+        String code = RandomStringUtils.random(6);
+        String content = "注册验证码为:" + code;
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setSubject(CODE_HEAD);
+        mailMessage.setText(content);
+        mailMessage.setFrom(MAIL_ADDRESS);
+        mailMessage.setTo(user.getEmail());
+
+        //存redis
+        String userStr = JSON.toJSONString(user);
+        String key = SystemConstants.ACTIVE_CODE_PREFIX + code;
+        stringRedisTemplate.opsForValue().set(key, userStr,5, TimeUnit.MINUTES);
 
 
+    }
+
+    /**
+     * 校验激活码
+     * @param activeCode
+     * @return
+     */
+    @Override
+    public Result registerVerify(String activeCode) {
+
+        //1.从redis获取
+        String key = SystemConstants.ACTIVE_CODE_PREFIX + activeCode;
+        String userStr = stringRedisTemplate.opsForValue().get(key);
+
+        //2.如果取不到
+        if (userStr == null || userStr.length() == 0){
+            return Result.error("用户验证码错误");
+        }
+
+        //3.取到
+        User user = JSON.parseObject(userStr, User.class);
+        userMapper.register(user);
+
+        return Result.success();
+    }
 
 
 }
