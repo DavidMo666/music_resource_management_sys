@@ -61,11 +61,10 @@ public interface MusicResourceMapper {
     List<MusicResource> selectByName(String name);
 
     /**
-     * 根据用户ID和音乐名称组合查询
-     * @param userId 用户ID
-     * @param name 音乐名称
+     * 根据条件查询音乐资源（支持按用户ID、名称或组合查询）
+     * @param uploadUserId 上传用户ID（可选）
+     * @param name 音乐名称（可选，支持模糊查询）
      * @return 音乐资源列表
      */
-    List<MusicResource> selectByCondition(@Param("userId") Integer userId, @Param("name") String name);
-
+    List<MusicResource> selectByCondition(@Param("uploadUserId") Integer uploadUserId, @Param("name") String name);
 }

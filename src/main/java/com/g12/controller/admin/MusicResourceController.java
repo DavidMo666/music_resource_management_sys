@@ -109,38 +109,36 @@ public class MusicResourceController {
             return Result.error("操作失败，请稍后重试");
         }
     }
-    /**
+    
+   /**
      * 查询音乐资源（支持按用户ID、名称或组合查询）
-     * @param userId 用户ID（可选）
-     * @param name 音乐名称（可选）
-     * @return 音乐资源列表
+     * @param uploadUserId 上传用户ID（可选）
+     * @param name 音乐名称（可选，支持模糊查询）
+     * @return 分页结果集
      */
     @GetMapping("/list")
-    public Result listMusicResource(
-            @RequestParam(value = "userid", required = false) Integer userId,
+    public Result<PageResult> listMusicResource(
+            @RequestParam(value = "uploadUserId", required = false) Integer uploadUserId,
             @RequestParam(value = "name", required = false) String name) {
 
         // 参数校验
-        if (userId == null && name == null) {
-            return Result.error("至少需要提供一个查询参数(userid或name)");
+        if (uploadUserId == null && name == null) {
+            return Result.error("至少需要提供一个查询参数(uploadUserId或name)");
         }
 
         try {
-            PageResult pageResult = musicResourceService.listByCondition(userId, name);
-
+            Result<PageResult> result = musicResourceService.listByCondition(uploadUserId, name);
+            
             // 判断是否查询到数据
-            if (pageResult.getTotal() == 0) {
+            if (result.getData() != null && result.getData().getTotal() == 0) {
                 return Result.error("未找到符合条件的音乐资源");
             }
-
-            return Result.success(pageResult);
+            
+            return result;
         } catch (Exception e) {
-//            log.error("查询音乐资源失败", e);
+            log.error("查询音乐资源失败", e);
             return Result.error("系统繁忙，请稍后重试");
         }
     }
-
-
-
 
 }

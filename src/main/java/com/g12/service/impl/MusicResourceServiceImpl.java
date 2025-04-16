@@ -115,19 +115,21 @@ public class MusicResourceServiceImpl implements MusicResourceService {
             return Result.error("系统繁忙，请稍后重试");
         }
     }
+
+
     /**
      * 根据用户ID查询音乐资源
      */
     @Override
-    public PageResult listByUserId(Integer userId) {
+    public Result<PageResult> listByUserId(Integer uploadUserId) {
         try {
-            List<MusicResource> records = musicResourceMapper.selectByUserId(userId);
+            List<MusicResource> records = musicResourceMapper.selectByUserId(uploadUserId);
             if (records == null || records.isEmpty()) {
-                return new PageResult(0L, Collections.emptyList());
+                return Result.success(new PageResult(0L, Collections.emptyList()));
             }
-            return new PageResult((long) records.size(), records);
+            return Result.success(new PageResult((long) records.size(), records));
         } catch (Exception e) {
-            return new PageResult(0L, Collections.emptyList());
+            return Result.error("查询失败");
         }
     }
 
@@ -135,15 +137,15 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * 根据音乐名称查询音乐资源
      */
     @Override
-    public PageResult listByName(String name) {
+    public Result<PageResult> listByName(String name) {
         try {
             List<MusicResource> records = musicResourceMapper.selectByName(name);
             if (records == null || records.isEmpty()) {
-                return new PageResult(0L, Collections.emptyList());
+                return Result.success(new PageResult(0L, Collections.emptyList()));
             }
-            return new PageResult((long) records.size(), records);
+            return Result.success(new PageResult((long) records.size(), records));
         } catch (Exception e) {
-            return new PageResult(0L, Collections.emptyList());
+            return Result.error("查询失败");
         }
     }
 
@@ -151,16 +153,15 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * 组合查询音乐资源
      */
     @Override
-    public PageResult listByCondition(Integer userId, String name) {
+    public Result<PageResult> listByCondition(Integer uploadUserId, String name) {
         try {
-            List<MusicResource> records = musicResourceMapper.selectByCondition(userId, name);
+            List<MusicResource> records = musicResourceMapper.selectByCondition(uploadUserId, name);
             if (records == null || records.isEmpty()) {
-                return new PageResult(0L, Collections.emptyList());
+                return Result.success(new PageResult(0L, Collections.emptyList()));
             }
-            return new PageResult((long) records.size(), records);
+            return Result.success(new PageResult((long) records.size(), records));
         } catch (Exception e) {
-            return new PageResult(0L, Collections.emptyList());
+            return Result.error("查询失败");
         }
     }
-
 }
