@@ -60,7 +60,7 @@
 
     <!-- 用户名和ID查询音乐 -->
     <select id="selectByUserId" resultType="com.g12.entity.MusicResource">
-        SELECT * FROM music_resource
+        SELECT * FROM music_resources
         WHERE upload_user_id = #{userId}
         ORDER BY upload_time DESC
     </select>
