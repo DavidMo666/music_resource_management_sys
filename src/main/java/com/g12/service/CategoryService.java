@@ -1,6 +1,7 @@
 package com.g12.service;
 
 import com.g12.dto.CategoryPageQueryDTO;
+import com.g12.entity.MusicCategory;
 import com.g12.mapper.CategoryMapper;
 import com.g12.result.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +18,11 @@ public interface CategoryService {
      * @return
      */
     PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * 新增分类
+     * @param category 分类信息
+     * @return 操作结果
+     */
+    void save(MusicCategory category);
 }

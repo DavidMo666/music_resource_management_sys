@@ -44,6 +44,13 @@ public class CategoryServiceImpl implements CategoryService {
         return pageResult;
     }
 
-
-
+    /**
+     * 新增分类
+     * @param category 分类信息
+     * @return 操作结果
+     */
+    @Override
+    public void save(MusicCategory category) {
+        categoryMapper.insert(category);
+    }
 }

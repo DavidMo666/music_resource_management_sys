@@ -18,4 +18,11 @@ public interface CategoryMapper {
      * @return
      */
     Page<MusicCategory> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * 新增分类
+     * @param category 分类信息
+     * @return 操作结果
+     */
+    void insert(MusicCategory category);
 }
