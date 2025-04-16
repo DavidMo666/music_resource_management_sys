@@ -4,7 +4,7 @@
 
     <!-- 删除方法的 SQL 映射 -->
     <delete id="deleteCategory" parameterType="java.lang.Integer">
-        DELETE FROM musiccategory WHERE id = #{id}
+        DELETE FROM music_category WHERE id = #{id}
     </delete>
 
     <select id="pageQuery" resultType="com.g12.entity.MusicCategory">
