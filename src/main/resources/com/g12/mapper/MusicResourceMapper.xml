@@ -72,4 +72,11 @@
         SELECT * FROM music_resources
         WHERE id = #{id}
     </select>
+
+    <!-- 更新音乐资源状态 -->
+    <update id="updateStatus">
+        UPDATE music_resources
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
 </mapper>

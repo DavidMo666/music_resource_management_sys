@@ -34,4 +34,14 @@
         </trim>
     </insert>
 
+    <update id="update" parameterType="com.g12.entity.MusicCategory">
+        UPDATE music_category
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            update_time = #{updateTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>

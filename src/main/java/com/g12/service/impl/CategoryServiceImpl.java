@@ -1,5 +1,6 @@
 package com.g12.service.impl;
 
+import java.time.LocalDateTime;
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
 import com.g12.mapper.CategoryMapper;
@@ -53,4 +54,12 @@ public class CategoryServiceImpl implements CategoryService {
     public void save(MusicCategory category) {
         categoryMapper.insert(category);
     }
+
+    @Override
+    public void update(MusicCategory category) {
+        // 设置更新时间
+        category.setUpdateTime(LocalDateTime.now());
+        categoryMapper.update(category);
+    }
+
 }
