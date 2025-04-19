@@ -72,18 +72,18 @@ public class UserMusicResourceController {
     @PostMapping
     public Result<String> addMusicResource(@RequestBody MusicResource musicResource) {
         // 参数校验
-//        if (StringUtils.isEmpty(musicResource.getName())) {
-//            return Result.error("音乐名称不能为空");
-//        }
-//        if (StringUtils.isEmpty(musicResource.getImage())) {
-//            return Result.error("音乐封面不能为空");
-//        }
-//        if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
-//            return Result.error("上传用户ID无效");
-//        }
-//        if (StringUtils.isEmpty(musicResource.getUrl())) {
-//            return Result.error("音乐文件路径不能为空");
-//        }
+        if (StringUtils.isEmpty(musicResource.getName())) {
+            return Result.error("音乐名称不能为空");
+        }
+        if (StringUtils.isEmpty(musicResource.getImage())) {
+            return Result.error("音乐封面不能为空");
+        }
+        if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
+            return Result.error("上传用户ID无效");
+        }
+        if (StringUtils.isEmpty(musicResource.getUrl())) {
+            return Result.error("音乐文件路径不能为空");
+        }
 
         try {
             // 设置默认值和必要字段
