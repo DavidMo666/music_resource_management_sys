@@ -43,8 +43,8 @@
             image,
             description,
             status,
-            uploadTime,
-            uploadUserId,
+            upload_time,
+            user_Id,
             singer,
             duration,
             url
