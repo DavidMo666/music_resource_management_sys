@@ -88,7 +88,7 @@
         </where>
         order by
             <choose>
-                <when test="sortBy == 'uploadTime'"> uploadTime</when>
+                <when test="sortBy == 'uploadTime'"> upload_time</when>
                 <when test="sortBy == 'id'"> id</when>
             </choose>
             <choose>

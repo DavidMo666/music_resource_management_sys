@@ -23,4 +23,5 @@ public class MusicResource {
     private String singer;        // 歌手
     private Integer duration;         // 时长（秒数）
     private String url;
+    private Long categoryId;  //所属歌单
 }
