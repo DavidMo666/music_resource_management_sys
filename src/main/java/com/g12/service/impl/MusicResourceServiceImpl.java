@@ -1,5 +1,6 @@
 package com.g12.service.impl;
 
+import com.g12.context.BaseContext;
 import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.g12.mapper.MusicResourceMapper;
@@ -31,7 +32,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * @return
      */
     @Override
-    public PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
+    public PageResult adminPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
 
         //如果sortOrder 和sortBy为空 设置默认值
         if (musicResourcePageQueryDTO.getSortBy() == null || musicResourcePageQueryDTO.getSortOrder() == null){
@@ -163,5 +164,32 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         } catch (Exception e) {
             return Result.error("查询失败");
         }
+    }
+
+    /**
+     * 用户端分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
+
+        Long userId = BaseContext.getCurrentId();
+        musicResourcePageQueryDTO.setUserId(userId);
+
+        if (musicResourcePageQueryDTO.getSortBy() == null){
+            musicResourcePageQueryDTO.setSortBy("uploadTime");
+            musicResourcePageQueryDTO.setSortOrder("DESC");
+        }
+
+        PageHelper.startPage(musicResourcePageQueryDTO.getPage(), musicResourcePageQueryDTO.getPageSize());
+
+        Page<MusicResource> pages = musicResourceMapper.userPageQuery(musicResourcePageQueryDTO);
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(pages.getTotal());
+        pageResult.setRecords(pages.getResult());
+
+        return pageResult;
     }
 }

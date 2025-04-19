@@ -25,4 +25,11 @@ public interface CategoryMapper {
      * @return 操作结果
      */
     void insert(MusicCategory category);
+
+    /**
+     * 更新分类信息
+     * @param category 分类信息
+     */
+    void update(MusicCategory category);
+
 }

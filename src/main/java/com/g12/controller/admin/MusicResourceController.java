@@ -27,7 +27,7 @@ public class MusicResourceController {
 
         log.info("音乐资源分页查询:{}", musicResourcePageQueryDTO);
 
-        PageResult pageResult = musicResourceService.pageQuery(musicResourcePageQueryDTO);
+        PageResult pageResult = musicResourceService.adminPageQuery(musicResourcePageQueryDTO);
 
         return Result.success(pageResult);
     }
@@ -109,8 +109,8 @@ public class MusicResourceController {
             return Result.error("操作失败，请稍后重试");
         }
     }
-    
-   /**
+
+    /**
      * 查询音乐资源（支持按用户ID、名称或组合查询）
      * @param uploadUserId 上传用户ID（可选）
      * @param name 音乐名称（可选，支持模糊查询）

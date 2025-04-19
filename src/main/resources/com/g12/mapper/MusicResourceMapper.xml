@@ -7,17 +7,22 @@
     <select id="pageQuery" resultType="com.g12.entity.MusicResource">
         select * from music_resources
         <where>
-            <if test="status != null">status = #{status} </if>
-            <if test="type!= null">and type = #{type}</if>
-            <if test="sortBy == 'upload_time'">
-                order by upload_time
-            </if>
-            <if test="sortBy == 'id'">
-                order by id
-            </if>
-            <if test="sortOrder == 'asc'"> ASC</if>
-            <if test="sortOrder == 'desc'"> DESC</if>
+            <if test="status != null">status = #{status}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="categoryId != null"> and category_id = #{categoryId}</if>
         </where>
+        <if test="sortBy != null">
+            order by
+            <choose>
+                <when test="sortBy == 'uploadTime'">uploadTime</when>
+                <when test="sortBy == 'id'">id</when>
+            </choose>
+            <choose>
+                <when test="sortOrder == 'asc'">ASC</when>
+                <when test="sortOrder == 'desc'">DESC</when>
+            </choose>
+        </if>
     </select>
 
     <!-- 批量删除音乐资源 -->
@@ -72,4 +77,30 @@
         SELECT * FROM music_resources
         WHERE id = #{id}
     </select>
+
+    <select id="userPageQuery" resultType="com.g12.entity.MusicResource">
+        select * from music_resources
+        <where>
+            <if test="status != null">status = #{status}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="categoryId != null"> and category_id = #{categoryId}</if>
+        </where>
+        order by
+            <choose>
+                <when test="sortBy == 'uploadTime'"> uploadTime</when>
+                <when test="sortBy == 'id'"> id</when>
+            </choose>
+            <choose>
+                <when test="sortOrder == 'ASC'"> ASC</when>
+                <when test="sortOrder == 'DESC'"> DESC</when>
+            </choose>
+    </select>
+
+    <!-- 更新音乐资源状态 -->
+    <update id="updateStatus">
+        UPDATE music_resources
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
 </mapper>

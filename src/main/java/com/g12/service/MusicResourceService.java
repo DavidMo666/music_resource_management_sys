@@ -15,7 +15,7 @@ public interface MusicResourceService {
      * @param musicResourcePageQueryDTO
      * @return
      */
-    PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+    PageResult adminPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
 
     /**
      * 批量删除音乐资源
@@ -60,5 +60,12 @@ public interface MusicResourceService {
      * @return 分页结果
      */
     Result<PageResult> listByCondition(Integer uploadUserId, String name);
+
+    /**
+     * 用户分页查询音乐资源
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    PageResult userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
 
 }

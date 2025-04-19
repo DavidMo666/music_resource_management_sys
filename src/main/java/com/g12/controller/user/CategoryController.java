@@ -54,4 +54,12 @@ public class CategoryController {
         return Result.success("分类添加成功");
     }
 
+    @PutMapping("/category")
+    public Result<String> updateCategory(@RequestBody MusicCategory category) {
+        if (category.getId() == null) {
+            return Result.error("分类ID不能为空");
+        }
+        categoryService.update(category);
+        return Result.success("更新成功");
+    }
 }

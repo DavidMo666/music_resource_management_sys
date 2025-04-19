@@ -1,16 +1,13 @@
 package com.g12.controller.user;
+import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
+import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
 import io.micrometer.common.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -19,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/user/resource")
+@RequestMapping("/user/music-resource")
 public class UserMusicResourceController {
 
     @Autowired
@@ -105,5 +102,14 @@ public class UserMusicResourceController {
             log.error("添加音乐资源失败", e);
             return Result.error("系统繁忙，请稍后重试");
         }
+    }
+
+
+    @GetMapping("/page")
+    public Result pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO){
+
+        PageResult pageResult = musicResourceService.userPageQuery(musicResourcePageQueryDTO);
+
+        return Result.success(pageResult);
     }
 }

@@ -67,4 +67,12 @@ public interface MusicResourceMapper {
      * @return 音乐资源列表
      */
     List<MusicResource> selectByCondition(@Param("uploadUserId") Integer uploadUserId, @Param("name") String name);
+
+    /**
+     * 用户端分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    Page<MusicResource> userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+
 }
