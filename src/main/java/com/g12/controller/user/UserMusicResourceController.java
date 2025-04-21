@@ -78,7 +78,7 @@ public class UserMusicResourceController {
         if (StringUtils.isEmpty(musicResource.getImage())) {
             return Result.error("音乐封面不能为空");
         }
-        if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
+        if (musicResource.getUserId() == null || musicResource.getUserId() <= 0) {
             return Result.error("上传用户ID无效");
         }
         if (StringUtils.isEmpty(musicResource.getUrl())) {
@@ -118,7 +118,7 @@ public class UserMusicResourceController {
     }
 
     @PutMapping()
-    public Result updateMusicResource(MusicResource musicResource){
+    public Result updateMusicResource(@RequestBody MusicResource musicResource){
 
         musicResourceService.updateMusicResource(musicResource);
         return Result.success();

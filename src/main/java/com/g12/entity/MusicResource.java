@@ -19,7 +19,7 @@ public class MusicResource {
     private String description;   // 音乐资源描述
     private Integer status;           // 音乐资源状态
     private LocalDateTime uploadTime;      // 更新时间
-    private Integer uploadUserId;     // 上传用户的用户名
+    private Integer userId;     // 上传用户的用户名
     private String singer;        // 歌手
     private Integer duration;         // 时长（秒数）
     private String url;

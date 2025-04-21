@@ -95,14 +95,16 @@ public class MusicResourceServiceImpl implements MusicResourceService {
             if (StringUtils.isEmpty(musicResource.getImage())) {
                 return Result.error("音乐封面不能为空");
             }
-            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
-                return Result.error("上传用户ID无效");
-            }
+//            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
+//                return Result.error("上传用户ID无效");
+//            }
 
             // 设置默认值
+            long userId = BaseContext.getCurrentId();
             if (musicResource.getStatus() == null) {
                 musicResource.setStatus(1); // 默认状态为正常
             }
+            musicResource.setUserId((int)userId);
             musicResource.setUploadTime(LocalDateTime.now());
 
             // 调用Mapper插入数据
@@ -202,7 +204,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 
         long userId = BaseContext.getCurrentId();
         musicResource.setUploadTime(LocalDateTime.now());
-        musicResource.setUploadUserId((int) userId);
+        musicResource.setUserId((int) userId);
         musicResourceMapper.updateMusicResource(musicResource);
     }
 }

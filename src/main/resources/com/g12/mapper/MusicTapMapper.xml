@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.g12.mapper.MusicTagMapper">
+
+    <insert id="addTag">
+        insert into music_tag(music_id, tag_id, create_time, user_id)
+        values (#{musicId}, #{tagId}, #{createTime}, #{userId})
+    </insert>
+
+    <select id="getMusicByTag" resultType="com.g12.entity.MusicResource">
+        select mr.* from music_tag mt left outer join music_resources mr on mr.id = mt.music_id
+        <where>
+            <if test="userId != null">mt.user_id = #{userId}</if>
+        </where>
+    </select>
+</mapper>
