@@ -68,4 +68,9 @@ public interface MusicResourceService {
      */
     PageResult userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
 
+    /**
+     * 更新音乐资源
+     * @param musicResource
+     */
+    void updateMusicResource(MusicResource musicResource);
 }

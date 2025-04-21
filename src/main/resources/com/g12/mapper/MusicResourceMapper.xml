@@ -103,4 +103,23 @@
         SET status = #{status}
         WHERE id = #{id}
     </update>
+
+    <update id="updateMusicResource">
+        update music_resources
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="album != null">album = #{album},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+            <if test="uploadUserId != null">upload_user_id = #{uploadUserId},</if>
+            <if test="singer != null">singer = #{singer},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

@@ -104,7 +104,11 @@ public class UserMusicResourceController {
         }
     }
 
-
+    /**
+     * 分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
     @GetMapping("/page")
     public Result pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO){
 
@@ -112,4 +116,12 @@ public class UserMusicResourceController {
 
         return Result.success(pageResult);
     }
+
+    @PutMapping()
+    public Result updateMusicResource(MusicResource musicResource){
+
+        musicResourceService.updateMusicResource(musicResource);
+        return Result.success();
+    }
+
 }

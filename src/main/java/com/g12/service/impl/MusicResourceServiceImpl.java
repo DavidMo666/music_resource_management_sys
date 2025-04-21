@@ -192,4 +192,17 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 
         return pageResult;
     }
+
+    /**
+     * 音乐资源更新
+     * @param musicResource
+     */
+    @Override
+    public void updateMusicResource(MusicResource musicResource) {
+
+        long userId = BaseContext.getCurrentId();
+        musicResource.setUploadTime(LocalDateTime.now());
+        musicResource.setUploadUserId((int) userId);
+        musicResourceMapper.updateMusicResource(musicResource);
+    }
 }
