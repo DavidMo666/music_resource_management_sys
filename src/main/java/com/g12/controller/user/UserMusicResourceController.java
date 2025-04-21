@@ -93,8 +93,7 @@ public class UserMusicResourceController {
 //            }
 
         musicResource.setUploadTime(LocalDateTime.now());
-        Long userId = BaseContext.getCurrentId();
-        musicResource.setUserId(userId);
+
 
         // 调用服务层
         Result<String> result = musicResourceService.addMusicResource(musicResource);

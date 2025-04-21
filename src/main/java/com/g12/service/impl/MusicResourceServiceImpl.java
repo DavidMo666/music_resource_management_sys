@@ -87,23 +87,23 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      */
     @Override
     public Result<String> addMusicResource(MusicResource musicResource) {
-        try {
-             //验证必要字段
-            if (StringUtils.isEmpty(musicResource.getName())) {
-                return Result.error("音乐名称不能为空");
-            }
-            if (StringUtils.isEmpty(musicResource.getImage())) {
-                return Result.error("音乐封面不能为空");
-            }
+//        try {
+//             //验证必要字段
+//            if (StringUtils.isEmpty(musicResource.getName())) {
+//                return Result.error("音乐名称不能为空");
+//            }
+//            if (StringUtils.isEmpty(musicResource.getImage())) {
+//                return Result.error("音乐封面不能为空");
+//            }
 //            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
 //                return Result.error("上传用户ID无效");
 //            }
 
             // 设置默认值
             Long userId = BaseContext.getCurrentId();
-            if (musicResource.getStatus() == null) {
-                musicResource.setStatus(1); // 默认状态为正常
-            }
+//            if (musicResource.getStatus() == null) {
+//                musicResource.setStatus(1); // 默认状态为正常
+//            }
             musicResource.setUserId(userId);
             musicResource.setUploadTime(LocalDateTime.now());
 
@@ -114,9 +114,9 @@ public class MusicResourceServiceImpl implements MusicResourceService {
             }
 
             return Result.success("音乐资源添加成功");
-        } catch (Exception e) {
-            return Result.error("系统繁忙，请稍后重试");
-        }
+//        } catch (Exception e) {
+//            return Result.error("系统繁忙，请稍后重试");
+//        }
     }
 
 
