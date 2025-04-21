@@ -17,6 +17,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.wf.captcha.SpecCaptcha;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     UserMapper userMapper;
 
@@ -129,10 +132,10 @@ public class UserServiceImpl implements UserService {
         //生成验证码
         String code = captcha.text().toLowerCase();
         //生成对应的key
-        String verKey = UUID.randomUUID().toString();
+        String verKey = SystemConstants.CAPTCHA_PREFIX + UUID.randomUUID().toString();
 
         //存redis
-        stringRedisTemplate.opsForValue().set(SystemConstants.CAPTCHA_PREFIX + verKey, code, 5L, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set( verKey, code, 5L, TimeUnit.MINUTES);
 
         CaptchaVO captchaVo = new CaptchaVO(verKey, captcha.toBase64());
 
@@ -148,10 +151,12 @@ public class UserServiceImpl implements UserService {
     public Result login(UserLoginDTO userLoginDTO) {
 
         //1.检查验证码是否正确
-        String inputCode = userLoginDTO.getCode();
+        String inputCode = userLoginDTO.getCode().toLowerCase();
         String verKey = userLoginDTO.getVerKey();
 
         String code = stringRedisTemplate.opsForValue().get(verKey);
+        log.info("真实验证码为" + code);
+        log.info("输入的为" + inputCode);
         if (code == null){
             return Result.error("验证码输入错误");
         }
@@ -190,7 +195,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(userRegisterDTO, user);
 
         //生成验证码
-        String code = RandomStringUtils.random(6);
+        String code = UUID.randomUUID().toString().substring(0,6);
         String content = "注册验证码为:" + code;
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
