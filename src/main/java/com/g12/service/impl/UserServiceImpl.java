@@ -1,6 +1,8 @@
 package com.g12.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.g12.context.BaseContext;
+import com.g12.dto.UserDTO;
 import com.g12.dto.UserLoginDTO;
 import com.g12.dto.UserPageQueryDTO;
 import com.g12.dto.UserRegisterDTO;
@@ -234,6 +236,32 @@ public class UserServiceImpl implements UserService {
         userMapper.register(user);
 
         return Result.success();
+    }
+
+    @Override
+    public User getUser() {
+
+        Long userId = BaseContext.getCurrentId();
+
+        User user = userMapper.getUserById(userId);
+
+        return user;
+    }
+
+    /**
+     * 更新用户信息
+     * @param userDTO
+     */
+    @Override
+    public void updateUser(UserDTO userDTO) {
+
+        User user = new User();
+        BeanUtils.copyProperties(userDTO, user);
+
+        Long userId = BaseContext.getCurrentId();
+        user.setId(userId);
+
+        userMapper.update(user);
     }
 
 

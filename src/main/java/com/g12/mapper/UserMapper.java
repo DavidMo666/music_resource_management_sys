@@ -61,4 +61,12 @@ public interface UserMapper {
     User login(UserLoginDTO userLoginDTO);
 
     void register(User user);
+
+    /**
+     * 根据id获取user信息
+     * @param userId
+     * @return
+     */
+    @Select("select * from user where id = #{userId}")
+    User getUserById(Long userId);
 }

@@ -100,11 +100,11 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 //            }
 
             // 设置默认值
-            long userId = BaseContext.getCurrentId();
+            Long userId = BaseContext.getCurrentId();
             if (musicResource.getStatus() == null) {
                 musicResource.setStatus(1); // 默认状态为正常
             }
-            musicResource.setUserId((int)userId);
+            musicResource.setUserId(userId);
             musicResource.setUploadTime(LocalDateTime.now());
 
             // 调用Mapper插入数据
@@ -202,9 +202,9 @@ public class MusicResourceServiceImpl implements MusicResourceService {
     @Override
     public void updateMusicResource(MusicResource musicResource) {
 
-        long userId = BaseContext.getCurrentId();
+        Long userId = BaseContext.getCurrentId();
         musicResource.setUploadTime(LocalDateTime.now());
-        musicResource.setUserId((int) userId);
+        musicResource.setUserId( userId);
         musicResourceMapper.updateMusicResource(musicResource);
     }
 }
