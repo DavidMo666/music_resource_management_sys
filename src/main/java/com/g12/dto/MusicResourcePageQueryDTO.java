@@ -21,4 +21,8 @@ public class MusicResourcePageQueryDTO {
 
     String sortBy;//根据什么来排序 升序/降序
 
+    String categoryId;//音乐资源分类
+
+    Long userId;
+
 }

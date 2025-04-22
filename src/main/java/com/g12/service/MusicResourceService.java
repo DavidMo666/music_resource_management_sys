@@ -15,7 +15,7 @@ public interface MusicResourceService {
      * @param musicResourcePageQueryDTO
      * @return
      */
-    PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+    PageResult adminPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
 
     /**
      * 批量删除音乐资源
@@ -41,24 +41,43 @@ public interface MusicResourceService {
 
     /**
      * 根据用户ID查询音乐资源
-     * @param userId 用户ID
+     * @param uploadUserId 用户ID
      * @return 音乐资源列表
      */
-    PageResult listByUserId(Integer userId);
+    Result<PageResult> listByUserId(Integer uploadUserId);
 
     /**
      * 根据音乐名称查询音乐资源
      * @param name 音乐名称
      * @return 分页结果
      */
-    PageResult listByName(String name);
+    Result<PageResult> listByName(String name);
 
     /**
      * 组合查询音乐资源
-     * @param userId 用户ID
+     * @param uploadUserId 用户ID
      * @param name 音乐名称
      * @return 分页结果
      */
-    PageResult listByCondition(Integer userId, String name);
+    Result<PageResult> listByCondition(Integer uploadUserId, String name);
 
+    /**
+     * 用户分页查询音乐资源
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    PageResult userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+
+    /**
+     * 更新音乐资源
+     * @param musicResource
+     */
+    void updateMusicResource(MusicResource musicResource);
+
+    /**
+     * 根据id获取音乐
+     * @param id
+     * @return
+     */
+    MusicResource getById(Long id);
 }

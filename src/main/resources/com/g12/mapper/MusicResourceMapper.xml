@@ -7,17 +7,22 @@
     <select id="pageQuery" resultType="com.g12.entity.MusicResource">
         select * from music_resources
         <where>
-            <if test="status != null">status = #{status} </if>
-            <if test="type!= null">and type = #{type}</if>
-            <if test="sortBy == 'upload_time'">
-                order by upload_time
-            </if>
-            <if test="sortBy == 'id'">
-                order by id
-            </if>
-            <if test="sortOrder == 'asc'"> ASC</if>
-            <if test="sortOrder == 'desc'"> DESC</if>
+            <if test="status != null">status = #{status}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="categoryId != null"> and category_id = #{categoryId}</if>
         </where>
+        <if test="sortBy != null">
+            order by
+            <choose>
+                <when test="sortBy == 'uploadTime'">uploadTime</when>
+                <when test="sortBy == 'id'">id</when>
+            </choose>
+            <choose>
+                <when test="sortOrder == 'asc'">ASC</when>
+                <when test="sortOrder == 'desc'">DESC</when>
+            </choose>
+        </if>
     </select>
 
     <!-- 批量删除音乐资源 -->
@@ -39,7 +44,7 @@
             description,
             status,
             upload_time,
-            upload_user_id,
+            user_Id,
             singer,
             duration,
             url
@@ -51,37 +56,70 @@
                      #{description},
                      #{status},
                      #{uploadTime},
-                     #{uploadUserId},
+                     #{userId},
                      #{singer},
                      #{duration},
                      #{url}
                  )
     </insert>
 
-    <!-- 用户名和ID查询音乐 -->
-    <select id="selectByUserId" resultType="com.g12.entity.MusicResource">
-        SELECT * FROM music_resources
-        WHERE upload_user_id = #{userId}
-        ORDER BY upload_time DESC
-    </select>
-
-    <select id="selectByName" resultType="com.g12.entity.MusicResource">
-        SELECT * FROM music_resources
-        WHERE name LIKE CONCAT('%', #{name}, '%')
-        ORDER BY upload_time DESC
-    </select>
-
+    <!-- 用户名和用户ID查询音乐 -->
     <select id="selectByCondition" resultType="com.g12.entity.MusicResource">
         SELECT * FROM music_resources
         <where>
-            <if test="userId != null">AND upload_user_id = #{userId}</if>
+            <if test="uploadUserId != null">AND uploadUserId = #{uploadUserId}</if>
             <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
         </where>
-        ORDER BY upload_time DESC
+        ORDER BY uploadTime DESC
     </select>
 
     <select id="selectById" resultType="com.g12.entity.MusicResource">
         SELECT * FROM music_resources
         WHERE id = #{id}
     </select>
+
+    <select id="userPageQuery" resultType="com.g12.entity.MusicResource">
+        select * from music_resources
+        <where>
+            <if test="status != null">status = #{status}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="categoryId != null"> and category_id = #{categoryId}</if>
+        </where>
+        order by
+            <choose>
+                <when test="sortBy == 'uploadTime'"> upload_time</when>
+                <when test="sortBy == 'id'"> id</when>
+            </choose>
+            <choose>
+                <when test="sortOrder == 'ASC'"> ASC</when>
+                <when test="sortOrder == 'DESC'"> DESC</when>
+            </choose>
+    </select>
+
+    <!-- 更新音乐资源状态 -->
+    <update id="updateStatus">
+        UPDATE music_resources
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateMusicResource">
+        update music_resources
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="album != null">album = #{album},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+            <if test="uploadUserId != null">upload_user_id = #{uploadUserId},</if>
+            <if test="singer != null">singer = #{singer},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

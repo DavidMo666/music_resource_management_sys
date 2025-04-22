@@ -7,7 +7,8 @@
     <select id="pageQuery" resultType="com.g12.entity.MusicCategory">
         select * from music_category
         <where>
-            <if test="name != null">name = #{name}</if>
+            <if test="userId !+ null">user_id = #{userId}</if>
+            <if test="name != null"> and name = #{name}</if>
         </where>
         <if test="sortBy != null">
             order by
@@ -20,17 +21,37 @@
                 <when test="sortOrder == 'desc'"> DESC</when>
             </choose>
         </if>
+        
     </select>
-    <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO music_category
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null and name != ''">name,</if>
-            <if test="description != null and description != ''">description,</if>
-        </trim>
-        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-            <if test="name != null and name != ''">#{name},</if>
-            <if test="description != null and description != ''">#{description},</if>
-        </trim>
-    </insert>
+
+<!--    <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">-->
+<!--        INSERT INTO music_category-->
+<!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--            <if test="name != null and name != ''">name,</if>-->
+<!--            <if test="description != null and description != ''">description,</if>-->
+<!--        </trim>-->
+<!--        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">-->
+<!--            <if test="name != null and name != ''">#{name},</if>-->
+<!--            <if test="description != null and description != ''">#{description},</if>-->
+<!--        </trim>-->
+<!--    </insert>-->
+
+    <update id="update" parameterType="com.g12.entity.MusicCategory">
+        UPDATE music_category
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            update_time = #{updateTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getMusicInCategory" resultType="com.g12.entity.MusicResource">
+        select mc.*
+        from music_resource_category mrc left outer join music_category mc on mrc.category_id = mc.id
+        where mrc.category_id = #{categoryId}
+    </select>
+
+
 
 </mapper>

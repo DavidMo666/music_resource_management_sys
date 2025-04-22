@@ -18,4 +18,6 @@ public class CategoryPageQueryDTO {
     private String sortBy;
 
     private String sortOrder;
+
+    private Long userId;//此歌单所属的用户id
 }

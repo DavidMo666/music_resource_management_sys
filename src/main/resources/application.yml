@@ -4,6 +4,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: dev
   main:
     allow-circular-references: true
   datasource:
@@ -13,10 +15,10 @@ spring:
       password: Mysql@2025
   data:
     redis:
-      host: localhost
+      host: 121.199.71.16
       port: 6379
-      password: 1234
-      database: 14
+      password: 123
+      database: 1
       lettuce:
         pool:
           max-active: 8
@@ -27,6 +29,10 @@ spring:
     username:
     password:
     host:
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
 
 
 
@@ -66,6 +72,28 @@ knife4j:
   setting:
     language: zh_cn
     swagger-model-name: 实体类
+
+#阿里
+alioss:
+  endpoint: ${alioss.endpoint}
+  access-key-id: ${alioss.access-key-id}
+  access-key-secret: ${alioss.access-key-secret}
+  bucket-name: ${alioss.bucket-name}
+
+
+jwt:
+  # 设置jwt签名加密时使用的秘钥
+  admin-secret-key: g12
+  # 设置jwt过期时间
+  admin-ttl: 7200000
+  # 设置前端传递过来的令牌名称
+  admin-token-name: token
+  # 设置jwt签名加密时使用的秘钥
+  user-secret-key: g12
+  # 设置jwt过期时间
+  user-ttl: 7200000
+  # 设置前端传递过来的令牌名称
+  user-token-name: authentication
 
 
 

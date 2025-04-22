@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("com.jwt")
+@ConfigurationProperties("jwt")
 @Data
 public class JwtProperty {
     private String userSecretKey;

@@ -1,9 +1,15 @@
 package com.g12.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.g12.context.BaseContext;
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
+import com.g12.entity.MusicResource;
 import com.g12.mapper.CategoryMapper;
 import com.g12.result.PageResult;
+import com.g12.result.Result;
 import com.g12.service.CategoryService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -22,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * 分页查询
+     * 分页查询 获取当前用户的歌单
      * @param categoryPageQueryDTO
      * @return
      */
@@ -35,6 +41,10 @@ public class CategoryServiceImpl implements CategoryService {
             categoryPageQueryDTO.setSortOrder("DESC");
         }
 
+        //获取用户id
+        Long userId = BaseContext.getCurrentId();
+        categoryPageQueryDTO.setUserId(userId);
+
         PageHelper.startPage(categoryPageQueryDTO.getPage(), categoryPageQueryDTO.getPageSize());
 
         Page<MusicCategory> pages = categoryMapper.pageQuery(categoryPageQueryDTO);
@@ -44,6 +54,41 @@ public class CategoryServiceImpl implements CategoryService {
         return pageResult;
     }
 
+    /**
+     * 新增分类
+     * @param category 分类信息
+     * @return 操作结果
+     */
+    @Override
+    public void save(MusicCategory category) {
 
+        Long userId = BaseContext.getCurrentId();
+        category.setUserId(userId);
+        category.setCreateTime(LocalDateTime.now());
+        category.setUpdateTime(LocalDateTime.now());
+
+        categoryMapper.insert(category);
+    }
+
+    @Override
+    public void update(MusicCategory category) {
+        // 设置更新时间
+        category.setUpdateTime(LocalDateTime.now());
+        categoryMapper.update(category);
+    }
+
+    /**
+     * 获取歌单里的音乐
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public Result<List<MusicResource>> getMusicInCategory(Long categoryId) {
+
+        //1.用catrgoryId 获取连表查询所有音乐资源
+        List<MusicResource> list = categoryMapper.getMusicInCategory(categoryId);
+
+        return Result.success(list);
+    }
 
 }

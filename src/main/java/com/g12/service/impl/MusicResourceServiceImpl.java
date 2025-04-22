@@ -1,5 +1,6 @@
 package com.g12.service.impl;
 
+import com.g12.context.BaseContext;
 import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.g12.mapper.MusicResourceMapper;
@@ -31,7 +32,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * @return
      */
     @Override
-    public PageResult pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
+    public PageResult adminPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
 
         //如果sortOrder 和sortBy为空 设置默认值
         if (musicResourcePageQueryDTO.getSortBy() == null || musicResourcePageQueryDTO.getSortOrder() == null){
@@ -86,22 +87,24 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      */
     @Override
     public Result<String> addMusicResource(MusicResource musicResource) {
-        try {
-            // 验证必要字段
-            if (StringUtils.isEmpty(musicResource.getName())) {
-                return Result.error("音乐名称不能为空");
-            }
-            if (StringUtils.isEmpty(musicResource.getImage())) {
-                return Result.error("音乐封面不能为空");
-            }
-            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
-                return Result.error("上传用户ID无效");
-            }
+//        try {
+//             //验证必要字段
+//            if (StringUtils.isEmpty(musicResource.getName())) {
+//                return Result.error("音乐名称不能为空");
+//            }
+//            if (StringUtils.isEmpty(musicResource.getImage())) {
+//                return Result.error("音乐封面不能为空");
+//            }
+//            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
+//                return Result.error("上传用户ID无效");
+//            }
 
             // 设置默认值
-            if (musicResource.getStatus() == null) {
-                musicResource.setStatus(1); // 默认状态为正常
-            }
+            Long userId = BaseContext.getCurrentId();
+//            if (musicResource.getStatus() == null) {
+//                musicResource.setStatus(1); // 默认状态为正常
+//            }
+            musicResource.setUserId(userId);
             musicResource.setUploadTime(LocalDateTime.now());
 
             // 调用Mapper插入数据
@@ -111,23 +114,25 @@ public class MusicResourceServiceImpl implements MusicResourceService {
             }
 
             return Result.success("音乐资源添加成功");
-        } catch (Exception e) {
-            return Result.error("系统繁忙，请稍后重试");
-        }
+//        } catch (Exception e) {
+//            return Result.error("系统繁忙，请稍后重试");
+//        }
     }
+
+
     /**
      * 根据用户ID查询音乐资源
      */
     @Override
-    public PageResult listByUserId(Integer userId) {
+    public Result<PageResult> listByUserId(Integer uploadUserId) {
         try {
-            List<MusicResource> records = musicResourceMapper.selectByUserId(userId);
+            List<MusicResource> records = musicResourceMapper.selectByUserId(uploadUserId);
             if (records == null || records.isEmpty()) {
-                return new PageResult(0L, Collections.emptyList());
+                return Result.success(new PageResult(0L, Collections.emptyList()));
             }
-            return new PageResult((long) records.size(), records);
+            return Result.success(new PageResult((long) records.size(), records));
         } catch (Exception e) {
-            return new PageResult(0L, Collections.emptyList());
+            return Result.error("查询失败");
         }
     }
 
@@ -135,15 +140,15 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * 根据音乐名称查询音乐资源
      */
     @Override
-    public PageResult listByName(String name) {
+    public Result<PageResult> listByName(String name) {
         try {
             List<MusicResource> records = musicResourceMapper.selectByName(name);
             if (records == null || records.isEmpty()) {
-                return new PageResult(0L, Collections.emptyList());
+                return Result.success(new PageResult(0L, Collections.emptyList()));
             }
-            return new PageResult((long) records.size(), records);
+            return Result.success(new PageResult((long) records.size(), records));
         } catch (Exception e) {
-            return new PageResult(0L, Collections.emptyList());
+            return Result.error("查询失败");
         }
     }
 
@@ -151,16 +156,68 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * 组合查询音乐资源
      */
     @Override
-    public PageResult listByCondition(Integer userId, String name) {
+    public Result<PageResult> listByCondition(Integer uploadUserId, String name) {
         try {
-            List<MusicResource> records = musicResourceMapper.selectByCondition(userId, name);
+            List<MusicResource> records = musicResourceMapper.selectByCondition(uploadUserId, name);
             if (records == null || records.isEmpty()) {
-                return new PageResult(0L, Collections.emptyList());
+                return Result.success(new PageResult(0L, Collections.emptyList()));
             }
-            return new PageResult((long) records.size(), records);
+            return Result.success(new PageResult((long) records.size(), records));
         } catch (Exception e) {
-            return new PageResult(0L, Collections.emptyList());
+            return Result.error("查询失败");
         }
     }
 
+    /**
+     * 用户端分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
+
+        Long userId = BaseContext.getCurrentId();
+        musicResourcePageQueryDTO.setUserId(userId);
+
+        if (musicResourcePageQueryDTO.getSortBy() == null){
+            musicResourcePageQueryDTO.setSortBy("uploadTime");
+            musicResourcePageQueryDTO.setSortOrder("DESC");
+        }
+
+        PageHelper.startPage(musicResourcePageQueryDTO.getPage(), musicResourcePageQueryDTO.getPageSize());
+
+        Page<MusicResource> pages = musicResourceMapper.userPageQuery(musicResourcePageQueryDTO);
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(pages.getTotal());
+        pageResult.setRecords(pages.getResult());
+
+        return pageResult;
+    }
+
+    /**
+     * 音乐资源更新
+     * @param musicResource
+     */
+    @Override
+    public void updateMusicResource(MusicResource musicResource) {
+
+        Long userId = BaseContext.getCurrentId();
+        musicResource.setUploadTime(LocalDateTime.now());
+        musicResource.setUserId( userId);
+        musicResourceMapper.updateMusicResource(musicResource);
+    }
+
+    /**
+     * 根据id获取音乐
+     * @param id
+     * @return
+     */
+    @Override
+    public MusicResource getById(Long id) {
+
+        MusicResource mr = musicResourceMapper.getById(id);
+
+        return mr;
+    }
 }

@@ -1,16 +1,14 @@
 package com.g12.controller.user;
+import com.g12.context.BaseContext;
+import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
+import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
 import io.micrometer.common.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -19,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/user/resource")
+@RequestMapping("/api/music-resource")
 public class UserMusicResourceController {
 
     @Autowired
@@ -75,35 +73,71 @@ public class UserMusicResourceController {
     @PostMapping
     public Result<String> addMusicResource(@RequestBody MusicResource musicResource) {
         // 参数校验
-        if (StringUtils.isEmpty(musicResource.getName())) {
-            return Result.error("音乐名称不能为空");
-        }
-        if (StringUtils.isEmpty(musicResource.getImage())) {
-            return Result.error("音乐封面不能为空");
-        }
-        if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
-            return Result.error("上传用户ID无效");
-        }
-        if (StringUtils.isEmpty(musicResource.getUrl())) {
-            return Result.error("音乐文件路径不能为空");
-        }
+//        if (StringUtils.isEmpty(musicResource.getName())) {
+//            return Result.error("音乐名称不能为空");
+//        }
+//        if (StringUtils.isEmpty(musicResource.getImage())) {
+//            return Result.error("音乐封面不能为空");
+//        }
+//        if (musicResource.getUserId() == null || musicResource.getUserId() <= 0) {
+//            return Result.error("上传用户ID无效");
+//        }
+//        if (StringUtils.isEmpty(musicResource.getUrl())) {
+//            return Result.error("音乐文件路径不能为空");
+//        }
 
-        try {
+//        try {
             // 设置默认值和必要字段
-            if (musicResource.getStatus() == null) {
-                musicResource.setStatus(1); // 默认状态为正常
-            }
-            musicResource.setUploadTime(LocalDateTime.now());
+//            if (musicResource.getStatus() == null) {
+//                musicResource.setStatus(1); // 默认状态为正常
+//            }
 
-            // 调用服务层
-            Result<String> result = musicResourceService.addMusicResource(musicResource);
-            if (result.getCode() == 1) {
-                log.info("音乐资源添加成功: {}", musicResource.getName());
-            }
-            return result;
-        } catch (Exception e) {
-            log.error("添加音乐资源失败", e);
-            return Result.error("系统繁忙，请稍后重试");
+        musicResource.setUploadTime(LocalDateTime.now());
+
+
+        // 调用服务层
+        Result<String> result = musicResourceService.addMusicResource(musicResource);
+        if (result.getCode() == 1) {
+            log.info("音乐资源添加成功: {}", musicResource.getName());
         }
+        return result;
+//        } catch (Exception e) {
+//            log.error("添加音乐资源失败", e);
+//            return Result.error("系统繁忙，请稍后重试");
+//        }
     }
+
+    /**
+     * 分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    public Result pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO){
+
+        PageResult pageResult = musicResourceService.userPageQuery(musicResourcePageQueryDTO);
+
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 编辑歌曲
+     * @param musicResource
+     * @return
+     */
+    @PutMapping
+    public Result updateMusicResource(@RequestBody MusicResource musicResource){
+
+        musicResourceService.updateMusicResource(musicResource);
+        return Result.success();
+    }
+
+
+    @GetMapping("/{id}")
+    public Result getMusicById(@PathVariable Long id){
+        MusicResource mr = musicResourceService.getById(id);
+
+        return Result.success(mr);
+    }
+
 }

@@ -7,22 +7,39 @@
         DELETE FROM music_category WHERE id = #{id}
     </delete>
 
-    <select id="pageQuery" resultType="com.g12.entity.MusicCategory">
-        select * from music_category
-        <where>
-            <if test="name != null">name = #{name}</if>
-        </where>
-        <if test="sortBy != null">
-            order by
-            <choose>
-                <when test="sortBy == 'createTime'"> create_time</when>
-                <when test="sortBy == 'uploadTime'"> upload_time</when>
-            </choose>
-            <choose>
-                <when test="sortOrder == 'asc'"> ASC</when>
-                <when test="sortOrder == 'desc'"> DESC</when>
-            </choose>
-        </if>
-    </select>
-
+<!--    <select id="pageQuery" resultType="com.g12.entity.MusicCategory">-->
+<!--        select * from music_category-->
+<!--        <where>-->
+<!--            <if test="name != null">name = #{name}</if>-->
+<!--        </where>-->
+<!--        <if test="sortBy != null">-->
+<!--            order by-->
+<!--            <choose>-->
+<!--                <when test="sortBy == 'createTime'"> create_time</when>-->
+<!--                <when test="sortBy == 'uploadTime'"> upload_time</when>-->
+<!--            </choose>-->
+<!--            <choose>-->
+<!--                <when test="sortOrder == 'asc'"> ASC</when>-->
+<!--                <when test="sortOrder == 'desc'"> DESC</when>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--    </select>-->
+    
+    <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO music_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
 </mapper>

@@ -1,5 +1,6 @@
 package com.g12.service;
 
+import com.g12.dto.UserDTO;
 import com.g12.dto.UserLoginDTO;
 
 import com.g12.dto.UserPageQueryDTO;
@@ -74,4 +75,16 @@ public interface UserService {
      * @return
      */
     Result registerVerify(String activeCode);
+
+    /**
+     * 获取用户
+     * @return
+     */
+    User getUser();
+
+    /**
+     * 更新用户信息
+     * @param userDTO
+     */
+    void updateUser(UserDTO userDTO);
 }

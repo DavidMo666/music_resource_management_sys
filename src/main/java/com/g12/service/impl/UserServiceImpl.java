@@ -1,6 +1,8 @@
 package com.g12.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.g12.context.BaseContext;
+import com.g12.dto.UserDTO;
 import com.g12.dto.UserLoginDTO;
 import com.g12.dto.UserPageQueryDTO;
 import com.g12.dto.UserRegisterDTO;
@@ -17,6 +19,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.wf.captcha.SpecCaptcha;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     UserMapper userMapper;
 
@@ -129,10 +134,10 @@ public class UserServiceImpl implements UserService {
         //生成验证码
         String code = captcha.text().toLowerCase();
         //生成对应的key
-        String verKey = UUID.randomUUID().toString();
+        String verKey = SystemConstants.CAPTCHA_PREFIX + UUID.randomUUID().toString();
 
         //存redis
-        stringRedisTemplate.opsForValue().set(SystemConstants.CAPTCHA_PREFIX + verKey, code, 5L, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set( verKey, code, 5L, TimeUnit.MINUTES);
 
         CaptchaVO captchaVo = new CaptchaVO(verKey, captcha.toBase64());
 
@@ -148,10 +153,12 @@ public class UserServiceImpl implements UserService {
     public Result login(UserLoginDTO userLoginDTO) {
 
         //1.检查验证码是否正确
-        String inputCode = userLoginDTO.getCode();
+        String inputCode = userLoginDTO.getCode().toLowerCase();
         String verKey = userLoginDTO.getVerKey();
 
         String code = stringRedisTemplate.opsForValue().get(verKey);
+        log.info("真实验证码为" + code);
+        log.info("输入的为" + inputCode);
         if (code == null){
             return Result.error("验证码输入错误");
         }
@@ -172,6 +179,7 @@ public class UserServiceImpl implements UserService {
 
         //3.生成Jwt
         Map claims = new HashMap<>();
+        claims.put("userId", user.getId());
         claims.put("email", user.getEmail());
         claims.put("password", user.getPassword());
         String token = JwtUtil.createJWT(jwtProperty.getUserSecretKey(), jwtProperty.getUserTtl(), claims);
@@ -190,7 +198,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(userRegisterDTO, user);
 
         //生成验证码
-        String code = RandomStringUtils.random(6);
+        String code = UUID.randomUUID().toString().substring(0,6);
         String content = "注册验证码为:" + code;
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -229,6 +237,32 @@ public class UserServiceImpl implements UserService {
         userMapper.register(user);
 
         return Result.success();
+    }
+
+    @Override
+    public User getUser() {
+
+        Long userId = BaseContext.getCurrentId();
+
+        User user = userMapper.getUserById(userId);
+
+        return user;
+    }
+
+    /**
+     * 更新用户信息
+     * @param userDTO
+     */
+    @Override
+    public void updateUser(UserDTO userDTO) {
+
+        User user = new User();
+        BeanUtils.copyProperties(userDTO, user);
+
+        Long userId = BaseContext.getCurrentId();
+        user.setId(userId);
+
+        userMapper.update(user);
     }
 
 

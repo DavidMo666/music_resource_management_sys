@@ -4,6 +4,7 @@ import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -61,11 +62,31 @@ public interface MusicResourceMapper {
     List<MusicResource> selectByName(String name);
 
     /**
-     * 根据用户ID和音乐名称组合查询
-     * @param userId 用户ID
-     * @param name 音乐名称
+     * 根据条件查询音乐资源（支持按用户ID、名称或组合查询）
+     * @param uploadUserId 上传用户ID（可选）
+     * @param name 音乐名称（可选，支持模糊查询）
      * @return 音乐资源列表
      */
-    List<MusicResource> selectByCondition(@Param("userId") Integer userId, @Param("name") String name);
+    List<MusicResource> selectByCondition(@Param("uploadUserId") Integer uploadUserId, @Param("name") String name);
+
+    /**
+     * 用户端分页查询
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    Page<MusicResource> userPageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+
+    /**
+     * 更新音乐资源
+     * @param musicResource
+     */
+    void updateMusicResource(MusicResource musicResource);
+
+    /**
+     * 根据id获取音乐
+     * @return
+     */
+    @Select("select * from music_resources where id = #{id}")
+    MusicResource getById(Long id);
 
 }

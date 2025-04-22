@@ -1,14 +1,18 @@
 package com.g12.controller.user;
 
 import com.g12.dto.CategoryPageQueryDTO;
+import com.g12.entity.MusicCategory;
+import com.g12.entity.MusicResource;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/user/category")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     @Autowired
@@ -36,5 +40,41 @@ public class CategoryController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 新增分类
+     * @param category 分类信息
+     * @return 操作结果
+     */
+    @PostMapping
+    public Result<String> add(@RequestBody MusicCategory category) {
+        // 验证分类名称不能为空
+        if (category.getName() == null || category.getName().trim().isEmpty()) {
+            return Result.error("分类名称不能为空");
+        }
 
+        // 调用服务层保存分类
+        categoryService.save(category);
+        return Result.success("分类添加成功");
+    }
+
+    @PutMapping
+    public Result<String> updateCategory(@RequestBody MusicCategory category) {
+        if (category.getId() == null) {
+            return Result.error("分类ID不能为空");
+        }
+        categoryService.update(category);
+        return Result.success("更新成功");
+    }
+
+
+    /**
+     * 获取歌单里的音乐
+     * @param category_id
+     * @return
+     */
+    @GetMapping("/music")
+    public Result<List<MusicResource>> getMusicInCategory(Long category_id){
+
+        return categoryService.getMusicInCategory(category_id);
+    }
 }
