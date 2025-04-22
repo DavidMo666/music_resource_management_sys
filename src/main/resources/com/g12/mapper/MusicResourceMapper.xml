@@ -56,7 +56,7 @@
                      #{description},
                      #{status},
                      #{uploadTime},
-                     #{uploadUserId},
+                     #{userId},
                      #{singer},
                      #{duration},
                      #{url}

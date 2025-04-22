@@ -2,11 +2,15 @@ package com.g12.service;
 
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
+import com.g12.entity.MusicResource;
 import com.g12.mapper.CategoryMapper;
 import com.g12.result.PageResult;
+import com.g12.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface CategoryService {
 
@@ -31,4 +35,11 @@ public interface CategoryService {
      * @param category 分类信息
      */
     void update(MusicCategory category);
+
+    /**
+     * 获取歌单里的音乐
+     * @param categoryId
+     * @return
+     */
+    Result<List<MusicResource>> getMusicInCategory(Long categoryId);
 }

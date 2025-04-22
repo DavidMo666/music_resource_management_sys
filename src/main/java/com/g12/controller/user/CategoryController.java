@@ -2,11 +2,14 @@ package com.g12.controller.user;
 
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
+import com.g12.entity.MusicResource;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
@@ -61,5 +64,17 @@ public class CategoryController {
         }
         categoryService.update(category);
         return Result.success("更新成功");
+    }
+
+
+    /**
+     * 获取歌单里的音乐
+     * @param category_id
+     * @return
+     */
+    @GetMapping
+    public Result<List<MusicResource>> getMusicInCategory(Long category_id){
+
+        return categoryService.getMusicInCategory(category_id);
     }
 }

@@ -82,7 +82,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @PutMapping("/user")
+    @PutMapping("/user/update")
     public Result updateUser(UserDTO userDTO){
 
         userService.updateUser(userDTO);

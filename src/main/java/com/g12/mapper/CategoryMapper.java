@@ -2,10 +2,13 @@ package com.g12.mapper;
 
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
+import com.g12.entity.MusicResource;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 @Mapper
 public interface CategoryMapper {
@@ -32,4 +35,10 @@ public interface CategoryMapper {
      */
     void update(MusicCategory category);
 
+    /**
+     * 获取歌单里的音乐
+     * @param categoryId
+     * @return
+     */
+    List<MusicResource> getMusicInCategory(Long categoryId);
 }
