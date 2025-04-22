@@ -1,0 +1,39 @@
+package com.g12.service.impl;
+
+
+import com.g12.dto.AdminLoginDTO;
+import com.g12.entity.Admin;
+import com.g12.mapper.AdminMapper;
+import com.g12.result.Result;
+import com.g12.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+@Service
+public class AdminServiceImpl implements AdminService {
+
+    @Autowired
+    private AdminMapper adminMapper;
+
+    @Override
+    public Result login(AdminLoginDTO adminLoginDTO) {
+        // 查询管理员账号
+        Admin admin = adminMapper.login(adminLoginDTO);
+
+        if (admin == null) {
+            return Result.error("账号错误");
+        }
+
+        // 密码校验
+        String inputPassword = adminLoginDTO.getPassword();
+        System.out.println(inputPassword);
+        System.out.println(admin.getPassword());
+        if (!inputPassword.equals(admin.getPassword())) {
+            return Result.error("密码错误");
+        }else {
+            return Result.success("登录成功: " + admin);
+        }
+    }
+
+}
