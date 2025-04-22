@@ -179,6 +179,7 @@ public class UserServiceImpl implements UserService {
 
         //3.生成Jwt
         Map claims = new HashMap<>();
+        claims.put("userId", user.getId());
         claims.put("email", user.getEmail());
         claims.put("password", user.getPassword());
         String token = JwtUtil.createJWT(jwtProperty.getUserSecretKey(), jwtProperty.getUserTtl(), claims);
