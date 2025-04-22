@@ -73,4 +73,11 @@ public interface MusicResourceService {
      * @param musicResource
      */
     void updateMusicResource(MusicResource musicResource);
+
+    /**
+     * 根据id获取音乐
+     * @param id
+     * @return
+     */
+    MusicResource getById(Long id);
 }

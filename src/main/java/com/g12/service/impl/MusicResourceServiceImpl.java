@@ -207,4 +207,17 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         musicResource.setUserId( userId);
         musicResourceMapper.updateMusicResource(musicResource);
     }
+
+    /**
+     * 根据id获取音乐
+     * @param id
+     * @return
+     */
+    @Override
+    public MusicResource getById(Long id) {
+
+        MusicResource mr = musicResourceMapper.getById(id);
+
+        return mr;
+    }
 }

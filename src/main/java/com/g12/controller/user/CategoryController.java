@@ -57,7 +57,7 @@ public class CategoryController {
         return Result.success("分类添加成功");
     }
 
-    @PutMapping("/category")
+    @PutMapping
     public Result<String> updateCategory(@RequestBody MusicCategory category) {
         if (category.getId() == null) {
             return Result.error("分类ID不能为空");
@@ -72,7 +72,7 @@ public class CategoryController {
      * @param category_id
      * @return
      */
-    @GetMapping
+    @GetMapping("/music")
     public Result<List<MusicResource>> getMusicInCategory(Long category_id){
 
         return categoryService.getMusicInCategory(category_id);

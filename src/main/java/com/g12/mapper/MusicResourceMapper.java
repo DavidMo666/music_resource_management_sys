@@ -4,6 +4,7 @@ import com.g12.dto.MusicResourcePageQueryDTO;
 import com.g12.entity.MusicResource;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -80,4 +81,12 @@ public interface MusicResourceMapper {
      * @param musicResource
      */
     void updateMusicResource(MusicResource musicResource);
+
+    /**
+     * 根据id获取音乐
+     * @return
+     */
+    @Select("select * from music_resources where id = #{id}")
+    MusicResource getById(Long id);
+
 }

@@ -120,11 +120,24 @@ public class UserMusicResourceController {
         return Result.success(pageResult);
     }
 
-    @PutMapping("/user/music-resource")
+    /**
+     * 编辑歌曲
+     * @param musicResource
+     * @return
+     */
+    @PutMapping
     public Result updateMusicResource(@RequestBody MusicResource musicResource){
 
         musicResourceService.updateMusicResource(musicResource);
         return Result.success();
+    }
+
+
+    @GetMapping("/{id}")
+    public Result getMusicById(@PathVariable Long id){
+        MusicResource mr = musicResourceService.getById(id);
+
+        return Result.success(mr);
     }
 
 }
