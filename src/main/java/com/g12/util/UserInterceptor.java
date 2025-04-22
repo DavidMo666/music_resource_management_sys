@@ -5,10 +5,12 @@ import com.g12.properties.JwtProperty;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+@Slf4j
 @Component
 public class UserInterceptor implements HandlerInterceptor {
 
@@ -20,6 +22,7 @@ public class UserInterceptor implements HandlerInterceptor {
 
         //1.获取token
         String token = request.getHeader(jwtProperties.getUserTokenName());
+        log.info("jwt校验:{}", token);
 
         //2.token为空
         if (token == null){
