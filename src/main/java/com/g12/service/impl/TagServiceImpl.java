@@ -26,10 +26,10 @@ public class TagServiceImpl implements TagService {
     MusicTagMapper musicTagMapper;
 
     @Override
-    public Result addTag(MusicTagDTO musicTagDTO) {
+    public Result addTag(MusicTagDTO[] musicTagDTOs) {
 
         //1.查询tag 在tag表中是否存在
-        String tagName = musicTagDTO.getName();
+        String tagName = null;
 
         Long tagId = tagMapper.get(tagName);
 
@@ -46,7 +46,7 @@ public class TagServiceImpl implements TagService {
         Long userId = BaseContext.getCurrentId();
         MusicTag musicTag = new MusicTag();
         musicTag.setCreateTime(LocalDateTime.now());
-        musicTag.setMusicId(musicTagDTO.getMusicId());
+        musicTag.setMusicId(null);
         musicTag.setTagId(tagId);
         musicTag.setUserId(userId);
 
