@@ -13,7 +13,7 @@ public interface TagService {
      * 新增tag
      * @param musicTagDTO
      */
-    Result addTag(MusicTagDTO musicTagDTO);
+    Result addTag(MusicTagDTO[] musicTagDTO);
 
     /**
      * 用tag筛选获取歌曲

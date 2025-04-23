@@ -21,12 +21,12 @@ public class TagController {
 
     /**
      * 创建tag
-     * @param musicTagDTO
+     * @param
      * @return
      */
     @PostMapping
-    public Result addTag(MusicTagDTO musicTagDTO){
-        return tagService.addTag(musicTagDTO);
+    public Result addTag(MusicTagDTO[] musicTagDTOs){
+        return tagService.addTag(musicTagDTOs);
     }
 
 

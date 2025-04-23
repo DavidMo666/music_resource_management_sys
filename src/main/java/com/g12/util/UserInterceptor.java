@@ -31,7 +31,7 @@ public class UserInterceptor implements HandlerInterceptor {
         try {
             //3.获取user_id
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
-            Long userId = claims.get("UserId", Long.class);
+            Long userId = claims.get("userId", Long.class);
             BaseContext.setCurrentId(userId);
             return true;
 
