@@ -85,6 +85,7 @@
             <if test="type != null"> and type = #{type}</if>
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="categoryId != null"> and category_id = #{categoryId}</if>
+            <if test="name != null"> and name like concat('%', #{name}, '%')</if>
         </where>
         order by
             <choose>
@@ -113,8 +114,6 @@
             <if test="image != null">image = #{image},</if>
             <if test="description != null">description = #{description},</if>
             <if test="status != null">status = #{status},</if>
-            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
-            <if test="uploadUserId != null">upload_user_id = #{uploadUserId},</if>
             <if test="singer != null">singer = #{singer},</if>
             <if test="duration != null">duration = #{duration},</if>
             <if test="url != null">url = #{url},</if>

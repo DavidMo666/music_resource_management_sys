@@ -25,4 +25,6 @@ public class MusicResourcePageQueryDTO {
 
     Long userId;
 
+    String name;
+
 }

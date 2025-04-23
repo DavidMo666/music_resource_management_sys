@@ -1,6 +1,7 @@
 package com.g12.controller.user;
 import com.g12.context.BaseContext;
 import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.dto.UpdateMusicResourceDTO;
 import com.g12.entity.MusicResource;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
@@ -122,13 +123,13 @@ public class UserMusicResourceController {
 
     /**
      * 编辑歌曲
-     * @param musicResource
+     * @param
      * @return
      */
     @PutMapping
-    public Result updateMusicResource(@RequestBody MusicResource musicResource){
+    public Result updateMusicResource(@RequestBody UpdateMusicResourceDTO updateMusicResourceDTO){
 
-        musicResourceService.updateMusicResource(musicResource);
+        musicResourceService.updateMusicResource(updateMusicResourceDTO);
         return Result.success();
     }
 

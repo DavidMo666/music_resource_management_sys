@@ -1,4 +1,4 @@
-package com.g12.entity;
+package com.g12.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MusicResource {
+@NoArgsConstructor
+public class UpdateMusicResourceDTO {
 
-    private Long id;               // 音乐资源id
+    private Integer id;               // 音乐资源id
     private String name;          // 音乐资源名称
     private Integer type;             // 音乐资源的类型 (1:mp3, 2:...)
     private String album;         // 专辑
@@ -23,5 +23,5 @@ public class MusicResource {
     private String singer;        // 歌手
     private Integer duration;         // 时长（秒数）
     private String url;
-    private Long categoryId;  //所属歌单
+    private Long[] tagIds;
 }

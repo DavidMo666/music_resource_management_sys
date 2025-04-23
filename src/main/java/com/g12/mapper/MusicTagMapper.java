@@ -22,4 +22,16 @@ public interface MusicTagMapper {
      * @return
      */
     List<MusicResource> getMusicByTag(String tagName, Long userId);
+
+    /**
+     * 删除
+     * @param musicTag
+     */
+    void delete(MusicTag musicTag);
+
+    /**
+     * 新增多条tag
+     * @param tagList
+     */
+    void insertBatch(List<MusicTag> tagList);
 }

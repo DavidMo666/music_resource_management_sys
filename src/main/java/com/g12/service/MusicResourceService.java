@@ -2,6 +2,7 @@ package com.g12.service;
 
 
 import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.dto.UpdateMusicResourceDTO;
 import com.g12.entity.MusicResource;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
@@ -72,7 +73,7 @@ public interface MusicResourceService {
      * 更新音乐资源
      * @param musicResource
      */
-    void updateMusicResource(MusicResource musicResource);
+    void updateMusicResource(UpdateMusicResourceDTO musicResource);
 
     /**
      * 根据id获取音乐

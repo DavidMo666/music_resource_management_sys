@@ -8,7 +8,10 @@
     <update id="update">
         update user
         <set>
-            <if test="status != null">status = #{status}</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="status != null"> status = #{status},</if>
+            <if test="avatar != null"> avatar = #{avatar},</if>
+            <if test="sex != null"> sex = #{sex},</if>
         </set>
         where id = #{id}
     </update>

@@ -2,21 +2,23 @@ package com.g12.service.impl;
 
 import com.g12.context.BaseContext;
 import com.g12.dto.MusicResourcePageQueryDTO;
+import com.g12.dto.UpdateMusicResourceDTO;
 import com.g12.entity.MusicResource;
+import com.g12.entity.MusicTag;
 import com.g12.mapper.MusicResourceMapper;
+import com.g12.mapper.MusicTagMapper;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.MusicResourceService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import io.micrometer.common.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 
     @Autowired
     MusicResourceMapper musicResourceMapper;
+
+    @Autowired
+    MusicTagMapper musicTagMapper;
 
     /**
      * 音乐资源分页查询
@@ -197,15 +202,42 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 
     /**
      * 音乐资源更新
-     * @param musicResource
+     * @param
      */
     @Override
-    public void updateMusicResource(MusicResource musicResource) {
+    public void updateMusicResource(UpdateMusicResourceDTO updateMusicResourceDTO) {
+
+        MusicResource musicResource = new MusicResource();
+        BeanUtils.copyProperties(updateMusicResourceDTO,musicResource);
 
         Long userId = BaseContext.getCurrentId();
         musicResource.setUploadTime(LocalDateTime.now());
-        musicResource.setUserId( userId);
+        musicResource.setUserId(userId);
         musicResourceMapper.updateMusicResource(musicResource);
+
+        //tag
+        //1.删除此用户此音乐的所有tag
+        MusicTag musicTag = new MusicTag();
+        musicTag.setUserId(userId);
+        musicTag.setMusicId(musicResource.getId());
+        musicTagMapper.delete(musicTag);
+
+        //2.新增tag
+        List<MusicTag> tagList = new ArrayList<>();
+        Long[] tagIds = updateMusicResourceDTO.getTagIds();
+        for (Long tagId : tagIds) {
+            MusicTag tag = new MusicTag();
+            tag.setMusicId(musicResource.getId());
+            tag.setUserId(userId);
+            tag.setTagId(tagId);
+            tag.setCreateTime(LocalDateTime.now());
+
+            tagList.add(tag);
+        }
+
+        musicTagMapper.insertBatch(tagList);
+
+
     }
 
     /**

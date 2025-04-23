@@ -16,4 +16,16 @@
         </where>
     </select>
 
+    <delete id="delete">
+        delete from music_tag where music_id = #{musicId} and user_id = #{userId}
+    </delete>
+
+    <insert id="insertBatch">
+        insert into music_tag(music_id, tag_id, user_id, create_time)
+        values
+        <foreach collection="tagList" item="tag" separator=",">
+            (#{tag.musicId},#{tag.tagId},#{tag.userId},#{tag.createTime})
+        </foreach>
+    </insert>
+
 </mapper>
