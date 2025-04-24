@@ -12,8 +12,14 @@
             <if test="status != null"> status = #{status},</if>
             <if test="avatar != null"> avatar = #{avatar},</if>
             <if test="sex != null"> sex = #{sex},</if>
+            <if test="password != null"> password = #{password}</if>
         </set>
-        where id = #{id}
+        <where>
+            <choose>
+                <when test="id != null">id = #{id}</when>
+                <when test="email != null">email = #{email}</when>
+            </choose>
+        </where>
     </update>
 
     <select id="pageQuery" resultType="com.g12.entity.User">

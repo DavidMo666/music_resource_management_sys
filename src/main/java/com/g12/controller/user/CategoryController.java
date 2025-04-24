@@ -76,13 +76,13 @@ public class CategoryController {
 
     /**
      * 获取歌单里的音乐
-     * @param category_id
+     * @param categoryId
      * @return
      */
     @GetMapping("/music")
-    public Result<List<MusicResource>> getMusicInCategory(Long category_id){
+    public Result<List<MusicResource>> getMusicInCategory(Long categoryId){
 
-        return categoryService.getMusicInCategory(category_id);
+        return categoryService.getMusicInCategory(categoryId);
     }
 
     @PostMapping("addMusic")

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdateMusicResourceDTO {
 
-    private Integer id;               // 音乐资源id
+    private Long id;               // 音乐资源id
     private String name;          // 音乐资源名称
     private Integer type;             // 音乐资源的类型 (1:mp3, 2:...)
     private String album;         // 专辑

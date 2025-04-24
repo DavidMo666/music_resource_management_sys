@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -204,6 +205,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * 音乐资源更新
      * @param
      */
+    @Transactional
     @Override
     public void updateMusicResource(UpdateMusicResourceDTO updateMusicResourceDTO) {
 

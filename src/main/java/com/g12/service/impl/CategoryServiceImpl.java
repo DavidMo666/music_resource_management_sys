@@ -114,6 +114,11 @@ public class CategoryServiceImpl implements CategoryService {
         mrc.setMusicId(musicId);
         mrc.setCreateTime(LocalDateTime.now());
 
+        int count = musicResourceCategoryMapper.count(mrc);
+        if (count > 0){
+            return Result.error("歌单已有此歌曲");
+        }
+
         musicResourceCategoryMapper.addMusicToCategory(mrc);
 
         return Result.success();

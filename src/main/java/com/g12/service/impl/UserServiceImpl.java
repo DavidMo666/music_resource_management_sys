@@ -239,6 +239,10 @@ public class UserServiceImpl implements UserService {
         return Result.success();
     }
 
+    /**
+     * 获取用户
+     * @return
+     */
     @Override
     public User getUser() {
 

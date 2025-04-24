@@ -48,8 +48,8 @@
     </update>
 
     <select id="getMusicInCategory" resultType="com.g12.entity.MusicResource">
-        select mc.*
-        from music_resource_category mrc left outer join music_category mc on mrc.category_id = mc.id
+        select mr.*
+        from music_resource_category mrc left outer join music_resources mr on mrc.music_id = mr.id
         where mrc.category_id = #{categoryId}
     </select>
 
