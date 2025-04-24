@@ -2,6 +2,7 @@ package com.g12.controller.user;
 
 import com.g12.dto.MusicTagDTO;
 import com.g12.entity.MusicResource;
+import com.g12.entity.Tag;
 import com.g12.result.Result;
 import com.g12.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +21,35 @@ public class TagController {
     TagService tagService;
 
     /**
-     * 创建tag
+     * tag
      * @param
      * @return
      */
-    @PostMapping
-    public Result addTag(MusicTagDTO[] musicTagDTOs){
-        return tagService.addTag(musicTagDTOs);
-    }
+//    @PostMapping
+//    public Result addTag(MusicTagDTO[] musicTagDTOs){
+//        return tagService.addTag(musicTagDTOs);
+//    }
+
 
 
     /**
      * 根据tag筛选获取歌曲
-     * @param tagName
+     * @param tagIds
+     * @return
+     */
+    @GetMapping("/music")
+    public Result<List<MusicResource>> get(Long[] tagIds){
+        return tagService.getMusicByTag(tagIds);
+    }
+
+
+    /**
+     * 获取所有tag
      * @return
      */
     @GetMapping
-    public Result<List<MusicResource>> get(String tagName){
-
-        return tagService.getMusicByTag(tagName);
+    public Result<List<Tag>> getTags(){
+        return tagService.getTags();
     }
+
 }

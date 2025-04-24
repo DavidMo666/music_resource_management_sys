@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Tag {
+@AllArgsConstructor
+public class MusicResourceCategory {
 
     Long id;
-    String name;
+    Long musicId;
+    Long categoryId;
     LocalDateTime createTime;
 }

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class MusicTagDTO {
 
     private Long musicId;
-    private String name; //tag name
+    private Long tagId; //tag id
 }

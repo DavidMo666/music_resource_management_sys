@@ -3,6 +3,7 @@ package com.g12.service;
 
 import com.g12.dto.MusicTagDTO;
 import com.g12.entity.MusicResource;
+import com.g12.entity.Tag;
 import com.g12.result.Result;
 
 import java.util.List;
@@ -17,8 +18,15 @@ public interface TagService {
 
     /**
      * 用tag筛选获取歌曲
-     * @param tagName
+     * @param tagIds
      * @return
      */
-    Result<List<MusicResource>> getMusicByTag(String tagName);
+    Result<List<MusicResource>> getMusicByTag(Long[] tagIds);
+
+    /**
+     * 获取所有tag
+     * @return
+     */
+    Result<List<Tag>> getTags();
+
 }

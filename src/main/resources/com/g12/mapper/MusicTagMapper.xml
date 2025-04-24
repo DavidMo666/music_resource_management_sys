@@ -13,6 +13,12 @@
         select mr.* from music_tag mt left outer join music_resources mr on mr.id = mt.music_id
         <where>
             <if test="userId != null">mt.user_id = #{userId}</if>
+            <if test="tagIds ! null">
+                    and mt.id in
+                <foreach collection="tagIds" item="tagId" open="(" close=")" separator=",">
+                    #{tagId}
+                </foreach>
+            </if>
         </where>
     </select>
 

@@ -19,6 +19,8 @@ public class MusicCategory {
 
     public String description;//分类描述
 
+    public String cover;
+
     public LocalDateTime createTime;
 
     public LocalDateTime updateTime;

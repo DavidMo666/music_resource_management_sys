@@ -7,7 +7,9 @@ import com.g12.context.BaseContext;
 import com.g12.dto.CategoryPageQueryDTO;
 import com.g12.entity.MusicCategory;
 import com.g12.entity.MusicResource;
+import com.g12.entity.MusicResourceCategory;
 import com.g12.mapper.CategoryMapper;
+import com.g12.mapper.MusicResourceCategoryMapper;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 import com.g12.service.CategoryService;
@@ -20,6 +22,9 @@ import org.springframework.stereotype.Service;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private MusicResourceCategoryMapper musicResourceCategoryMapper;
 
     @Override
     public int deleteCategory(Long categoryId) {
@@ -70,6 +75,10 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.insert(category);
     }
 
+    /**
+     * 修改分类
+     * @param category 分类信息
+     */
     @Override
     public void update(MusicCategory category) {
         // 设置更新时间
@@ -89,6 +98,25 @@ public class CategoryServiceImpl implements CategoryService {
         List<MusicResource> list = categoryMapper.getMusicInCategory(categoryId);
 
         return Result.success(list);
+    }
+
+    /**
+     * 增加歌曲到歌单
+     * @param categoryId
+     * @param musicId
+     * @return
+     */
+    @Override
+    public Result addMusicToCategory(Long categoryId, Long musicId) {
+
+        MusicResourceCategory mrc = new MusicResourceCategory();
+        mrc.setCategoryId(categoryId);
+        mrc.setMusicId(musicId);
+        mrc.setCreateTime(LocalDateTime.now());
+
+        musicResourceCategoryMapper.addMusicToCategory(mrc);
+
+        return Result.success();
     }
 
 }

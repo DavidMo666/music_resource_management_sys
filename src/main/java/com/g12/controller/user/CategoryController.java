@@ -18,20 +18,22 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 删除歌单
+     * @param categoryId
+     * @return
+     */
     @DeleteMapping("/delete/{id}")
     public Result<String> deleteCategory(@PathVariable("id") Long categoryId) {
-        try {
-            int result = categoryService.deleteCategory(categoryId);
-            if (result > 0) {
-                return Result.success("成功删除id为"+ categoryId + "的分类");
-            } else {
-                return Result.error("id为" + categoryId + "的分类不存在");
-            }
-        } catch (Exception e) {
-            return Result.error("删除失败: " + e.getMessage());
-        }
+        categoryService.deleteCategory(categoryId);
+        return Result.success("成功删除id为"+ categoryId + "的分类");
     }
 
+    /**
+     * 分页查询
+     * @param categoryPageQueryDTO
+     * @return
+     */
     @GetMapping("/page")
     public Result pageQuery(CategoryPageQueryDTO categoryPageQueryDTO){
 
@@ -57,6 +59,11 @@ public class CategoryController {
         return Result.success("分类添加成功");
     }
 
+    /**
+     * 修改歌单
+     * @param category
+     * @return
+     */
     @PutMapping
     public Result<String> updateCategory(@RequestBody MusicCategory category) {
         if (category.getId() == null) {
@@ -76,5 +83,10 @@ public class CategoryController {
     public Result<List<MusicResource>> getMusicInCategory(Long category_id){
 
         return categoryService.getMusicInCategory(category_id);
+    }
+
+    @PostMapping("addMusic")
+    public Result addMusicToCategory(Long categoryId, Long musicId){
+        return categoryService.addMusicToCategory(categoryId,musicId);
     }
 }

@@ -42,4 +42,12 @@ public interface CategoryService {
      * @return
      */
     Result<List<MusicResource>> getMusicInCategory(Long categoryId);
+
+    /**
+     * 增加歌曲到歌单
+     * @param categoryId
+     * @param musicId
+     * @return
+     */
+    Result addMusicToCategory(Long categoryId, Long musicId);
 }

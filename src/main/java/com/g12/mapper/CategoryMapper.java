@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper
 public interface CategoryMapper {
-    @Delete("DELETE FROM musiccategory WHERE id = #{id}")
+    @Delete("DELETE FROM music_category WHERE id = #{id}")
     int deleteCategory(@Param("id") Integer id);
 
     /**

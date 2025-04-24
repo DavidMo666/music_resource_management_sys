@@ -25,51 +25,66 @@ public class TagServiceImpl implements TagService {
     @Autowired
     MusicTagMapper musicTagMapper;
 
+    /**
+     * 给音乐增加tag
+     * @param musicTagDTOs
+     * @return
+     */
     @Override
     public Result addTag(MusicTagDTO[] musicTagDTOs) {
 
-        for (MusicTagDTO musicTagDTO : musicTagDTOs) {
-
-            //1.查询tag 在tag表中是否存在
-            String tagName = musicTagDTO.getName();
-
-            Long tagId = tagMapper.get(tagName);
-
-            //1.1不在 加入
-            if (tagId == null || tagId == 0){
-                Tag tag = new Tag();
-                tag.setCreateTime(LocalDateTime.now());
-                tag.setName(tagName);
-
-                tagId = tagMapper.addTag(tag);
-            }
-
-            //2.在 在music_tag关系表中添加
-            MusicTag musicTag = new MusicTag();
-            musicTag.setCreateTime(LocalDateTime.now());
-            musicTag.setMusicId(musicTagDTO.getMusicId());
-            musicTag.setTagId(tagId);
-
-            musicTagMapper.addTag(musicTag);
-        }
+//        for (MusicTagDTO musicTagDTO : musicTagDTOs) {
+//
+//            //1.查询tag 在tag表中是否存在
+//
+//            Long tagId = mu
+//
+//            //1.1不在 加入
+//            if (tagId == null || tagId == 0){
+//                Tag tag = new Tag();
+//                tag.setCreateTime(LocalDateTime.now());
+//                tag.setName(tagName);
+//
+//                tagId = tagMapper.addTag(tag);
+//            }
+//
+//            //2.在 在music_tag关系表中添加
+//            MusicTag musicTag = new MusicTag();
+//            musicTag.setCreateTime(LocalDateTime.now());
+//            musicTag.setMusicId(musicTagDTO.getMusicId());
+//            musicTag.setTagId(tagId);
+//
+//            musicTagMapper.addTag(musicTag);
+//        }
 
         return Result.success();
     }
 
     /**
      * 用tag筛选获取歌曲
-     * @param tagName
+     * @param tagIds
      * @return
      */
     @Override
-    public Result<List<MusicResource>> getMusicByTag(String tagName) {
-
+    public Result<List<MusicResource>> getMusicByTag(Long[] tagIds) {
         //
         Long userId = BaseContext.getCurrentId();
 
         //根据userId tagId 连表查询
-        List<MusicResource> musicResourceList = musicTagMapper.getMusicByTag(tagName, userId);
+        List<MusicResource> musicResourceList = musicTagMapper.getMusicByTag(tagIds, userId);
 
         return Result.success(musicResourceList);
+    }
+
+    /**
+     * 获取所有tag
+     * @return
+     */
+    @Override
+    public Result<List<Tag>> getTags() {
+
+        List<Tag> tagList = tagMapper.getTags();
+
+        return Result.success(tagList);
     }
 }

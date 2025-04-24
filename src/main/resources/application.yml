@@ -26,8 +26,8 @@ spring:
           min-idle: 0
           max-wait: 100ms
   mail:
-    username:
-    password:
+    username: warmonger1919@126.com
+    password: Zcyzcy1919
     host:
   servlet:
     multipart:

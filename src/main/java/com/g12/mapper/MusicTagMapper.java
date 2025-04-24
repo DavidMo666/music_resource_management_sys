@@ -17,11 +17,11 @@ public interface MusicTagMapper {
 
     /**
      * 根据tag获取音乐资源
-     * @param tagName
+     * @param tagIds
      * @param userId
      * @return
      */
-    List<MusicResource> getMusicByTag(String tagName, Long userId);
+    List<MusicResource> getMusicByTag(Long[] tagIds, Long userId);
 
     /**
      * 删除
