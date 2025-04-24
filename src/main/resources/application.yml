@@ -26,9 +26,9 @@ spring:
           min-idle: 0
           max-wait: 100ms
   mail:
-    username: warmonger1919@126.com
-    password: Zcyzcy1919
-    host:
+    username: ${spring.mail.username}
+    password: ${spring.mail.password}
+    host: ${spring.mail.host}
   servlet:
     multipart:
       max-request-size: 100MB
