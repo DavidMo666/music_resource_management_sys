@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -47,9 +48,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     JwtProperty jwtProperty;
 
+    @Autowired
     JavaMailSender javaMailSender;
 
-    private static final String MAIL_ADDRESS = "aaa@qq.com";
+    private static final String MAIL_ADDRESS = "warmonger1919@126.com";
     private static final String CODE_HEAD = "激活您的账户";
 
     /**
@@ -206,6 +208,7 @@ public class UserServiceImpl implements UserService {
         mailMessage.setText(content);
         mailMessage.setFrom(MAIL_ADDRESS);
         mailMessage.setTo(user.getEmail());
+        javaMailSender.send(mailMessage);
 
         //存redis
         String userStr = JSON.toJSONString(user);

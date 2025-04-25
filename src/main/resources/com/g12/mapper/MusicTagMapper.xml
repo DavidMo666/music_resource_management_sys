@@ -10,11 +10,11 @@
     </insert>
 
     <select id="getMusicByTag" resultType="com.g12.entity.MusicResource">
-        select mr.* from music_tag mt left outer join music_resources mr on mr.id = mt.music_id
+        select distinct mr.* from music_tag mt left join music_resources mr on mr.id = mt.music_id
         <where>
             <if test="userId != null">mt.user_id = #{userId}</if>
-            <if test="tagIds ! null">
-                    and mt.id in
+            <if test="tagIds != null">
+                    and mt.tag_id in
                 <foreach collection="tagIds" item="tagId" open="(" close=")" separator=",">
                     #{tagId}
                 </foreach>

@@ -70,7 +70,6 @@ public class CategoryServiceImpl implements CategoryService {
         Long userId = BaseContext.getCurrentId();
         category.setUserId(userId);
         category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
 
         categoryMapper.insert(category);
     }
@@ -82,7 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void update(MusicCategory category) {
         // 设置更新时间
-        category.setUpdateTime(LocalDateTime.now());
+        //category.setUpdateTime(LocalDateTime.now());
         categoryMapper.update(category);
     }
 

@@ -29,6 +29,12 @@ spring:
     username: ${spring.mail.username}
     password: ${spring.mail.password}
     host: ${spring.mail.host}
+    smtp:
+      host: smtp.126.com
+      port: 465
+      ssl:
+        enable: true
+      auth: true
   servlet:
     multipart:
       max-request-size: 100MB

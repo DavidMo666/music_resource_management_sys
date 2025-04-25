@@ -48,7 +48,7 @@ public class CategoryController {
      * @return 操作结果
      */
     @PostMapping
-    public Result<String> add(@RequestBody MusicCategory category) {
+    public Result add(@RequestBody MusicCategory category) {
         // 验证分类名称不能为空
         if (category.getName() == null || category.getName().trim().isEmpty()) {
             return Result.error("分类名称不能为空");
@@ -56,7 +56,7 @@ public class CategoryController {
 
         // 调用服务层保存分类
         categoryService.save(category);
-        return Result.success("分类添加成功");
+        return Result.success();
     }
 
     /**
@@ -85,6 +85,12 @@ public class CategoryController {
         return categoryService.getMusicInCategory(categoryId);
     }
 
+    /**
+     * 新增音乐进歌单
+     * @param categoryId
+     * @param musicId
+     * @return
+     */
     @PostMapping("addMusic")
     public Result addMusicToCategory(Long categoryId, Long musicId){
         return categoryService.addMusicToCategory(categoryId,musicId);

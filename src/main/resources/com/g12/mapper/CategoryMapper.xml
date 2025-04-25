@@ -42,7 +42,6 @@
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="description != null">description = #{description},</if>
             <if test="cover != null">cover = #{cover}</if>
-            update_time = #{updateTime}
         </set>
         WHERE id = #{id}
     </update>
@@ -52,6 +51,11 @@
         from music_resource_category mrc left outer join music_resources mr on mrc.music_id = mr.id
         where mrc.category_id = #{categoryId}
     </select>
+
+    <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO music_category(name,description,user_id,create_time,cover)
+        values (#{name},#{description},#{userId},#{createTime},#{cover})
+    </insert>
 
 
 
