@@ -27,11 +27,13 @@ public interface AdminMapper {
     Long countMusicResources();
 
     @Select("SELECT \n" +
-            "    tag_id, \n" +
-            "    COUNT(DISTINCT music_id) AS music_count \n" +
+            "    t.name AS tag_name, \n" +
+            "    COUNT(DISTINCT mt.music_id) AS music_count \n" +
             "FROM \n" +
-            "    music_resource_system.music_tag \n" +
+            "    tag t \n" +
+            "LEFT JOIN \n" +
+            "    music_tag mt ON t.id = mt.tag_id \n" +
             "GROUP BY \n" +
-            "    tag_id;")
+            "    t.id, t.name;")
     List<TagDataVO> countMusicResourcesByTag();
 }
