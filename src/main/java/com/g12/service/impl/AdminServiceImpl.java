@@ -6,6 +6,7 @@ import com.g12.entity.Admin;
 import com.g12.mapper.AdminMapper;
 import com.g12.result.Result;
 import com.g12.service.AdminService;
+import com.g12.vo.StatisticsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -34,6 +35,13 @@ public class AdminServiceImpl implements AdminService {
         }else {
             return Result.success("登录成功: " + admin);
         }
+    }
+
+    @Override
+    public StatisticsVO getStatistics() {
+        Long userCount = adminMapper.countUsers();
+        Long musicResourceCount = adminMapper.countMusicResources();
+        return new StatisticsVO(userCount, musicResourceCount);
     }
 
 }

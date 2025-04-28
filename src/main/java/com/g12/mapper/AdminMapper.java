@@ -10,4 +10,16 @@ import org.apache.ibatis.annotations.Select;
 public interface AdminMapper {
     @Select("SELECT id, username, password FROM music_resource_system.admin WHERE username = #{username}")
     Admin login(AdminLoginDTO adminLoginDTO);
+
+    /**
+     * 统计用户总数
+     */
+    @Select("SELECT COUNT(id) FROM user")
+    Long countUsers();
+
+    /**
+     * 统计音乐资源总数
+     */
+    @Select("SELECT COUNT(id) FROM music_resource")
+    Long countMusicResources();
 }
