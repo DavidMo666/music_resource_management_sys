@@ -12,7 +12,8 @@
     <select id="getMusicByTag" resultType="com.g12.entity.MusicResource">
         select distinct mr.* from music_tag mt left join music_resources mr on mr.id = mt.music_id
         <where>
-            <if test="userId != null">mt.user_id = #{userId}</if>
+            mr.status = 1
+            <if test="userId != null"> and mt.user_id = #{userId}</if>
             <if test="tagIds != null">
                     and mt.tag_id in
                 <foreach collection="tagIds" item="tagId" open="(" close=")" separator=",">

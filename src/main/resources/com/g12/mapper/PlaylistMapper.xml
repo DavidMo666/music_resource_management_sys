@@ -5,7 +5,7 @@
 <mapper namespace="com.g12.mapper.PlaylistMapper">
     <select id="getMusic" resultType="com.g12.entity.MusicResource">
         select mr.* from playlist p left join music_resources mr on p.music_id = mr.id
-        where p.user_id = #{userId}
+        where p.user_id = #{userId} and mr.status = 1
         order by p.create_time desc
     </select>
 </mapper>

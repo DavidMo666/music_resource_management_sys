@@ -106,6 +106,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 
         musicResource.setUserId(userId);
         musicResource.setUploadTime(LocalDateTime.now());
+        musicResource.setStatus(1);
 
         //音乐时长
 //        int duration = getDuration(musicResource.getUrl());

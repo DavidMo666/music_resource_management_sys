@@ -7,7 +7,7 @@
     <select id="pageQuery" resultType="com.g12.entity.MusicResource">
         select * from music_resources
         <where>
-            <if test="status != null">status = #{status}</if>
+            status = 1
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="categoryId != null"> and category_id = #{categoryId}</if>
         </where>
@@ -63,6 +63,7 @@
     <select id="selectByCondition" resultType="com.g12.entity.MusicResource">
         SELECT * FROM music_resources
         <where>
+            status = 1
             <if test="uploadUserId != null">AND uploadUserId = #{uploadUserId}</if>
             <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
         </where>
@@ -71,13 +72,13 @@
 
     <select id="selectById" resultType="com.g12.entity.MusicResource">
         SELECT * FROM music_resources
-        WHERE id = #{id}
+        WHERE id = #{id} and status = 1
     </select>
 
     <select id="userPageQuery" resultType="com.g12.entity.MusicResource">
         select * from music_resources
         <where>
-            <if test="status != null">status = #{status}</if>
+            status = 1
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="categoryId != null"> and category_id = #{categoryId}</if>
             <if test="name != null"> and name like concat('%', #{name}, '%')</if>

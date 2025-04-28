@@ -6,6 +6,7 @@
 
     <select id="get" resultType="com.g12.entity.MusicResource">
         select mr.* from favourites f left join music_resources mr on f.music_id = mr.id
-        where f.user_id = #{userId} order by create_time desc
+        where f.user_id = #{userId} and mr.status = 1
+        order by create_time desc
     </select>
 </mapper>

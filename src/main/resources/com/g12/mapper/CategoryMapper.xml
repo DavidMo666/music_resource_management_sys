@@ -49,7 +49,7 @@
     <select id="getMusicInCategory" resultType="com.g12.entity.MusicResource">
         select mr.*
         from music_resource_category mrc left outer join music_resources mr on mrc.music_id = mr.id
-        where mrc.category_id = #{categoryId}
+        where mrc.category_id = #{categoryId} and mr.status = 1
     </select>
 
     <insert id="insert" parameterType="com.g12.entity.MusicCategory" useGeneratedKeys="true" keyProperty="id">

@@ -17,7 +17,7 @@ public class MusicResource {
     private String album;         // 专辑
     private String image;         // 音乐资源图片路径
     private String description;   // 音乐资源描述
-    private Integer status;           // 音乐资源状态
+    private Integer status;           // 音乐资源状态 1开启 0被封
     private LocalDateTime uploadTime;      // 更新时间
     private Long userId;     // 上传用户的用户名
     private String singer;        // 歌手
