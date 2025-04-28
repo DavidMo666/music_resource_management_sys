@@ -14,12 +14,12 @@ public interface AdminMapper {
     /**
      * 统计用户总数
      */
-    @Select("SELECT COUNT(id) FROM user")
+    @Select("SELECT COUNT(id) FROM music_resource_system.user")
     Long countUsers();
 
     /**
      * 统计音乐资源总数
      */
-    @Select("SELECT COUNT(id) FROM music_resource")
+    @Select("SELECT COUNT(id) FROM music_resource_system.music_resources")
     Long countMusicResources();
 }
