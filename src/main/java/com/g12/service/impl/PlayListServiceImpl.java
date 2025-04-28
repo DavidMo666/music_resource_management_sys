@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PlayListServiceImpl implements PlaylistService {
@@ -27,6 +28,8 @@ public class PlayListServiceImpl implements PlaylistService {
     public Result<List<MusicResource>> getMusicInPlayList() {
         Long userId = BaseContext.getCurrentId();
         List<MusicResource> list = playlistMapper.getMusic(userId);
+        list.removeIf(Objects::isNull);
+
         return Result.success(list);
     }
 

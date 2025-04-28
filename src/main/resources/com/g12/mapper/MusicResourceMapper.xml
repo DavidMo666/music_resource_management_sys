@@ -8,7 +8,6 @@
         select * from music_resources
         <where>
             <if test="status != null">status = #{status}</if>
-            <if test="type != null"> and type = #{type}</if>
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="categoryId != null"> and category_id = #{categoryId}</if>
         </where>
@@ -39,7 +38,6 @@
     <insert id="insert" parameterType="com.g12.entity.MusicResource" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO music_resources (
             name,
-            type,
             album,
             image,
             description,
@@ -47,11 +45,9 @@
             upload_time,
             user_Id,
             singer,
-            duration,
             url
         ) VALUES (
                      #{name},
-                     #{type},
                      #{album},
                      #{image},
                      #{description},
@@ -59,7 +55,6 @@
                      #{uploadTime},
                      #{userId},
                      #{singer},
-                     #{duration},
                      #{url}
                  )
     </insert>
@@ -83,7 +78,6 @@
         select * from music_resources
         <where>
             <if test="status != null">status = #{status}</if>
-            <if test="type != null"> and type = #{type}</if>
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="categoryId != null"> and category_id = #{categoryId}</if>
             <if test="name != null"> and name like concat('%', #{name}, '%')</if>
@@ -92,6 +86,7 @@
             <choose>
                 <when test="sortBy == 'uploadTime'"> upload_time</when>
                 <when test="sortBy == 'id'"> id</when>
+                <when test="sortBy == 'clickCount'">click_count</when>
             </choose>
             <choose>
                 <when test="sortOrder == 'ASC'"> ASC</when>
@@ -110,13 +105,11 @@
         update music_resources
         <set>
             <if test="name != null">name = #{name},</if>
-            <if test="type != null">type = #{type},</if>
             <if test="album != null">album = #{album},</if>
             <if test="image != null">image = #{image},</if>
             <if test="description != null">description = #{description},</if>
             <if test="status != null">status = #{status},</if>
             <if test="singer != null">singer = #{singer},</if>
-            <if test="duration != null">duration = #{duration},</if>
             <if test="url != null">url = #{url},</if>
             <if test="categoryId != null">category_id = #{categoryId},</if>
         </set>

@@ -247,9 +247,9 @@ public class MusicResourceServiceImpl implements MusicResourceService {
                 tag.setCreateTime(LocalDateTime.now());
 
                 tagList.add(tag);
-
-                musicTagMapper.insertBatch(tagList);
             }
+
+            musicTagMapper.insertBatch(tagList);
         }
 
 

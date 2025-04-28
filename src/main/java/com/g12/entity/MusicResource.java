@@ -23,4 +23,5 @@ public class MusicResource {
     private String singer;        // 歌手
     private String url;
     private Long categoryId;  //所属歌单
+    private Integer clickCount;
 }
