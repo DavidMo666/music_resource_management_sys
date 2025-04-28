@@ -7,9 +7,12 @@ import com.g12.mapper.AdminMapper;
 import com.g12.result.Result;
 import com.g12.service.AdminService;
 import com.g12.vo.StatisticsVO;
+import com.g12.vo.TagDataVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -42,6 +45,11 @@ public class AdminServiceImpl implements AdminService {
         Long userCount = adminMapper.countUsers();
         Long musicResourceCount = adminMapper.countMusicResources();
         return new StatisticsVO(userCount, musicResourceCount);
+    }
+
+    @Override
+    public List<TagDataVO> countMusicResourcesByTag() {
+        return adminMapper.countMusicResourcesByTag();
     }
 
 }

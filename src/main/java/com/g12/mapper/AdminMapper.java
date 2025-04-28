@@ -3,8 +3,11 @@ package com.g12.mapper;
 import com.g12.dto.AdminLoginDTO;
 import com.g12.entity.Admin;
 import com.g12.entity.User;
+import com.g12.vo.TagDataVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface AdminMapper {
@@ -22,4 +25,13 @@ public interface AdminMapper {
      */
     @Select("SELECT COUNT(id) FROM music_resource_system.music_resources")
     Long countMusicResources();
+
+    @Select("SELECT \n" +
+            "    tag_id, \n" +
+            "    COUNT(DISTINCT music_id) AS music_count \n" +
+            "FROM \n" +
+            "    music_resource_system.music_tag \n" +
+            "GROUP BY \n" +
+            "    tag_id;")
+    List<TagDataVO> countMusicResourcesByTag();
 }
