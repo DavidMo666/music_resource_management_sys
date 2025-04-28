@@ -43,6 +43,19 @@ public class CategoryController {
     }
 
     /**
+     * 全部
+     * @param categoryPageQueryDTO
+     * @return
+     */
+    @GetMapping("/pageAll")
+    public Result pageQueryAll(CategoryPageQueryDTO categoryPageQueryDTO){
+
+        PageResult pageResult = categoryService.pageQueryAll(categoryPageQueryDTO);
+
+        return Result.success(pageResult);
+    }
+
+    /**
      * 新增分类
      * @param category 分类信息
      * @return 操作结果
@@ -91,8 +104,30 @@ public class CategoryController {
      * @param musicId
      * @return
      */
-    @PostMapping("addMusic")
+    @PostMapping("/addMusic")
     public Result addMusicToCategory(Long categoryId, Long musicId){
         return categoryService.addMusicToCategory(categoryId,musicId);
     }
+
+    /**
+     * 移除音乐
+     * @param musicIds
+     * @param categoryId
+     * @return
+     */
+    @DeleteMapping("/removeMusic")
+    public Result removeMuisc(Long[] musicIds, Long categoryId){
+        return  categoryService.removeMusic(musicIds, categoryId);
+    }
+
+    /**
+     * 新
+     * @return
+     */
+    @GetMapping("/latest")
+    public Result<List<MusicCategory>> getLatest(){
+        return categoryService.getLatest();
+    }
+
+
 }

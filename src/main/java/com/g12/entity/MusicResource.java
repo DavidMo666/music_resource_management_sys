@@ -21,7 +21,6 @@ public class MusicResource {
     private LocalDateTime uploadTime;      // 更新时间
     private Long userId;     // 上传用户的用户名
     private String singer;        // 歌手
-    private Integer duration;         // 时长（秒数）
     private String url;
     private Long categoryId;  //所属歌单
 }

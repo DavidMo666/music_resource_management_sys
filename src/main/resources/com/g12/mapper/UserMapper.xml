@@ -46,7 +46,7 @@
     </update>
 
     <insert id="register">
-        insert into user(email, password,name)
-        values (#{email}, #{password},name)
+        insert into user(email, password,name, user_name, avatar)
+        values (#{email}, #{password},#{name}, #{userName},#{avatar})
     </insert>
 </mapper>

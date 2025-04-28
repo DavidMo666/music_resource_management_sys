@@ -18,4 +18,6 @@ public interface MusicResourceCategoryMapper {
     @Select("select count(*) from music_resource_system.music_resource_category " +
             "where category_id = #{categoryId} and music_id = #{musicId}")
     int count(MusicResourceCategory mrc);
+
+    void removeMusic(Long[] musicIds, Long categoryId);
 }

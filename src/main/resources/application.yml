@@ -28,13 +28,18 @@ spring:
   mail:
     username: ${spring.mail.username}
     password: ${spring.mail.password}
-    host: ${spring.mail.host}
-    smtp:
-      host: smtp.126.com
-      port: 465
-      ssl:
-        enable: true
-      auth: true
+    host: smtp.qq.com  # SMTP 服务器
+    port: 465  # 端口号
+    protocol: smtps
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
   servlet:
     multipart:
       max-request-size: 100MB

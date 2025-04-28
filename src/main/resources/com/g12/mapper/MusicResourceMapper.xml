@@ -17,6 +17,7 @@
             <choose>
                 <when test="sortBy == 'uploadTime'">uploadTime</when>
                 <when test="sortBy == 'id'">id</when>
+                <when test="sortBy == 'clickCount'">click_count</when>
             </choose>
             <choose>
                 <when test="sortOrder == 'asc'">ASC</when>
@@ -120,5 +121,13 @@
             <if test="categoryId != null">category_id = #{categoryId},</if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="click">
+        update music_resources
+        <set>
+            click_count = click_count + 1
+        </set>
+        where id = #{musicId}
     </update>
 </mapper>

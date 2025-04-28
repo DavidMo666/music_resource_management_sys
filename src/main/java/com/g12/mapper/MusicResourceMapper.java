@@ -89,4 +89,9 @@ public interface MusicResourceMapper {
     @Select("select * from music_resources where id = #{id}")
     MusicResource getById(Long id);
 
+    @Select("select * from music_resources order by upload_time desc")
+    List<MusicResource> getLatest();
+
+
+    void click(Long musicId);
 }

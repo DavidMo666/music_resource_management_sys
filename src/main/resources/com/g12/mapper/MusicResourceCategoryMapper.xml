@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.g12.mapper.MusicResourceCategoryMapper">
 
+    <delete id="removeMusic">
+        delete from music_resource_category
+               where category_id = #{categoryId} and music_id in
+               <foreach collection="musicIds" item="musicId" open="(" close=")" separator=",">
+                   #{musicId}
+               </foreach>
+    </delete>
 </mapper>

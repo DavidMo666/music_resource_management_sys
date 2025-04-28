@@ -7,6 +7,8 @@ import com.g12.entity.MusicResource;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.List;
 
 public interface MusicResourceService {
@@ -38,7 +40,7 @@ public interface MusicResourceService {
      * @param musicResource 音乐资源信息
      * @return 操作结果
      */
-    Result<String> addMusicResource(MusicResource musicResource);
+    Result<String> addMusicResource(MusicResource musicResource) throws UnsupportedAudioFileException, IOException;
 
     /**
      * 根据用户ID查询音乐资源
@@ -81,4 +83,24 @@ public interface MusicResourceService {
      * @return
      */
     MusicResource getById(Long id);
+
+    /**
+     * 最新
+     * @return
+     */
+    Result<List<MusicResource>> latest();
+
+    /**
+     * 全部
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    PageResult userPageQueryAll(MusicResourcePageQueryDTO musicResourcePageQueryDTO);
+
+    /**
+     * 点击
+     * @param musicId
+     * @return
+     */
+    Result click(Long musicId);
 }

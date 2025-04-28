@@ -6,6 +6,7 @@ import com.g12.entity.MusicResource;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -41,4 +42,12 @@ public interface CategoryMapper {
      * @return
      */
     List<MusicResource> getMusicInCategory(Long categoryId);
+
+    /**
+     * 新
+     * @return
+     */
+    @Select("select * from music_category order by create_time desc")
+    List<MusicCategory> getLatest();
+
 }

@@ -50,4 +50,25 @@ public interface CategoryService {
      * @return
      */
     Result addMusicToCategory(Long categoryId, Long musicId);
+
+    /**
+     * 移除歌曲
+     * @param musicIds
+     * @param categoryId
+     * @return
+     */
+    Result removeMusic(Long[] musicIds, Long categoryId);
+
+    /**
+     * 新
+     * @return
+     */
+    Result<List<MusicCategory>> getLatest();
+
+    /**
+     * 全部
+     * @param categoryPageQueryDTO
+     * @return
+     */
+    PageResult pageQueryAll(CategoryPageQueryDTO categoryPageQueryDTO);
 }

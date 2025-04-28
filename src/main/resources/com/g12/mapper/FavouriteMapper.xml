@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.g12.mapper.FavouriteMapper">
+
+    <select id="get" resultType="com.g12.entity.MusicResource">
+        select mr.* from favourites f left join music_resources mr on f.music_id = mr.id
+        where f.user_id = #{userId}
+    </select>
+</mapper>

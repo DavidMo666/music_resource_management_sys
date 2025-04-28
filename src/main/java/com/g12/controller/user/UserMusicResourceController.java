@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -72,7 +74,7 @@ public class UserMusicResourceController {
      * @return 操作结果
      */
     @PostMapping
-    public Result<String> addMusicResource(@RequestBody MusicResource musicResource) {
+    public Result<String> addMusicResource(@RequestBody MusicResource musicResource) throws UnsupportedAudioFileException, IOException {
         // 参数校验
 //        if (StringUtils.isEmpty(musicResource.getName())) {
 //            return Result.error("音乐名称不能为空");
@@ -122,6 +124,28 @@ public class UserMusicResourceController {
     }
 
     /**
+     * 全部
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    @GetMapping("/pageAll")
+    public Result pageQueryAll(MusicResourcePageQueryDTO musicResourcePageQueryDTO){
+
+        PageResult pageResult = musicResourceService.userPageQueryAll(musicResourcePageQueryDTO);
+
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 最新
+     * @return
+     */
+    @GetMapping("/latest")
+    public Result<List<MusicResource>> latest(){
+        return musicResourceService.latest();
+    }
+
+    /**
      * 编辑歌曲
      * @param
      * @return
@@ -139,6 +163,11 @@ public class UserMusicResourceController {
         MusicResource mr = musicResourceService.getById(id);
 
         return Result.success(mr);
+    }
+
+    @PostMapping("/click")
+    public Result click(Long musicId){
+        return musicResourceService.click(musicId);
     }
 
 }

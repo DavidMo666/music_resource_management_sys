@@ -123,4 +123,48 @@ public class CategoryServiceImpl implements CategoryService {
         return Result.success();
     }
 
+    /**
+     * 移除歌曲
+     * @param musicIds
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public Result removeMusic(Long[] musicIds, Long categoryId) {
+        musicResourceCategoryMapper.removeMusic(musicIds, categoryId);
+        return Result.success();
+    }
+
+    /**
+     * 新
+     * @return
+     */
+    @Override
+    public Result<List<MusicCategory>> getLatest() {
+        List<MusicCategory> list = categoryMapper.getLatest();
+        return Result.success(list);
+    }
+
+    /**
+     * 全部
+     * @param categoryPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQueryAll(CategoryPageQueryDTO categoryPageQueryDTO) {
+        //对排序设置默认值
+        if (categoryPageQueryDTO.getSortBy() == null){
+            categoryPageQueryDTO.setSortBy("createTime");
+            categoryPageQueryDTO.setSortOrder("DESC");
+        }
+
+        PageHelper.startPage(categoryPageQueryDTO.getPage(), categoryPageQueryDTO.getPageSize());
+
+        Page<MusicCategory> pages = categoryMapper.pageQuery(categoryPageQueryDTO);
+
+        PageResult pageResult = new PageResult(pages.getTotal(), pages.getResult());
+
+        return pageResult;
+    }
+
 }

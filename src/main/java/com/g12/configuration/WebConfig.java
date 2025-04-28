@@ -23,7 +23,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/**")
                 .excludePathPatterns("/api/tag")
                 .excludePathPatterns("/api/file/upload")
-                .excludePathPatterns("/api/register");
+                .excludePathPatterns("/api/register")
+                .excludePathPatterns("/api/category/latest")
+                .excludePathPatterns("/api/category/pageAll")
+                .excludePathPatterns("/api/music-resource/latest")
+                .excludePathPatterns("/api/music-resource/pageAll")
+                .excludePathPatterns("/api/category/music");
 
     }
 }

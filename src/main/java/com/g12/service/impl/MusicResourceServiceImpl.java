@@ -18,10 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MusicResourceServiceImpl implements MusicResourceService {
@@ -92,37 +98,42 @@ public class MusicResourceServiceImpl implements MusicResourceService {
      * @return 操作结果
      */
     @Override
-    public Result<String> addMusicResource(MusicResource musicResource) {
-//        try {
-//             //验证必要字段
-//            if (StringUtils.isEmpty(musicResource.getName())) {
-//                return Result.error("音乐名称不能为空");
-//            }
-//            if (StringUtils.isEmpty(musicResource.getImage())) {
-//                return Result.error("音乐封面不能为空");
-//            }
-//            if (musicResource.getUploadUserId() == null || musicResource.getUploadUserId() <= 0) {
-//                return Result.error("上传用户ID无效");
-//            }
+    public Result<String> addMusicResource(MusicResource musicResource) throws UnsupportedAudioFileException, IOException {
 
-            // 设置默认值
-            Long userId = BaseContext.getCurrentId();
-//            if (musicResource.getStatus() == null) {
-//                musicResource.setStatus(1); // 默认状态为正常
-//            }
-            musicResource.setUserId(userId);
-            musicResource.setUploadTime(LocalDateTime.now());
 
-            // 调用Mapper插入数据
-            int result = musicResourceMapper.insert(musicResource);
-            if (result <= 0) {
-                return Result.error("添加音乐资源失败");
-            }
+        // 设置默认值
+        Long userId = BaseContext.getCurrentId();
 
-            return Result.success("音乐资源添加成功");
-//        } catch (Exception e) {
-//            return Result.error("系统繁忙，请稍后重试");
-//        }
+        musicResource.setUserId(userId);
+        musicResource.setUploadTime(LocalDateTime.now());
+
+        //音乐时长
+//        int duration = getDuration(musicResource.getUrl());
+//        musicResource.setDuration(duration);
+
+        // 调用Mapper插入数据
+        int result = musicResourceMapper.insert(musicResource);
+        if (result <= 0) {
+            return Result.error("添加音乐资源失败");
+        }
+
+        return Result.success("音乐资源添加成功");
+    }
+
+
+    public int getDuration(String path) throws UnsupportedAudioFileException, IOException {
+
+        URL url = new URL(path);
+
+        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(url);
+
+        Map<?, ?> properties = fileFormat.properties();
+        Long durationMicroseconds = (Long) properties.get("duration");
+
+        int durationInSeconds = (int) (durationMicroseconds / 1_000_000);
+        System.out.println("Duration: " + durationInSeconds + " seconds");
+
+        return durationInSeconds;
     }
 
 
@@ -227,17 +238,19 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         //2.新增tag
         List<MusicTag> tagList = new ArrayList<>();
         Long[] tagIds = updateMusicResourceDTO.getTagIds();
-        for (Long tagId : tagIds) {
-            MusicTag tag = new MusicTag();
-            tag.setMusicId(musicResource.getId());
-            tag.setUserId(userId);
-            tag.setTagId(tagId);
-            tag.setCreateTime(LocalDateTime.now());
+        if(tagIds != null && tagIds.length != 0){
+            for (Long tagId : tagIds) {
+                MusicTag tag = new MusicTag();
+                tag.setMusicId(musicResource.getId());
+                tag.setUserId(userId);
+                tag.setTagId(tagId);
+                tag.setCreateTime(LocalDateTime.now());
 
-            tagList.add(tag);
+                tagList.add(tag);
+
+                musicTagMapper.insertBatch(tagList);
+            }
         }
-
-        musicTagMapper.insertBatch(tagList);
 
 
     }
@@ -253,5 +266,49 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         MusicResource mr = musicResourceMapper.getById(id);
 
         return mr;
+    }
+
+    /**
+     * 最新
+     * @return
+     */
+    @Override
+    public Result<List<MusicResource>> latest() {
+        List<MusicResource> list = musicResourceMapper.getLatest();
+        return Result.success(list);
+    }
+
+    /**
+     * 全部
+     * @param musicResourcePageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult userPageQueryAll(MusicResourcePageQueryDTO musicResourcePageQueryDTO) {
+        if (musicResourcePageQueryDTO.getSortBy() == null){
+            musicResourcePageQueryDTO.setSortBy("uploadTime");
+            musicResourcePageQueryDTO.setSortOrder("DESC");
+        }
+
+        PageHelper.startPage(musicResourcePageQueryDTO.getPage(), musicResourcePageQueryDTO.getPageSize());
+
+        Page<MusicResource> pages = musicResourceMapper.userPageQuery(musicResourcePageQueryDTO);
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(pages.getTotal());
+        pageResult.setRecords(pages.getResult());
+
+        return pageResult;
+    }
+
+    /**
+     * 点击
+     * @param musicId
+     * @return
+     */
+    @Override
+    public Result click(Long musicId) {
+        musicResourceMapper.click(musicId);
+        return Result.success();
     }
 }

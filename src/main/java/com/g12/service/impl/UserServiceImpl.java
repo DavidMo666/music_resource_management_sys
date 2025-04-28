@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    private static final String MAIL_ADDRESS = "warmonger1919@126.com";
+    private static final String MAIL_ADDRESS = "2954519433@qq.com";
     private static final String CODE_HEAD = "激活您的账户";
 
     /**
@@ -179,6 +179,10 @@ public class UserServiceImpl implements UserService {
             return Result.error("用户名或密码输入错误");
         }
 
+        if(user.getStatus() == 0){
+            return Result.error("用户以封");
+        }
+
         //3.生成Jwt
         Map claims = new HashMap<>();
         claims.put("userId", user.getId());
@@ -237,6 +241,7 @@ public class UserServiceImpl implements UserService {
 
         //3.取到
         User user = JSON.parseObject(userStr, User.class);
+        user.setUserName("new-user" + UUID.randomUUID());
         userMapper.register(user);
 
         return Result.success();

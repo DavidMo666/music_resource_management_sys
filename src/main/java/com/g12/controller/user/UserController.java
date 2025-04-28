@@ -59,7 +59,7 @@ public class UserController {
      * @param activeCode
      * @return
      */
-    @GetMapping("/register/verify")
+    @PostMapping("/register/verify")
     public Result registerVerify(String activeCode){
 
         return userService.registerVerify(activeCode);
