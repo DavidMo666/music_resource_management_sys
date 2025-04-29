@@ -2,6 +2,7 @@ package com.g12.mapper;
 
 import com.g12.dto.UserLoginDTO;
 import com.g12.entity.User;
+import com.g12.vo.DailyUserCountVO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -73,4 +74,5 @@ public interface UserMapper {
      */
     @Select("select * from user where id = #{userId}")
     User getUserById(Long userId);
+
 }

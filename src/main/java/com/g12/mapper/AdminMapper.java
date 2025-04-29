@@ -3,6 +3,7 @@ package com.g12.mapper;
 import com.g12.dto.AdminLoginDTO;
 import com.g12.entity.Admin;
 import com.g12.entity.User;
+import com.g12.vo.DailyUserCountVO;
 import com.g12.vo.TagDataVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -36,4 +37,20 @@ public interface AdminMapper {
             "GROUP BY \n" +
             "    t.id, t.name;")
     List<TagDataVO> countMusicResourcesByTag();
+
+    @Select("WITH RECURSIVE dates(date) AS (\n" +
+            "    SELECT DATE_SUB(CURDATE(), INTERVAL 29 DAY)\n" +
+            "    UNION ALL\n" +
+            "    SELECT DATE_ADD(date, INTERVAL 1 DAY)\n" +
+            "    FROM dates\n" +
+            "    WHERE date < CURDATE()\n" +
+            ")\n" +
+            "SELECT \n" +
+            "    dates.date AS date,\n" +
+            "    IFNULL(COUNT(user.id), 0) AS count\n" +
+            "FROM dates\n" +
+            "LEFT JOIN user ON DATE(user.create_time) = dates.date\n" +
+            "GROUP BY dates.date\n" +
+            "ORDER BY dates.date DESC;")
+    List<DailyUserCountVO> countDailyUsers();
 }

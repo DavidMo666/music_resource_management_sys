@@ -6,6 +6,7 @@ import com.g12.entity.Admin;
 import com.g12.mapper.AdminMapper;
 import com.g12.result.Result;
 import com.g12.service.AdminService;
+import com.g12.vo.DailyUserCountVO;
 import com.g12.vo.StatisticsVO;
 import com.g12.vo.TagDataVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<TagDataVO> countMusicResourcesByTag() {
         return adminMapper.countMusicResourcesByTag();
+    }
+
+    @Override
+    public List<DailyUserCountVO> getDailyUserCount() {
+        return adminMapper.countDailyUsers();
     }
 
 }

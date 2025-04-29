@@ -6,8 +6,10 @@ import com.g12.dto.UserPageQueryDTO;
 import com.g12.entity.User;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
+import com.g12.service.AdminService;
 import com.g12.service.UserService;
 
+import com.g12.vo.DailyUserCountVO;
 import io.micrometer.common.util.StringUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,6 +30,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AdminService adminService;
 
 
     /**
@@ -103,6 +107,11 @@ public class UserController {
         return Result.success(user);
     }
 
+    @GetMapping("/daily-count")
+    public Result<List<DailyUserCountVO>> getDailyUserCount() {
+        List<DailyUserCountVO> data = adminService.getDailyUserCount();
+        return Result.success(data);
+    }
 
 
 
