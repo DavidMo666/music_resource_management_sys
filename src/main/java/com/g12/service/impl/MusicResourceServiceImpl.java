@@ -81,9 +81,9 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         try {
             // 先检查记录是否存在
             MusicResource resource = musicResourceMapper.selectById(id);
-            if (resource == null) {
-                return false;
-            }
+//            if (resource == null) {
+//                return false;
+//            }
 
             // 执行更新
             return musicResourceMapper.updateStatus(status, id);
