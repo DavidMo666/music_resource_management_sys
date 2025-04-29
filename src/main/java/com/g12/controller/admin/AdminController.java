@@ -6,8 +6,12 @@ import com.g12.dto.UserLoginDTO;
 import com.g12.result.Result;
 import com.g12.service.AdminService;
 import com.g12.vo.StatisticsVO;
+import com.g12.vo.TagDataVO;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,4 +35,11 @@ public class AdminController {
         StatisticsVO statistics = adminService.getStatistics();
         return Result.success(statistics);
     }
+
+    @GetMapping("/tagdata")
+    public Result<List<TagDataVO>> getTagStatistics() {
+        List<TagDataVO> statistics = adminService.countMusicResourcesByTag();
+        return Result.success(statistics);
+    }
+
 }
