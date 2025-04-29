@@ -3,6 +3,7 @@ package com.g12.service;
 import com.g12.dto.AdminLoginDTO;
 import com.g12.dto.UserLoginDTO;
 import com.g12.result.Result;
+import com.g12.vo.DailyNewMusicVO;
 import com.g12.vo.DailyUserCountVO;
 import com.g12.vo.StatisticsVO;
 import com.g12.vo.TagDataVO;
@@ -17,5 +18,9 @@ public interface AdminService {
 
     List<TagDataVO> countMusicResourcesByTag();
 
-    List<DailyUserCountVO> getDailyUserCount();
+    List<DailyUserCountVO> getDailyNewUserCount();
+
+    List<DailyUserCountVO> getDailyTotalUserCount();
+
+    List<DailyNewMusicVO> getDailyNewMusic();
 }

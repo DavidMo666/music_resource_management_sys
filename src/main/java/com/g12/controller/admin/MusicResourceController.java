@@ -1,10 +1,12 @@
 package com.g12.controller.admin;
 
 import com.g12.dto.MusicResourcePageQueryDTO;
-import com.g12.dto.UserPageQueryDTO;
 import com.g12.result.PageResult;
 import com.g12.result.Result;
+import com.g12.service.AdminService;
 import com.g12.service.MusicResourceService;
+import com.g12.vo.DailyNewMusicVO;
+import com.g12.vo.DailyUserCountVO;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class MusicResourceController {
 
     @Autowired
     MusicResourceService musicResourceService;
+
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/page")
     public Result<PageResult> pageQuery(MusicResourcePageQueryDTO musicResourcePageQueryDTO){
@@ -140,5 +145,12 @@ public class MusicResourceController {
             return Result.error("系统繁忙，请稍后重试");
         }
     }
+
+    @GetMapping("/daily-newmusic")
+    public Result<List<DailyNewMusicVO>> getDailyTotalUserCount() {
+        List<DailyNewMusicVO> data = adminService.getDailyNewMusic();
+        return Result.success(data);
+    }
+
 
 }

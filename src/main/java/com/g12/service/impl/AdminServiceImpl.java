@@ -6,6 +6,7 @@ import com.g12.entity.Admin;
 import com.g12.mapper.AdminMapper;
 import com.g12.result.Result;
 import com.g12.service.AdminService;
+import com.g12.vo.DailyNewMusicVO;
 import com.g12.vo.DailyUserCountVO;
 import com.g12.vo.StatisticsVO;
 import com.g12.vo.TagDataVO;
@@ -54,8 +55,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<DailyUserCountVO> getDailyUserCount() {
-        return adminMapper.countDailyUsers();
+    public List<DailyUserCountVO> getDailyNewUserCount() {
+        return adminMapper.countDailyNewUsers();
     }
 
+    @Override
+    public List<DailyUserCountVO> getDailyTotalUserCount() {
+        return adminMapper.countDailyTotalUsers();
+    }
+
+    @Override
+    public List<DailyNewMusicVO> getDailyNewMusic() {
+        return adminMapper.countDailyNewMusic();
+    }
 }

@@ -107,12 +107,16 @@ public class UserController {
         return Result.success(user);
     }
 
-    @GetMapping("/daily-count")
-    public Result<List<DailyUserCountVO>> getDailyUserCount() {
-        List<DailyUserCountVO> data = adminService.getDailyUserCount();
+    @GetMapping("/daily-newcount")
+    public Result<List<DailyUserCountVO>> getDailyNewUserCount() {
+        List<DailyUserCountVO> data = adminService.getDailyNewUserCount();
         return Result.success(data);
     }
 
-
+    @GetMapping("/daily-totalcount")
+    public Result<List<DailyUserCountVO>> getDailyTotalUserCount() {
+        List<DailyUserCountVO> data = adminService.getDailyTotalUserCount();
+        return Result.success(data);
+    }
 
 }
