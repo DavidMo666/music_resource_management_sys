@@ -23,4 +23,8 @@ public interface AdminService {
     List<DailyUserCountVO> getDailyTotalUserCount();
 
     List<DailyNewMusicVO> getDailyNewMusic();
+
+    Integer getBlockUsers();
+
+    Integer getBlockMusics();
 }

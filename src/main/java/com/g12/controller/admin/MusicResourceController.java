@@ -152,5 +152,10 @@ public class MusicResourceController {
         return Result.success(data);
     }
 
+    @GetMapping("/blockmusics")
+    public Integer getBlockMusics() {
+        Integer count = adminService.getBlockMusics();
+        return count;
+    }
 
 }

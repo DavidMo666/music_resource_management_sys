@@ -68,4 +68,14 @@ public class AdminServiceImpl implements AdminService {
     public List<DailyNewMusicVO> getDailyNewMusic() {
         return adminMapper.countDailyNewMusic();
     }
+
+    @Override
+    public Integer getBlockUsers(){
+        return adminMapper.countBlockUsers();
+    }
+
+    @Override
+    public Integer getBlockMusics(){
+        return adminMapper.countBlockMusics();
+    }
 }

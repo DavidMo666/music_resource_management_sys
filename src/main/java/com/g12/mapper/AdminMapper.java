@@ -85,4 +85,10 @@ public interface AdminMapper {
             "    upload_time >= CURDATE() \n" +
             "    AND upload_time < CURDATE() + INTERVAL 1 DAY;")
     List<DailyNewMusicVO> countDailyNewMusic();
+
+    @Select("SELECT COUNT(id) FROM music_resource_system.user WHERE status = 0")
+    Integer countBlockUsers();
+
+    @Select("SELECT count(id) FROM music_resource_system.music_resources WHERE status = 0;")
+    Integer countBlockMusics();
 }

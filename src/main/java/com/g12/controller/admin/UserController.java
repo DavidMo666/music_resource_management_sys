@@ -119,4 +119,11 @@ public class UserController {
         return Result.success(data);
     }
 
+    @GetMapping("/blockusers")
+    public Integer getBlockUsers() {
+        Integer count = adminService.getBlockUsers();
+        return count;
+    }
+
+
 }
