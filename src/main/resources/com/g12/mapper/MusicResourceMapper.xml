@@ -7,7 +7,6 @@
     <select id="pageQuery" resultType="com.g12.entity.MusicResource">
         select * from music_resources
         <where>
-            status = 1
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="categoryId != null"> and category_id = #{categoryId}</if>
         </where>
