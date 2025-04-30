@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Service
@@ -60,7 +62,9 @@ public class FavouriteServiceImpl implements FavouriteService {
 
         Page<MusicResource> pages = favouriteMapper.get(userId);
 
-        PageResult pageResult = new PageResult(pages.getTotal(),pages.getResult());
+        List<MusicResource> result = new ArrayList<>(new LinkedHashSet<>(pages.getResult()));
+
+        PageResult pageResult = new PageResult(result.size(),result);
 
         return Result.success(pageResult);
     }
