@@ -5,7 +5,7 @@
 <mapper namespace="com.g12.mapper.FavouriteMapper">
 
     <select id="get" resultType="com.g12.entity.MusicResource">
-        select distinct mr.* from favourites f left join music_resources mr on f.music_id = mr.id
+        select distinct mr.*, f.create_time from favourites f left join music_resources mr on f.music_id = mr.id
         where f.user_id = #{userId} and mr.status = 1
         order by create_time desc
     </select>
