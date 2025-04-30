@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -46,7 +47,7 @@ public class UserMusicResourceControllerTest {
     @Test
     void deleteMusicResource_ShouldDeleteSuccessfully() {
         // 准备测试数据
-        String ids = "1,2,3";
+        List<Integer> ids = new ArrayList<>(Arrays.asList(1,2,3));
         when(musicResourceService.batchDeleteResources(anyList())).thenReturn(3);
 
         // 执行测试
@@ -82,7 +83,7 @@ public class UserMusicResourceControllerTest {
     @Test
     void deleteMusicResource_WithEmptyIds_ShouldReturnError() {
         // 执行测试
-        Result result = userMusicResourceController.deleteMusicResource("");
+        Result result = userMusicResourceController.deleteMusicResource(new ArrayList<>());
         
         // 验证结果
         assertNotNull(result);
@@ -96,7 +97,7 @@ public class UserMusicResourceControllerTest {
     @Test
     void deleteMusicResource_WithInvalidIds_ShouldReturnError() {
         // 执行测试
-        Result result = userMusicResourceController.deleteMusicResource("1,a,3");
+        Result result = userMusicResourceController.deleteMusicResource(Arrays.asList(1));
         
         // 验证结果
         assertNotNull(result);
@@ -110,7 +111,7 @@ public class UserMusicResourceControllerTest {
     @Test
     void deleteMusicResource_WithPartialSuccess_ShouldReturnPartialSuccessMessage() {
         // 准备测试数据
-        String ids = "1,2,3";
+        List<Integer> ids = new ArrayList<>(Arrays.asList(1,2,3));
         when(musicResourceService.batchDeleteResources(anyList())).thenReturn(2); // 只成功删除2条
         
         // 执行测试
@@ -126,7 +127,7 @@ public class UserMusicResourceControllerTest {
     @Test
     void deleteMusicResource_WithException_ShouldReturnError() {
         // 准备测试数据
-        String ids = "1,2,3";
+        List<Integer> ids = new ArrayList<>(Arrays.asList(1,2,3));
         when(musicResourceService.batchDeleteResources(anyList())).thenThrow(new RuntimeException("测试异常"));
         
         // 执行测试
