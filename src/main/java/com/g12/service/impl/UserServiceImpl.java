@@ -133,12 +133,12 @@ public class UserServiceImpl implements UserService {
 
         SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
 
-        //生成验证码
+        //generate code
         String code = captcha.text().toLowerCase();
-        //生成对应的key
+        //generate key
         String verKey = SystemConstants.CAPTCHA_PREFIX + UUID.randomUUID().toString();
 
-        //存redis
+        //redis
         stringRedisTemplate.opsForValue().set( verKey, code, 5L, TimeUnit.MINUTES);
 
         CaptchaVO captchaVo = new CaptchaVO(verKey, captcha.toBase64());
@@ -154,36 +154,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result login(UserLoginDTO userLoginDTO) {
 
-        //1.检查验证码是否正确
+        //1.check code
         String inputCode = userLoginDTO.getCode().toLowerCase();
         String verKey = userLoginDTO.getVerKey();
 
         String code = stringRedisTemplate.opsForValue().get(verKey);
-        log.info("真实验证码为" + code);
-        log.info("输入的为" + inputCode);
         if (code == null){
-            return Result.error("验证码输入错误");
+            return Result.error("Code is wrong");
         }
 
         code = code.toLowerCase();
         if (!inputCode.equals(code)){
-            return Result.error("验证码输入错误");
+            return Result.error("Code is wrong");
         }
 
         stringRedisTemplate.delete(verKey);
 
-        //2.检查用户名密码
+        //2.check user name
         User user = userMapper.login(userLoginDTO);
 
         if (user == null){
-            return Result.error("用户名或密码输入错误");
+            return Result.error("email or password wrong");
         }
 
         if(user.getStatus() == 0){
-            return Result.error("用户以封");
+            return Result.error("User is blocked");
         }
 
-        //3.生成Jwt
+        //3.Jwt
         Map claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("email", user.getEmail());
@@ -203,9 +201,9 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userRegisterDTO, user);
 
-        //生成验证码
+        //generate code
         String code = UUID.randomUUID().toString().substring(0,6);
-        String content = "注册验证码为:" + code;
+        String content = "Register code is:" + code;
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setSubject(CODE_HEAD);
@@ -214,7 +212,7 @@ public class UserServiceImpl implements UserService {
         mailMessage.setTo(user.getEmail());
         javaMailSender.send(mailMessage);
 
-        //存redis
+        //redis
         String userStr = JSON.toJSONString(user);
         String key = SystemConstants.ACTIVE_CODE_PREFIX + code;
         stringRedisTemplate.opsForValue().set(key, userStr,5, TimeUnit.MINUTES);
@@ -230,16 +228,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result registerVerify(String activeCode) {
 
-        //1.从redis获取
+        //1.redis
         String key = SystemConstants.ACTIVE_CODE_PREFIX + activeCode;
         String userStr = stringRedisTemplate.opsForValue().get(key);
 
-        //2.如果取不到
+        //2.can not get
         if (userStr == null || userStr.length() == 0){
-            return Result.error("用户验证码错误");
+            return Result.error("Wrong code");
         }
 
-        //3.取到
+        //3.get
         User user = JSON.parseObject(userStr, User.class);
         user.setUserName("new-user" + UUID.randomUUID());
         userMapper.register(user);

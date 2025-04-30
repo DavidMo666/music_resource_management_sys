@@ -33,30 +33,6 @@ public class TagServiceImpl implements TagService {
     @Override
     public Result addTag(MusicTagDTO[] musicTagDTOs) {
 
-//        for (MusicTagDTO musicTagDTO : musicTagDTOs) {
-//
-//            //1.查询tag 在tag表中是否存在
-//
-//            Long tagId = mu
-//
-//            //1.1不在 加入
-//            if (tagId == null || tagId == 0){
-//                Tag tag = new Tag();
-//                tag.setCreateTime(LocalDateTime.now());
-//                tag.setName(tagName);
-//
-//                tagId = tagMapper.addTag(tag);
-//            }
-//
-//            //2.在 在music_tag关系表中添加
-//            MusicTag musicTag = new MusicTag();
-//            musicTag.setCreateTime(LocalDateTime.now());
-//            musicTag.setMusicId(musicTagDTO.getMusicId());
-//            musicTag.setTagId(tagId);
-//
-//            musicTagMapper.addTag(musicTag);
-//        }
-
         return Result.success();
     }
 
