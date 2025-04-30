@@ -63,9 +63,7 @@ public class MusicResourceServiceImpl implements MusicResourceService {
 
     @Override
     public int batchDeleteResources(List<Integer> ids) {
-        if (ids == null || ids.size() == 0) {
-            return 0;
-        }
+
         // 调用 Mapper 层的方法执行批量删除操作
         return musicResourceMapper.batchDeleteResources(ids);
     }
@@ -230,13 +228,12 @@ public class MusicResourceServiceImpl implements MusicResourceService {
         musicResourceMapper.updateMusicResource(musicResource);
 
         //tag
-        //1.删除此用户此音乐的所有tag
         MusicTag musicTag = new MusicTag();
         musicTag.setUserId(userId);
         musicTag.setMusicId(musicResource.getId());
         musicTagMapper.delete(musicTag);
 
-        //2.新增tag
+
         List<MusicTag> tagList = new ArrayList<>();
         Long[] tagIds = updateMusicResourceDTO.getTagIds();
         if(tagIds != null && tagIds.length != 0){

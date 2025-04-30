@@ -93,7 +93,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Result<List<MusicResource>> getMusicInCategory(Long categoryId) {
 
-        //1.用catrgoryId 获取连表查询所有音乐资源
         List<MusicResource> list = categoryMapper.getMusicInCategory(categoryId);
 
         return Result.success(list);

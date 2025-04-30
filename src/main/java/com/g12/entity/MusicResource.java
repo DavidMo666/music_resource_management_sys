@@ -1,5 +1,6 @@
 package com.g12.entity;
 
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,5 @@ public class MusicResource {
     private String url;
     private Long categoryId;  //所属歌单
     private Integer clickCount;
+    private Integer isLike; //0 不喜欢 1-喜欢
 }
