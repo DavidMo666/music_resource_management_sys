@@ -32,7 +32,7 @@ Supports the complete lifecycle of music resources from upload to deletion:
   <img src="https://github.com/user-attachments/assets/49e7c42d-cdb9-4c34-b52d-09c94e888fbc" alt="c266a68fe96228925b832164c650e414">
 </p>
 
-## 5. Optimization (<span style="color:red>⚠️ Important !!!</span>)
+## 5. Optimization (⚠️ Important !!!)
 
 We have now optimized this project and integrated multiple core functions and technologies, mainly including:
 
