@@ -24,7 +24,7 @@ Supports the complete lifecycle of music resources from upload to deletion:
 - Automatically records metadata (time, user ownership) upon upload, with a default status of "normal".  
 - Admins can batch clean up invalid resources and manage non-compliant content, while users can independently maintain their own resources, meeting resource governance needs across different scenarios.
 
-## 5. Optimization (==<span style="color:red">Important !!!</span>==)
+## 5. Optimization (<span style="color:red⚠️ Important !!!</span>)
 
 We have now optimized this project and integrated multiple core functions and technologies, mainly including:
 
@@ -44,4 +44,4 @@ We have now optimized this project and integrated multiple core functions and te
    - Cached user session information and music resource data based on Redis, reducing database access pressure in high-concurrency scenarios and lowering interface response latency;  
    - Conducted system scalability and stability benchmarking using JMeter, simulating access scenarios with 1000+ concurrent users to verify the system's reliability under high concurrency.
 
-<span style="color:red">This project is expected to be officially launched in April 2026. Currently, it is in the stage of internal development and testing. Therefore, only the basic version will be open-sourced for now, while the fully optimized version will not be open-sourced externally.</span>
+This project is expected to be officially launched in April 2026. Currently, it is in the stage of internal development and testing. Therefore, only the basic version will be open-sourced for now, while the fully optimized version will not be open-sourced externally. But we promise to make the optimized version open-source on the day of its launch. The repository for the optimized version is: 
