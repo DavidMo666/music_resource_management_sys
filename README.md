@@ -24,7 +24,7 @@ Supports the complete lifecycle of music resources from upload to deletion:
 - Automatically records metadata (time, user ownership) upon upload, with a default status of "normal".  
 - Admins can batch clean up invalid resources and manage non-compliant content, while users can independently maintain their own resources, meeting resource governance needs across different scenarios.
 
-## 5. Optimization (**<span style="color:red">Important !!!</span>**)
+## 5. Optimization (==<span style="color:red">Important !!!</span>==)
 
 We have now optimized this project and integrated multiple core functions and technologies, mainly including:
 
