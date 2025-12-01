@@ -2,6 +2,12 @@
 
 ![749e37b312a626e3f57cba9575ebab09](https://github.com/user-attachments/assets/77755797-a6e1-4b7e-bbd6-c7a988f354ab)
 
+The following pictures show some of the main pages：
+
+![b8cf4efaa0dc8aa58d56b9669a47df73](https://github.com/user-attachments/assets/44518864-66df-4599-807b-1793f7870b5a)
+![c266a68fe96228925b832164c650e414](https://github.com/user-attachments/assets/d364743a-53b5-4c09-8389-913b40c78dd4)
+
+
 ## 1. Fine-Grained Role-Based Permission Control for Secure Resource Management  
 The system strictly differentiates between admin and user roles to achieve permission isolation:  
 - Admins have full lifecycle management permissions for music resources, including pagination queries, batch deletion, status control (blocking/unblocking), and multi-condition retrieval, ensuring resource compliance through status management.  
@@ -44,4 +50,4 @@ We have now optimized this project and integrated multiple core functions and te
    - Cached user session information and music resource data based on Redis, reducing database access pressure in high-concurrency scenarios and lowering interface response latency;  
    - Conducted system scalability and stability benchmarking using JMeter, simulating access scenarios with 1000+ concurrent users to verify the system's reliability under high concurrency.
 
-This project is expected to be officially launched in April 2026. Currently, it is in the stage of internal development and testing. Therefore, only the basic version will be open-sourced for now, while the fully optimized version will not be open-sourced externally. But we promise to make the optimized version open-source on the day of its launch. The repository for the optimized version is: 
+This project is expected to be officially launched in April 2026. Currently, it is in the stage of internal development and testing. Therefore, only the basic version will be open-sourced for now, while the fully optimized version will not be open-sourced externally. But we promise to make the optimized version open-source on the day of its launch. The repository for the optimized version is: https://github.com/Y4ng22/SoundSource
