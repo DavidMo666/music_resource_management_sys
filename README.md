@@ -1,4 +1,4 @@
-# Music Resource Management System (Backend) - Feature Introduction
+# Music Resource Management System (Backend)
 
 ![749e37b312a626e3f57cba9575ebab09](https://github.com/user-attachments/assets/77755797-a6e1-4b7e-bbd6-c7a988f354ab)
 
