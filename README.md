@@ -24,10 +24,13 @@ Supports the complete lifecycle of music resources from upload to deletion:
 - Automatically records metadata (time, user ownership) upon upload, with a default status of "normal".  
 - Admins can batch clean up invalid resources and manage non-compliant content, while users can independently maintain their own resources, meeting resource governance needs across different scenarios.
 
-The following pictures show some of the main pages：
-
-![b8cf4efaa0dc8aa58d56b9669a47df73](https://github.com/user-attachments/assets/44518864-66df-4599-807b-1793f7870b5a)
-![c266a68fe96228925b832164c650e414](https://github.com/user-attachments/assets/d364743a-53b5-4c09-8389-913b40c78dd4)
+## The following pictures show some of the main pages：
+<p align="center">
+   ![b8cf4efaa0dc8aa58d56b9669a47df73](https://github.com/user-attachments/assets/44518864-66df-4599-807b-1793f7870b5a)
+</p>
+<p align="center">
+   ![c266a68fe96228925b832164c650e414](https://github.com/user-attachments/assets/d364743a-53b5-4c09-8389-913b40c78dd4)
+</p>
 
 ## 5. Optimization (<span style="color:red⚠️ Important !!!</span>)
 
